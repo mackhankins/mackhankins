@@ -1,0 +1,50 @@
+//
+// Pagination (multiple pages)
+// --------------------------------------------------
+.pagination {
+
+  > li {
+    display: inline; // Remove list-style and block-level defaults
+    > a,
+    > span {
+      color: $paginate-color;
+      background-color: $paginate-bg;
+      border: 1px solid $paginate-border;
+    }
+  }
+
+  > li > a,
+  > li > span {
+    &:hover,
+    &:focus {
+      color: $paginate-hover-color;
+      background-color: $paginate-hover-bg;
+      border-color: $paginate-hover-border;
+    }
+  }
+
+  > .active > a,
+  > .active > span {
+    &,
+    &:hover,
+    &:focus {
+      color: $paginate-active-color;
+      background-color: $paginate-active-bg;
+      border-color: $paginate-active-border;
+    }
+  }
+
+  > .disabled {
+    > span,
+    > span:hover,
+    > span:focus,
+    > a,
+    > a:hover,
+    > a:focus {
+      color: $paginate-disabled-color;
+      background-color: $paginate-disabled-bg;
+      border-color: $paginate-disabled-border;
+    }
+  }
+}
+

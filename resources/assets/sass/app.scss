@@ -1,0 +1,14 @@
+$icon-font-path: "/fonts/bootstrap/";
+$fa-font-path:   "/fonts/fontawesome/";
+$simple-line-font-path: "/fonts/simple-line-icons/";
+@import "bootstrap";
+@import "font-awesome";
+@import "simple-line-icons";
+@import "components/_variables";
+@import "components/_functions";
+@import "components/_overrides";
+@import "components/_typography";
+@import "components/_header";
+@import "components/_pagination";
+@import "components/_portlets";
+@import "components/_footer";
