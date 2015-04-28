@@ -20,15 +20,19 @@
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="icon-speech"></i>
-                            <span class="caption-subject bold uppercase"><a href="{!! action('Pub\BlogController@single', $post->slug) !!}">{!! $post->title !!}</a></span>
+                            <span class="caption-subject bold uppercase"><a
+                                        href="{!! action('Pub\BlogController@single', $post->slug) !!}">{!! $post->title
+                                    !!}</a></span>
                         </div>
                     </div>
                     <div class="subtext">
-                    <i class="icon-hourglass"></i>
-                        {!! \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->toFormattedDateString() !!}
-                    &nbsp;
-                    <i class="icon-bubbles"></i>
+                        <i class="icon-hourglass"></i>
+                        {!! \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->toFormattedDateString()
+                        !!}
+                        &nbsp;
+                        <i class="icon-bubbles"></i>
                         <a href="{!! action('Pub\BlogController@single', $post->slug) !!}#disqus_thread"></a>
+                    </div>
                     <div class="portlet-body bordered">{!! $post->pcontent !!}</div>
                 </div>
             </div>
@@ -40,21 +44,22 @@
 @endsection
 
 @section('scripts')
-<script>
-    jQuery(document).ready(function() {
-        jQuery('pre').each(function(i, block) {
-            hljs.highlightBlock(block);
+    <script>
+        jQuery(document).ready(function () {
+            jQuery('pre').each(function (i, block) {
+                hljs.highlightBlock(block);
+            });
         });
-    });
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = 'mackhankins';
+        /* * * CONFIGURATION VARIABLES * * */
+        var disqus_shortname = 'mackhankins';
 
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function () {
-        var s = document.createElement('script'); s.async = true;
-        s.type = 'text/javascript';
-        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
-</script>
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
 @endsection
