@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-xs-6 text-right-xs text-right-md text-right subtext">
                             <i class="icon-bubbles"></i>
-                            {!! $post->commentcount !!} @if($post->commentcount == 1) Comment @else Comments @endif
+                            <a href="{!! action('Pub\BlogController@single', $post->slug) !!}#disqus_thread"></a>
                         </div>
                     </div>
                 </div>
@@ -47,5 +47,16 @@
 @endsection
 
 @section('scripts')
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES * * */
+        var disqus_shortname = 'mackhankins';
 
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
 @endsection

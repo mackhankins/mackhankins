@@ -20,8 +20,8 @@
                     <i class="icon-hourglass"></i>
                     {!! \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->toFormattedDateString() !!}
                     &nbsp;
-                    <i class="icon-bubbles"></i> {{{ $post->commentcount }}} @if($post->commentcount == 1)
-                        Comment @else Comments @endif
+                    <i class="icon-bubbles"></i>
+                    <a href="{!! action('Pub\BlogController@single', $post->slug) !!}#disqus_thread"></a>
                 </div>
                 <div class="portlet-body bordered">{!! $post->pcontent !!}</div>
                 <div id="disqus_thread"></div>
@@ -45,6 +45,10 @@
             var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
             dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
         })();
     </script>
 @endsection

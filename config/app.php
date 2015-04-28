@@ -152,6 +152,7 @@ return [
         'Laravel\Meta\MetaServiceProvider',
         'DaveJamesMiller\Breadcrumbs\ServiceProvider',
         'Caffeinated\Menus\MenusServiceProvider',
+        'Roumen\Sitemap\SitemapServiceProvider',
 	],
 
 	/*

@@ -189,4 +189,11 @@ Portlets
   color: lighten($primary-color, 20%);
   margin-top: 8px;
   display: inline-block;
+
+  a,
+  a:hover,
+  a:focus {
+    color: inherit !important;
+    text-decoration: none;
+  }
 }

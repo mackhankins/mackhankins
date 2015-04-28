@@ -7111,6 +7111,15 @@ a {
 .top30 {
   margin-top: 30px; }
 
+.top40 {
+  margin-top: 40px; }
+
+.top50 {
+  margin-top: 50px; }
+
+.top60 {
+  margin-top: 60px; }
+
 .top70 {
   margin-top: 70px; }
 
@@ -7280,8 +7289,7 @@ blockquote {
     color: #616D7D !important; }
 
 .page-header {
-  background-color: #616D7D;
-  min-height: 140px; }
+  background-color: #616D7D; }
   .page-header h1 {
     color: white !important;
     padding-top: 20px;
@@ -7419,10 +7427,12 @@ Portlets
   color: #96a0ae;
   margin-top: 8px;
   display: inline-block; }
+  .subtext a, .subtext a:hover, .subtext a:focus {
+    color: inherit !important;
+    text-decoration: none; }
 
 footer {
   background-color: #616D7D;
-  margin-top: 70px;
   min-height: 40px;
   line-height: 40px;
   border-top: 1px solid #d0d4da;

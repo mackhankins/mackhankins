@@ -1,4 +1,4 @@
-<footer>
+<footer class="top40">
     <div class="container">
         <div class="row">
             <div class="col-md-6 text-left-lg text-center-not-lg">
@@ -8,6 +8,7 @@
                 <a href="https://github.com/mack-hankins" target="_blank">
                     <i class="fa fa-github-alt"></i>
                     Github</a>
+                &nbsp;|&nbsp;
                 <a href="https://twitter.com/mackhankins" target="_blank">
                     <i class="fa fa-twitter"></i>
                     Twitter
