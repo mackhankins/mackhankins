@@ -26,7 +26,7 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
 
     public function paginate($number)
     {
-        return $this->model->where('type','=','post')->where('status','=','published')->orderBy('created_at', 'desc')->paginate(intval($number));
+        return $this->model->where('type', '=', 'post')->where('status', '=', 'published')->orderBy('created_at', 'desc')->paginate(intval($number));
     }
 
     public function findById($id)
@@ -34,27 +34,27 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
         return $this->model->find($id);
     }
 
-    public function findBySlug($slug){
+    public function findBySlug($slug)
+    {
         try
         {
             return $this->model->where('slug', '=', $slug)->firstOrFail();
-        }
-
-        catch(ModelNotFoundException $e)
+        } catch (ModelNotFoundException $e)
         {
             return App::abort(404);
         }
     }
 
-    public function searchPosts($query){
-        return $this->model->where('type','=','post')->where('status','=','published')->search($query);
+    public function searchPosts($query)
+    {
+        return $this->model->where('type', '=', 'post')->where('status', '=', 'published')->search($query);
     }
 
     public function datatables()
     {
         $posts = $this->model->leftJoin(
             'users',
-            'blog_posts.user_id','=','users.id'
+            'blog_posts.user_id', '=', 'users.id'
         )
             ->select(
                 array('blog_posts.id',
@@ -89,7 +89,8 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
         $post->user_id = $data['user_id'];
         $post->status = (!empty($data['published']) ? 'published' : 'draft');
         $post->save();
-        if (!empty($data['categories'])) {
+        if (!empty($data['categories']))
+        {
             $post->categories()->sync($data['categories']);
         }
         $post->saveTags($data['tags']);
@@ -104,7 +105,8 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
         $post->body = $data['body'];
         $post->status = (!empty($data['published']) ? 'published' : 'draft');
         $post->save();
-        if (!empty($data['categories'])) {
+        if (!empty($data['categories']))
+        {
             $post->categories()->sync($data['categories']);
         }
         $post->saveTags($data['tags']);

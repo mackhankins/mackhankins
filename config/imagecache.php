@@ -15,8 +15,8 @@ return array(
     | Examples: "images", "img/cache"
     |
     */
-   
-    'route' => 'images',
+
+    'route'     => 'images',
 
     /*
     |--------------------------------------------------------------------------
@@ -29,8 +29,8 @@ return array(
     | Define as many directories as you like.
     |
     */
-    
-    'paths' => array(
+
+    'paths'     => array(
         public_path('uploads'),
         public_path('images')
     ),
@@ -50,15 +50,18 @@ return array(
     | will be applied, by its fully qualified name.
     |
     */
-   
+
     'templates' => array(
-        'small' => function($image) {
+        'small'  => function ($image)
+        {
             return $image->fit(120, 90);
         },
-        'medium' => function($image) {
+        'medium' => function ($image)
+        {
             return $image->fit(400, 180);
         },
-        'large' => function($image) {
+        'large'  => function ($image)
+        {
             return $image->fit(960, 260);
         }
     ),
@@ -71,7 +74,7 @@ return array(
     | Lifetime in minutes of the images handled by the imagecache route.
     |
     */
-   
-    'lifetime' => 43200,
+
+    'lifetime'  => 43200,
 
 );

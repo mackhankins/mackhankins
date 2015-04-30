@@ -5,8 +5,8 @@ namespace MH\Repositories\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
 
-abstract class AbstractRepository
-{
+abstract class AbstractRepository {
+
     /**
      * The model to execute queries on.
      *
@@ -27,7 +27,7 @@ abstract class AbstractRepository
     /**
      * Get a new instance of the model.
      *
-     * @param  array  $attributes
+     * @param  array $attributes
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function getNew(array $attributes = array())

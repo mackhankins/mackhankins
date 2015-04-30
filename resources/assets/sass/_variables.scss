@@ -1,0 +1,91 @@
+$body-bg: #EFF3F8;
+
+$primary-color: #616D7D !default;
+$secondar-color: #ffffff !default;
+
+$link-color: #616D7D !default;
+$link-hover-color: darken($link-color, 15%) !default;
+
+// Bootstrap brand colors
+
+$brand-default: #c6c6c6 !default;
+$brand-primary: #428bca !default;
+$brand-success: #45B6AF !default;
+$brand-info: #89C4F4 !default;
+$brand-warning: #dfba49 !default;
+$brand-danger: #F3565D !default;
+
+// Bootstrap Components states
+
+$state-default-text: #333333 !default;
+$state-default-bg: $brand-default !default;
+$state-default-border: darken(adjust-hue($state-default-bg, -10), 5%) !default;
+
+$state-primary-text: #D8E3F2 !default;
+$state-primary-bg: $brand-primary !default;
+$state-primary-border: darken(adjust-hue($state-primary-bg, -10), 5%) !default;
+
+$state-success-text: #3c763d !default;
+$state-success-bg: #dff0d8 !default;
+$state-success-border: darken(adjust-hue($state-success-bg, -10), 5%) !default;
+
+$state-info-text: #31708f !default;
+$state-info-bg: #d9edf7 !default;
+$state-info-border: darken(adjust-hue($state-info-bg, -10), 7%) !default;
+
+$state-warning-text: #8a6d3b !default;
+$state-warning-bg: #fcf8e3 !default;
+$state-warning-border: darken(adjust-hue($state-warning-bg, -10), 5%) !default;
+
+$state-danger-text: #a94442 !default;
+$state-danger-bg: #f2dede !default;
+$state-danger-border: darken(adjust-hue($state-danger-bg, -10), 5%) !default;
+
+//##  Typography
+//
+// Font, line-height, and color for body text, headings, and more.
+
+$font-family-primary: "Open Sans", sans-serif !default;
+$font-family-default: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+
+$font-size-base: 13px !default;
+$font-size-normal: 14px !default;
+$font-size-large: ceil(($font-size-base * 1.25)) !default;
+// ~18px
+$font-size-small: ceil(($font-size-base * 0.85)) !default;
+// ~12px
+
+$icon-size-base: 13px !default;
+$icon-size-normal: 14px !default;
+$icon-size-large: ceil(($icon-size-base * 1.25)) !default;
+// ~18px
+$icon-size-small: ceil(($icon-size-base * 0.85)) !default;
+// ~12px
+
+$font-size-h1: floor(($font-size-base * 2.6)) !default;
+// ~36px
+$font-size-h2: floor(($font-size-base * 2.15)) !default;
+// ~30px
+$font-size-h3: ceil(($font-size-base * 1.7)) !default;
+// ~24px
+$font-size-h4: ceil(($font-size-base * 1.25)) !default;
+// ~18px
+$font-size-h5: $font-size-base !default;
+$font-size-h6: ceil(($font-size-base * 0.85)) !default;
+// ~12px
+
+//## Pagination
+
+$paginate-border: $primary-color !default;
+$paginate-bg: white !default;
+$paginate-color: $primary-color !default;
+$paginate-disabled-bg: white !default;
+$paginate-disabled-border: $primary-color !default;
+$paginate-disabled-color: #dddddd !default;
+$paginate-active-color: white !default;
+$paginate-active-bg: $primary-color !default;
+$paginate-active-border: $primary-color !default;
+$paginate-active-color: white !default;
+$paginate-hover-border: $primary-color !default;
+$paginate-hover-bg: #dddddd !default;
+$paginate-hover-color: $primary-color !default;

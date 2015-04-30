@@ -19,7 +19,7 @@ var paths = {
     'highlightjs': './vendor/bower_components/highlightjs/'
 }
 
-elixir(function(mix) {
+elixir(function (mix) {
     mix.sass('app.scss', 'public/css/', {includePaths: [paths.bootstrap + 'stylesheets', paths.fontawesome + 'scss', paths.simplelineicons + 'scss']})
         .copy(paths.bootstrap + 'fonts/bootstrap/**', 'public/fonts/bootstrap')
         .copy(paths.fontawesome + 'fonts/**', 'public/fonts/fontawesome')

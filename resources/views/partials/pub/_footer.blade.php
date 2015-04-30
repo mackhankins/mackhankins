@@ -1,4 +1,4 @@
-<footer class="top40">
+<footer>
     <div class="container">
         <div class="row">
             <div class="col-md-6 text-left-lg text-center-not-lg">

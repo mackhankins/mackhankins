@@ -15,6 +15,7 @@
             <div class="col-md-4 top17">
                 <img src="{!! URL::to('images/medium/'.$post->featuredimage.$post->mimetype) !!}" alt="{{$post->title}}"
                      class="post-image bordered">
+
                 <div class=" portlet light bordered">
                     <div class="portlet-title">
                         <div class="caption caption-subject">
@@ -33,12 +34,12 @@
                     </div>
                 </div>
             </div>
-            <?php $i++; ?>
+            <?php $i ++; ?>
             @if($i == 3)
-                </div>
-                <div class="row">
-                <?php $i = 0; ?>
-            @endif
+    </div>
+    <div class="row">
+        <?php $i = 0; ?>
+        @endif
         @endforeach
     </div>
 
@@ -53,7 +54,8 @@
 
         /* * * DON'T EDIT BELOW THIS LINE * * */
         (function () {
-            var s = document.createElement('script'); s.async = true;
+            var s = document.createElement('script');
+            s.async = true;
             s.type = 'text/javascript';
             s.src = '//' + disqus_shortname + '.disqus.com/count.js';
             (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);

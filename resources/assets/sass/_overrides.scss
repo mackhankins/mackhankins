@@ -1,3 +1,13 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 80px;
+}
+
 body {
   background-color: $body-bg;
   font-family: $font-family-default;
@@ -6,8 +16,6 @@ body {
 a {
   color: $primary-color;
 }
-
-
 
 .post-image {
   width: 100%;
@@ -66,12 +74,15 @@ a {
 .text-left-not-xs, .text-left-not-sm, .text-left-not-md, .text-left-not-lg {
   text-align: left;
 }
+
 .text-center-not-xs, .text-center-not-sm, .text-center-not-md, .text-center-not-lg {
   text-align: center;
 }
+
 .text-right-not-xs, .text-right-not-sm, .text-right-not-md, .text-right-not-lg {
   text-align: right;
 }
+
 .text-justify-not-xs, .text-justify-not-sm, .text-justify-not-md, .text-justify-not-lg {
   text-align: justify;
 }
@@ -93,6 +104,7 @@ a {
     text-align: justify;
   }
 }
+
 @media (min-width: 768px) and (max-width: 991px) {
   .text-left-not-sm, .text-center-not-sm, .text-right-not-sm, .text-justify-not-sm {
     text-align: inherit;
@@ -110,6 +122,7 @@ a {
     text-align: justify;
   }
 }
+
 @media (min-width: 992px) and (max-width: 1199px) {
   .text-left-not-md, .text-center-not-md, .text-right-not-md, .text-justify-not-md {
     text-align: inherit;
@@ -127,6 +140,7 @@ a {
     text-align: justify;
   }
 }
+
 @media (min-width: 1200px) {
   .text-left-not-lg, .text-center-not-lg, .text-right-not-lg, .text-justify-not-lg {
     text-align: inherit;

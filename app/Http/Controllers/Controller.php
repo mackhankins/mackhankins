@@ -8,7 +8,7 @@ use Meta;
 
 abstract class Controller extends BaseController {
 
-	use DispatchesCommands, ValidatesRequests;
+    use DispatchesCommands, ValidatesRequests;
 
     public function __construct()
     {

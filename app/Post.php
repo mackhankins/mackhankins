@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 
-class Post extends Model implements SluggableInterface{
+class Post extends Model implements SluggableInterface {
 
     use SluggableTrait;
 
