@@ -88,7 +88,7 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
         $post->pcontent = $data['content'];
         $post->type = 'post';
         $post->status = $data['status'];
-        if($data['featured']->isValid())
+        if(!empty($data['featured']) AND $data['featured']->isValid())
         {
             $filename = $this->file->uploadImage($data['featured']);
             $post->featuredimage = $filename;
