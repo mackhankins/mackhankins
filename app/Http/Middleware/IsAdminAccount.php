@@ -1,7 +1,6 @@
 <?php namespace MH\Http\Middleware;
 
 use Closure;
-use App;
 use Illuminate\Contracts\Auth\Guard;
 
 class IsAdminAccount {
@@ -35,7 +34,7 @@ class IsAdminAccount {
     {
         if( ! $this->auth->user()->hasRole('admin'))
         {
-            return App::missing();
+            return abort(404);
         }
         return $next($request);
     }
