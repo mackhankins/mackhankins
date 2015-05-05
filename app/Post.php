@@ -4,6 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 
+
 class Post extends Model implements SluggableInterface {
 
     use SluggableTrait;
@@ -21,6 +22,11 @@ class Post extends Model implements SluggableInterface {
      * @var array
      */
     protected $fillable = ['title', 'slug', 'pcontent', 'type', 'user_id', 'featuredimage', 'status', 'extlink', 'commentcount', 'mimetype', 'excerpt'];
+
+    public function user()
+    {
+        return $this->belongsTo('MH\User', 'user_id');
+    }
 
     protected $sluggable = array(
         'build_from' => 'title',

@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-md-12 top17">
             @if(!empty($post->featuredimage))
-                <img src="{{ URL::to('images/large/'.$post->featuredimage.$post->mimetype) }}"
+                <img src="{{ URL::to('images/large/'.$post->featuredimage) }}"
                      alt="{{$post->title}}" class="post-image">
             @endif
             <div class="portlet light bordered">
@@ -38,7 +38,7 @@
             });
         });
         /* * * CONFIGURATION VARIABLES * * */
-        var disqus_shortname = 'mackhankins';
+        var disqus_shortname = '{!! env("DISQUS_NAME") !!}';
 
         /* * * DON'T EDIT BELOW THIS LINE * * */
         (function () {
@@ -48,10 +48,10 @@
             dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
             var s = document.createElement('script');
-            s.async = true;
             s.type = 'text/javascript';
             s.src = '//' + disqus_shortname + '.disqus.com/count.js';
             (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
         })();
+        @include('partials.pub._analytics')
     </script>
 @endsection

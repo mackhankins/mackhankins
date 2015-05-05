@@ -19,9 +19,9 @@ class BlogController extends Controller {
 
     public function index()
     {
-        $posts = $this->post->paginate(5);
+        $posts = $this->post->paginatePosts(5);
         Meta::meta('title', 'Blog');
-        Meta::meta('description', 'a simple blog about coding');
+        Meta::meta('description', 'a simple blog about my interest');
         Meta::meta('image', asset('images/home-logo.png'));
         $breadcrumbs = Breadcrumbs::render('blog');
 

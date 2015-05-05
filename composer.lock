@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0f7aac352e85d8224ae1648550d92e51",
+    "hash": "6932ca54bf17681db8f5c3aee7f14e41",
     "packages": [
         {
             "name": "anahkiasen/former",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/formers/former.git",
-                "reference": "4a03cdd08f1bdd975bd2521bed74ab38bf590388"
+                "reference": "92ad603b8f64aa431565fc3f5b127dd03029d624"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/formers/former/zipball/4a03cdd08f1bdd975bd2521bed74ab38bf590388",
-                "reference": "4a03cdd08f1bdd975bd2521bed74ab38bf590388",
+                "url": "https://api.github.com/repos/formers/former/zipball/92ad603b8f64aa431565fc3f5b127dd03029d624",
+                "reference": "92ad603b8f64aa431565fc3f5b127dd03029d624",
                 "shasum": ""
             },
             "require": {
@@ -63,7 +63,7 @@
                 "foundation",
                 "laravel"
             ],
-            "time": "2015-04-20 13:53:18"
+            "time": "2015-05-05 16:18:49"
         },
         {
             "name": "anahkiasen/html-object",
@@ -106,16 +106,16 @@
         },
         {
             "name": "caffeinated/menus",
-            "version": "v1.0.2",
+            "version": "v1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/caffeinated/menus.git",
-                "reference": "084ee64397a4cb5aca87bb3bb94caef77277f285"
+                "reference": "f232356e3e4d609e1baa354fc4164c9f1531b7ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/caffeinated/menus/zipball/084ee64397a4cb5aca87bb3bb94caef77277f285",
-                "reference": "084ee64397a4cb5aca87bb3bb94caef77277f285",
+                "url": "https://api.github.com/repos/caffeinated/menus/zipball/f232356e3e4d609e1baa354fc4164c9f1531b7ed",
+                "reference": "f232356e3e4d609e1baa354fc4164c9f1531b7ed",
                 "shasum": ""
             },
             "require": {
@@ -149,7 +149,7 @@
                 "menu",
                 "navigation"
             ],
-            "time": "2015-04-24 23:40:22"
+            "time": "2015-05-01 21:27:42"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -1231,16 +1231,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v1.2.2",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "08f97eb4efa029e2fafb6d8c98b71731bf0cf621"
+                "reference": "dff239267fd1befa1cd40430c9ed12591aa720ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/08f97eb4efa029e2fafb6d8c98b71731bf0cf621",
-                "reference": "08f97eb4efa029e2fafb6d8c98b71731bf0cf621",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/dff239267fd1befa1cd40430c9ed12591aa720ca",
+                "reference": "dff239267fd1befa1cd40430c9ed12591aa720ca",
                 "shasum": ""
             },
             "require": {
@@ -1250,7 +1250,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2-dev"
+                    "dev-master": "1.3-dev"
                 }
             },
             "autoload": {
@@ -1272,7 +1272,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2015-04-03 14:33:59"
+            "time": "2015-05-02 15:40:40"
         },
         {
             "name": "predis/predis",
@@ -1435,16 +1435,16 @@
         },
         {
             "name": "roumen/sitemap",
-            "version": "v2.5.2",
+            "version": "v2.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RoumenDamianoff/laravel-sitemap.git",
-                "reference": "ea5f875f57593e3b35d58f2419b31738fa228d10"
+                "reference": "39867015192825c14a388270482f8a3b2237782e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RoumenDamianoff/laravel-sitemap/zipball/ea5f875f57593e3b35d58f2419b31738fa228d10",
-                "reference": "ea5f875f57593e3b35d58f2419b31738fa228d10",
+                "url": "https://api.github.com/repos/RoumenDamianoff/laravel-sitemap/zipball/39867015192825c14a388270482f8a3b2237782e",
+                "reference": "39867015192825c14a388270482f8a3b2237782e",
                 "shasum": ""
             },
             "require": {
@@ -1457,7 +1457,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev"
+                    "dev-master": "2.5-dev",
+                    "dev-laravel4": "2.4-dev"
                 }
             },
             "autoload": {
@@ -1483,7 +1484,7 @@
                 "Sitemap",
                 "laravel"
             ],
-            "time": "2015-02-25 11:10:34"
+            "time": "2015-05-05 09:25:21"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -2424,6 +2425,50 @@
             "time": "2014-10-13 12:58:55"
         },
         {
+            "name": "laracasts/generators",
+            "version": "1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laracasts/Laravel-5-Generators-Extended.git",
+                "reference": "f1596fa3afc26221fc83549989769322f5cc162d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/f1596fa3afc26221fc83549989769322f5cc162d",
+                "reference": "f1596fa3afc26221fc83549989769322f5cc162d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Laracasts\\Generators\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeffrey Way",
+                    "email": "jeffrey@laracasts.com"
+                }
+            ],
+            "description": "Extend Laravel 5's generators.",
+            "keywords": [
+                "generators",
+                "laravel"
+            ],
+            "time": "2015-03-02 19:20:34"
+        },
+        {
             "name": "phpdocumentor/reflection-docblock",
             "version": "2.0.4",
             "source": {
@@ -2892,16 +2937,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.6.4",
+            "version": "4.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "163232991e652e6efed2f8470326fffa61e848e2"
+                "reference": "3afe303d873a4d64c62ef84de491b97b006fbdac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/163232991e652e6efed2f8470326fffa61e848e2",
-                "reference": "163232991e652e6efed2f8470326fffa61e848e2",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3afe303d873a4d64c62ef84de491b97b006fbdac",
+                "reference": "3afe303d873a4d64c62ef84de491b97b006fbdac",
                 "shasum": ""
             },
             "require": {
@@ -2960,7 +3005,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-04-11 05:23:21"
+            "time": "2015-04-29 15:18:52"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

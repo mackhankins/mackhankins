@@ -5,7 +5,12 @@ html {
 
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 80px;
+  margin-bottom: 60px;
+
+  @media(max-width:992px){
+    margin-bottom: 100px;
+  }
+
 }
 
 body {

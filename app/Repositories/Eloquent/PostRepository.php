@@ -3,15 +3,17 @@
 namespace MH\Repositories\Eloquent;
 
 use MH\Post;
+use MH\Repositories\FileRepositoryInterface;
 use MH\Repositories\PostRepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\App;
 
 class PostRepository extends AbstractRepository implements PostRepositoryInterface {
 
-    public function __construct(Post $post)
+    public function __construct(Post $post, FileRepositoryInterface $file)
     {
         $this->model = $post;
+        $this->file = $file;
     }
 
     public function getAll()
@@ -26,7 +28,17 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
 
     public function paginate($number)
     {
+        return $this->model->where('type', '=', 'post')->orderBy('created_at', 'desc')->paginate(intval($number));
+    }
+
+    public function paginatePosts($number)
+    {
         return $this->model->where('type', '=', 'post')->where('status', '=', 'published')->orderBy('created_at', 'desc')->paginate(intval($number));
+    }
+
+    public function paginateLinks($number)
+    {
+        return $this->model->where('type', '=', 'link')->where('status', '=', 'published')->orderBy('created_at', 'desc')->paginate(intval($number));
     }
 
     public function findById($id)
@@ -50,51 +62,21 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
         return $this->model->where('type', '=', 'post')->where('status', '=', 'published')->search($query);
     }
 
-    public function datatables()
-    {
-        $posts = $this->model->leftJoin(
-            'users',
-            'blog_posts.user_id', '=', 'users.id'
-        )
-            ->select(
-                array('blog_posts.id',
-                    'blog_posts.title',
-                    'users.username as author',
-                    'blog_posts.status',
-                    'blog_posts.created_at',
-                    'blog_posts.updated_at',
-                    'blog_posts.slug'
-                )
-            );
-
-        return Datatables::of($posts)
-            ->edit_column('title', '<a href="{{ action(\'App\Modules\Blog\Controllers\Pub\BlogPostController@post\', [ \'slug\' => $slug] ) }}" target="_blank">{{$title}}</a>')
-            ->remove_column('slug')
-            ->add_column('Action(s)', '<ul class="list-inline" role="menu">
-			<li>
-			<a href="{{ action(\'App\Modules\Blog\Controllers\Admin\BlogPostController@edit\', array(\'id\' => $id)) }}"><i class="fa fa-edit" title="Edit"></i></a>
-			</li>
-			<li>
-			<a href="#" class="delete_toggle" rel="{{$id}}" title="Delete"><i class="fa fa-trash-o"></i></a>
-			</li>
-			</ul>')
-            ->make();
-    }
-
     public function store(array $data)
     {
         $post = $this->getNew();
         $post->title = $data['title'];
-        $post->body = $data['body'];
+        $post->excerpt = $data['excerpt'];
+        $post->pcontent = $data['content'];
+        $post->type = 'post';
         $post->user_id = $data['user_id'];
-        $post->status = (!empty($data['published']) ? 'published' : 'draft');
-        $post->save();
-        if (!empty($data['categories']))
+        $post->status = $data['status'];
+        if($data['featured']->isValid())
         {
-            $post->categories()->sync($data['categories']);
+            $filename = $this->file->uploadImage($data['featured']);
+            $post->featuredimage = $filename;
         }
-        $post->saveTags($data['tags']);
-        $post->saveSeo($data['seo_title'], $data['seo_description'], $data['seo_keywords']);
+        $post->save();
     }
 
     public function update($id, array $data)
@@ -102,15 +84,16 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
         $post = $this->findById($id);
         $post->title = $data['title'];
         $post->slug = $data['slug'];
-        $post->body = $data['body'];
-        $post->status = (!empty($data['published']) ? 'published' : 'draft');
-        $post->save();
-        if (!empty($data['categories']))
+        $post->excerpt = $data['excerpt'];
+        $post->pcontent = $data['content'];
+        $post->type = 'post';
+        $post->status = $data['status'];
+        if($data['featured']->isValid())
         {
-            $post->categories()->sync($data['categories']);
+            $filename = $this->file->uploadImage($data['featured']);
+            $post->featuredimage = $filename;
         }
-        $post->saveTags($data['tags']);
-        $post->saveSeo($data['seo_title'], $data['seo_description'], $data['seo_keywords']);
+        $post->save();
     }
 
 }

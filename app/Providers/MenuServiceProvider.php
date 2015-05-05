@@ -14,8 +14,8 @@ class MenuServiceProvider extends ServiceProvider {
     {
         Menu::make('public', function ($menu)
         {
-            $menu->add('Home', array('route' => '/'));
-            $menu->add('Blog', array('route' => 'blog'));
+            $menu->add('Home', ['route' => '/']);
+            $menu->add('Blog', ['route' => 'blog']);
         });
     }
 

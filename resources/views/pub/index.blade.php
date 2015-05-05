@@ -13,7 +13,7 @@
         <?php $i = 0; ?>
         @foreach($posts as $post)
             <div class="col-md-4 top17">
-                <img src="{!! URL::to('images/medium/'.$post->featuredimage.$post->mimetype) !!}" alt="{{$post->title}}"
+                <img src="{!! URL::to('images/medium/'.$post->featuredimage) !!}" alt="{{$post->title}}"
                      class="post-image bordered">
 
                 <div class=" portlet light bordered">
@@ -42,15 +42,12 @@
         @endif
         @endforeach
     </div>
-
-
-
 @endsection
 
 @section('scripts')
     <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES * * */
-        var disqus_shortname = 'mackhankins';
+        var disqus_shortname = '{!! env("DISQUS_NAME") !!}';
 
         /* * * DON'T EDIT BELOW THIS LINE * * */
         (function () {
@@ -60,5 +57,6 @@
             s.src = '//' + disqus_shortname + '.disqus.com/count.js';
             (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
         }());
+        @include('partials.pub._analytics')
     </script>
 @endsection

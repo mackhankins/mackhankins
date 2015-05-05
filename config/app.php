@@ -146,6 +146,7 @@ return [
         'MH\Providers\RouteServiceProvider',
         'MH\Providers\PostServiceProvider',
         'MH\Providers\MenuServiceProvider',
+        'MH\Providers\FileServiceProvider',
 
         'Intervention\Image\ImageServiceProvider',
         'Cviebrock\EloquentSluggable\SluggableServiceProvider',

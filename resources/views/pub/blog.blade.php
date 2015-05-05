@@ -10,19 +10,12 @@
 
 @section('content')
     <div class="row">
-        @foreach($posts as $post)
-            <div class="col-md-12 top17">
-                @if(!empty($post->featuredimage))
-                    <img src="{{ URL::to('images/large/'.$post->featuredimage.$post->mimetype) }}"
-                         alt="{{$post->title}}" class="post-image">
-                @endif
-                <div class="portlet light bordered">
+        <div class="col-md-12">
+            @foreach($posts as $post)
+                <div class="portlet light bordered top">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="icon-speech"></i>
-                            <span class="caption-subject bold uppercase"><a
-                                        href="{!! action('Pub\BlogController@single', $post->slug) !!}">{!! $post->title
-                                    !!}</a></span>
+                            <a href="{!! action('Pub\BlogController@single', $post->slug) !!}">{!! $post->title !!}</a>
                         </div>
                     </div>
                     <div class="subtext">
@@ -33,10 +26,19 @@
                         <i class="icon-bubbles"></i>
                         <a href="{!! action('Pub\BlogController@single', $post->slug) !!}#disqus_thread"></a>
                     </div>
-                    <div class="portlet-body bordered">{!! $post->pcontent !!}</div>
+                    <div class="portlet-body">
+                        {{ $post->excerpt }}
+                    </div>
+                    <div class="text-left-lg top10">
+                        <a href="{!! action('Pub\BlogController@single', $post->slug) !!}">
+                            <button>Read More</button>
+                        </a>
+                    </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-12">
             {!! $posts->render() !!}
         </div>
@@ -51,7 +53,7 @@
             });
         });
         /* * * CONFIGURATION VARIABLES * * */
-        var disqus_shortname = 'mackhankins';
+        var disqus_shortname = '{!! env("DISQUS_NAME") !!}';
 
         /* * * DON'T EDIT BELOW THIS LINE * * */
         (function () {
@@ -61,5 +63,6 @@
             s.src = '//' + disqus_shortname + '.disqus.com/count.js';
             (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
         }());
+        @include('partials.pub._analytics')
     </script>
 @endsection

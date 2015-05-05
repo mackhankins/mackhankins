@@ -11,13 +11,15 @@ interface PostRepositoryInterface {
 
     public function paginate($int);
 
+    public function paginatePosts($int);
+
+    public function paginateLinks($int);
+
     public function findById($int);
 
     public function findBySlug($string);
 
     public function searchPosts($string);
-
-    public function datatables();
 
     public function store(array $array);
 

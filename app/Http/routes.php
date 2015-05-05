@@ -19,6 +19,24 @@ Route::controllers([
     'password' => 'Auth\PasswordController',
 ]);
 
+/* Admin */
+Route::group(['middleware' => 'auth'], function()
+{
+    Route::group(['middleware' => 'is.admin'], function()
+    {
+        Route::group(['prefix' => 'admin'], function()
+        {
+            get('dashboard',['as' => 'admin.dashboard', 'uses' => 'Admin\IndexController@index']);
+            get('post/create',['uses' => 'Admin\IndexController@create']);
+            get('post/edit/{id}',['uses' => 'Admin\IndexController@edit']);
+            post('post/store',['uses' => 'Admin\IndexController@store']);
+            post('post/update/{id}',['uses' => 'Admin\IndexController@update']);
+            patch('post/upload',['uses' => 'Admin\IndexController@upload']);
+
+        });
+    });
+});
+
 /* Sitemap */
 Route::get('sitemap', function ()
 {
