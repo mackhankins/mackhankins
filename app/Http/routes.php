@@ -57,7 +57,7 @@ Route::get('sitemap', function ()
         // add every post to the sitemap
         foreach ($posts as $post)
         {
-            $sitemap->add($post->slug, $post->updated_at, '0.5', 'weekly');
+            $sitemap->add(action('Pub\BlogController@single', $post->slug), $post->updated_at, '0.5', 'weekly');
         }
     }
 
