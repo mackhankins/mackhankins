@@ -69,7 +69,7 @@
             jQuery('#content').redactor({
                 maxHeight: 1000,
                 focus: true,
-                imageUpload: '{!! action("Admin\IndexController@upload") !!}',
+                imageUpload: '{!! action("Admin\IndexController@upload") !!}?_token=' + '{{ csrf_token() }}',
                 imageManagerJson: '{!! $filesjson !!}',
                 plugins: ['table', 'imagemanager']
             });

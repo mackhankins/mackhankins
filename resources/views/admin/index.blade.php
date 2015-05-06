@@ -42,7 +42,7 @@
                                 <td>
                                     <a href="{!! action('Admin\IndexController@edit', $post->id) !!}">Edit</a>
                                     |
-                                    <a href="#">Delete</a></td>
+                                    <a href="{!! action('Admin\IndexController@delete', $post->id) !!}">Delete</a></td>
                             </tr>
                         @endforeach
                         </tbody>

@@ -96,4 +96,10 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
         $post->save();
     }
 
+    public function delete($id)
+    {
+        $post = $this->findById($id);
+        $post->delete();
+    }
+
 }

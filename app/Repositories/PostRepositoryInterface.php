@@ -24,4 +24,6 @@ interface PostRepositoryInterface {
     public function store(array $array);
 
     public function update($int, array $array);
+
+    public function delete($id);
 }

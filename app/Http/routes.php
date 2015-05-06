@@ -31,7 +31,8 @@ Route::group(['middleware' => 'auth'], function()
             get('post/edit/{id}',['uses' => 'Admin\IndexController@edit']);
             post('post/store',['uses' => 'Admin\IndexController@store']);
             post('post/update/{id}',['uses' => 'Admin\IndexController@update']);
-            patch('post/upload',['uses' => 'Admin\IndexController@upload']);
+            get('post/delete/{id}',['uses' => 'Admin\IndexController@delete']);
+            post('post/upload',['uses' => 'Admin\IndexController@upload']);
 
         });
     });

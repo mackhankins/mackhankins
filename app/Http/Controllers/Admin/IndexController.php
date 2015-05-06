@@ -54,10 +54,20 @@ class IndexController extends Controller{
         return redirect()->route('admin.dashboard');
     }
 
+    public function delete($id)
+    {
+        $this->post->delete($id);
+        return redirect()->route('admin.dashboard');
+    }
+
     public function upload()
     {
-        dd(Request::all());
-        //$this->file->uploadImage();
+        if(Request::file('file')->isValid())
+        {
+            $filename = $this->file->uploadImage(Request::file('file'));
+
+            return stripslashes(json_encode(['filelink' => '/images/large/'.$filename]));
+        }
     }
 
 }
