@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>{{ Meta::meta('title') }}</h1>
+                <h1>{{ $meta['title'] }}</h1>
 
                 <div class="hidden-xs">
                     {!! $breadcrumbs !!}

@@ -20,22 +20,22 @@ class BlogController extends Controller {
     public function index()
     {
         $posts = $this->post->paginatePosts(5);
-        Meta::meta('title', 'Blog');
-        Meta::meta('description', 'a simple blog about my interest');
-        Meta::meta('image', asset('images/home-logo.png'));
+        $meta = ['title' => 'Blog'];
         $breadcrumbs = Breadcrumbs::render('blog');
 
-        return view('pub.blog')->with(compact('posts', 'breadcrumbs'));
+        return view('pub.blog')->with(compact('posts', 'breadcrumbs', 'meta'));
     }
 
     public function single($slug)
     {
         $post = $this->post->findBySlug($slug);
-        Meta::meta('title', $post->title);
-        Meta::meta('description', $post->excerpt);
-        Meta::meta('image', asset('images/home-logo.png'));
+        $meta = [
+            'title' => $post->title,
+            'description' => $post->excerpt,
+            'image' => '/images/small/'.$post->featuredimage,
+        ];
         $breadcrumbs = Breadcrumbs::render('post', $post);
 
-        return view('pub.post')->with(compact('post', 'breadcrumbs'));
+        return view('pub.post')->with(compact('post', 'breadcrumbs', 'meta'));
     }
 }

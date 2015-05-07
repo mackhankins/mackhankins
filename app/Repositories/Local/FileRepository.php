@@ -12,9 +12,8 @@ class FileRepository implements FileRepositoryInterface {
 
     private function uniqueFileNames($path, $name, $ext)
     {
-        $name = str_slug($name);
         $output = $name;
-        $basename = basename($name, '.' . $ext);
+        $basename = basename(str_slug($name), '.' . $ext);
         $i = 2;
 
         while (File::exists($path . $output))
