@@ -46,7 +46,7 @@
 @if(!empty($meta['description']))
     <meta name="twitter:description" content="{{ str_limit($meta['description'], $limit = 100, $end = '...') }}"/>
 @else
-    <meta name="twitter:description" content="A personal website built on Laravel 5. 5."/>
+    <meta name="twitter:description" content="A personal website built on Laravel 5."/>
 @endif
 @if(!empty($meta['image']))
     <meta name="twitter:image" content="{{ url($meta['image']) }}"/>

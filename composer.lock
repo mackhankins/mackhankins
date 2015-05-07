@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6932ca54bf17681db8f5c3aee7f14e41",
+    "hash": "35c3eed9ec531f72dca3b78ba68e194b",
     "packages": [
         {
             "name": "anahkiasen/former",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/formers/former.git",
-                "reference": "92ad603b8f64aa431565fc3f5b127dd03029d624"
+                "reference": "e37cb69d12d4436282e6754800903d94788528f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/formers/former/zipball/92ad603b8f64aa431565fc3f5b127dd03029d624",
-                "reference": "92ad603b8f64aa431565fc3f5b127dd03029d624",
+                "url": "https://api.github.com/repos/formers/former/zipball/e37cb69d12d4436282e6754800903d94788528f3",
+                "reference": "e37cb69d12d4436282e6754800903d94788528f3",
                 "shasum": ""
             },
             "require": {
@@ -63,7 +63,7 @@
                 "foundation",
                 "laravel"
             ],
-            "time": "2015-05-05 16:18:49"
+            "time": "2015-05-06 00:01:16"
         },
         {
             "name": "anahkiasen/html-object",
@@ -888,62 +888,17 @@
             "time": "2015-04-21 01:44:32"
         },
         {
-            "name": "laravel/meta",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/eusonlito/laravel-Meta.git",
-                "reference": "e737ccf3ffb4280be70894d7264a0f3afd0194d8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/eusonlito/laravel-Meta/zipball/e737ccf3ffb4280be70894d7264a0f3afd0194d8",
-                "reference": "e737ccf3ffb4280be70894d7264a0f3afd0194d8",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Laravel\\Meta\\": "src/Laravel/Meta/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Lito",
-                    "email": "lito@eordes.com"
-                }
-            ],
-            "description": "A package to manage Header Meta Tags",
-            "keywords": [
-                "head",
-                "laravel",
-                "meta",
-                "tags"
-            ],
-            "time": "2015-03-26 10:16:42"
-        },
-        {
             "name": "laravelcollective/html",
-            "version": "v5.0.2",
+            "version": "v5.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LaravelCollective/html.git",
-                "reference": "9af203053815cb12c9b8307e8367153c84fdd4b7"
+                "reference": "c55fda58b1a9a1b58bd04f97e0fb9ebc238a0a94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/9af203053815cb12c9b8307e8367153c84fdd4b7",
-                "reference": "9af203053815cb12c9b8307e8367153c84fdd4b7",
+                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/c55fda58b1a9a1b58bd04f97e0fb9ebc238a0a94",
+                "reference": "c55fda58b1a9a1b58bd04f97e0fb9ebc238a0a94",
                 "shasum": ""
             },
             "require": {
@@ -980,7 +935,7 @@
                     "email": "adam@laravelcollective.com"
                 }
             ],
-            "time": "2015-03-10 15:59:48"
+            "time": "2015-05-06 14:23:37"
         },
         {
             "name": "league/flysystem",
@@ -3488,7 +3443,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "cviebrock/eloquent-sluggable": 15,
-        "laravel/meta": 20,
         "caffeinated/menus": 20,
         "anahkiasen/former": 20,
         "zizaco/entrust": 20

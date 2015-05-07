@@ -150,7 +150,6 @@ return [
 
         'Intervention\Image\ImageServiceProvider',
         'Cviebrock\EloquentSluggable\SluggableServiceProvider',
-        'Laravel\Meta\MetaServiceProvider',
         'DaveJamesMiller\Breadcrumbs\ServiceProvider',
         'Caffeinated\Menus\MenusServiceProvider',
         'Roumen\Sitemap\SitemapServiceProvider',
@@ -205,7 +204,6 @@ return [
         'View'        => 'Illuminate\Support\Facades\View',
 
         'Image'       => 'Intervention\Image\Facades\Image',
-        'Meta'        => 'Laravel\Meta\Facade',
         'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
         'Menu'        => 'Caffeinated\Menus\Facades\Menu',
         'Former'      => 'Former\Facades\Former',

@@ -12,7 +12,6 @@
     "intervention/image": "~2.2",
     "intervention/imagecache": "~2.2",
     "cviebrock/eloquent-sluggable": ">=3.0.0-alpha",
-    "laravel/meta": "master-dev",
     "davejamesmiller/laravel-breadcrumbs": "~3.0",
     "caffeinated/menus": "~1.0@dev",
     "roumen/sitemap": "~2.5",
