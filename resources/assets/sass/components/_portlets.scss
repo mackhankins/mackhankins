@@ -32,6 +32,10 @@ Portlets
         padding: 0;
         min-height: 38px;
 
+      @media(min-width:992px){
+        min-height: 60px;
+      }
+
         > .caption {
             color: $primary-color;
             padding: 10px 0;
