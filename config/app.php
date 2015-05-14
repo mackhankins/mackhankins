@@ -155,6 +155,7 @@ return [
         'Roumen\Sitemap\SitemapServiceProvider',
         'Former\FormerServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
+        'GrahamCampbell\Markdown\MarkdownServiceProvider',
     ],
 
     /*
@@ -208,6 +209,7 @@ return [
         'Menu'        => 'Caffeinated\Menus\Facades\Menu',
         'Former'      => 'Former\Facades\Former',
         'Entrust'     => 'Zizaco\Entrust\EntrustFacade',
+        'Markdown' => 'GrahamCampbell\Markdown\Facades\Markdown',
 
     ],
 

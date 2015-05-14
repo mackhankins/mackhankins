@@ -23,7 +23,9 @@
                     <i class="icon-bubbles"></i>
                     <a href="{!! action('Pub\BlogController@single', $post->slug) !!}#disqus_thread"></a>
                 </div>
-                <div class="portlet-body bordered">{!! $post->pcontent !!}</div>
+                <div class="portlet-body bordered">
+                    @include('partials.pub._post_content')
+                </div>
                 <div id="disqus_thread"></div>
             </div>
         </div>

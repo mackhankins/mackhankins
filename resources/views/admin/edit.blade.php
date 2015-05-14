@@ -23,7 +23,7 @@
                     {!! Former::text('title')->value($post->title) !!}
                     {!! Former::text('slug')->value($post->slug) !!}
                     {!! Former::textarea('excerpt')->value($post->excerpt) !!}
-                    {!! Former::textarea('content')->value($post->pcontent) !!}
+                    {!! Former::textarea('content')->value($post->pcontent)->rows('30') !!}
                     {!! Former::hidden('user_id')->value($post->user->id) !!}
                 </div>
             </div>
@@ -63,5 +63,5 @@
 @endsection
 
 @section('scripts')
-    @include('partials.priv._redactor')
+
 @endsection

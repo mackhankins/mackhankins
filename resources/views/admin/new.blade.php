@@ -22,7 +22,7 @@
                 <div class="portlet-body">
                     {!! Former::text('title') !!}
                     {!! Former::textarea('excerpt') !!}
-                    {!! Former::textarea('content') !!}
+                    {!! Former::textarea('content')->rows('30') !!}
                     {!! Former::hidden('user_id')->value($user->id) !!}
                 </div>
             </div>
@@ -59,5 +59,5 @@
 @endsection
 
 @section('scripts')
-    @include('partials.priv._redactor')
+
 @endsection
