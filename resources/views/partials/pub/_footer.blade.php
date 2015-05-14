@@ -5,7 +5,7 @@
                 {!! date('Y') !!} &copy Mack Hankins, All Rights Reserved
             </div>
             <div class="col-md-6 text-center-not-lg text-right-lg">
-                <a href="https://github.com/mack-hankins" target="_blank">
+                <a href="https://github.com/mackhankins" target="_blank">
                     <i class="fa fa-github-alt"></i>
                     Github</a>
                 &nbsp;|&nbsp;

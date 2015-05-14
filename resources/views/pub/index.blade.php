@@ -17,7 +17,7 @@
                      class="post-image bordered">
 
                 <div class=" portlet light bordered">
-                    <div class="portlet-title">
+                    <div class="portlet-title front">
                         <div class="caption caption-subject">
                             <a href="{!! action('Pub\BlogController@single', $post->slug) !!}">{!! $post->title !!}</a>
                         </div>
