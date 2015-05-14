@@ -68,6 +68,13 @@ pre {
   word-wrap: normal;
   background-color: lighten($primary-color, 50%) !important;
   padding: 0em 1em;
+
+  >code {
+    background: none;
+    border: none;
+    color: inherit;
+  }
+
 }
 
 code {

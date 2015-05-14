@@ -66,7 +66,7 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
     {
         $post = $this->getNew();
         $post->title = $data['title'];
-        $post->excerpt = $data['excerpt'];
+        $post->excerpt = strip_tags($data['excerpt']);
         $post->pcontent = $data['content'];
         $post->type = 'post';
         $post->user_id = $data['user_id'];
@@ -84,7 +84,7 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
         $post = $this->findById($id);
         $post->title = $data['title'];
         $post->slug = $data['slug'];
-        $post->excerpt = $data['excerpt'];
+        $post->excerpt = strip_tags($data['excerpt']);
         $post->pcontent = $data['content'];
         $post->type = 'post';
         $post->status = $data['status'];

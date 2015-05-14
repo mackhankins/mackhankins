@@ -1,1 +1,1 @@
-{!! Markdown::convertToHtml($post->pcontent) !!}
+{!! $post->pcontent !!}

@@ -59,5 +59,5 @@
 @endsection
 
 @section('scripts')
-
+    @include('partials.priv._redactor')
 @endsection
