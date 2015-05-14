@@ -73,7 +73,11 @@ class FileRepository implements FileRepositoryInterface {
             $file->getClientOriginalExtension()
         );
         $image = Image::make($file);
-        $image->resize('1200', null);
+        // resize the image to a width of 300 and constrain aspect ratio (auto height)
+        $image->resize(960, null, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        });
         $image->save(storage_path(env('UPLOAD_PATH')) . $filename);
 
         return $filename;

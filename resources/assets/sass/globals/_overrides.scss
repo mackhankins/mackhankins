@@ -25,9 +25,7 @@ a {
 .post-image {
   width: 100%;
   overflow: auto;
-  border-top: 1px solid lighten($primary-color, 40%) !important;
-  border-right: 1px solid lighten($primary-color, 40%) !important;
-  border-left: 1px solid lighten($primary-color, 40%) !important;
+  border: 1px solid lighten($primary-color, 40%) !important;
 }
 
 /* margin tops for offsets */
