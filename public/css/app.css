@@ -8308,6 +8308,10 @@ blockquote {
   -o-border-radius: 0;
   padding-left: 2px; }
 
+.breadcrumb > li + li:before {
+  content: "| ";
+  padding: 0 5px; }
+
 /*change breadcrumb links color*/
 .breadcrumb a {
   color: white; }
