@@ -10,6 +10,15 @@ use File;
 
 class FileRepository implements FileRepositoryInterface {
 
+
+    /**
+     * Return a unique file name
+     *
+     * @param $path
+     * @param $name
+     * @param $ext
+     * @return string
+     */
     private function uniqueFileNames($path, $name, $ext)
     {
         $output = $name;
@@ -25,6 +34,14 @@ class FileRepository implements FileRepositoryInterface {
         return $output;
     }
 
+
+    /**
+     * Build a valid json file for Redactor with Laravel
+     *
+     * @param $path
+     * @param $file
+     * @return mixed|void
+     */
     public function buildImageJson($path, $file)
     {
         $files = preg_grep('/index\.html$/', glob($path . '*'), PREG_GREP_INVERT);
@@ -39,6 +56,14 @@ class FileRepository implements FileRepositoryInterface {
         Storage::disk('json')->put($file, stripslashes(json_encode($imag)));
     }
 
+
+    /**
+     * Upload a file with Laravel and
+     * resize with Intervention Image
+     *
+     * @param $file
+     * @return string
+     */
     public function uploadImage($file)
     {
         $filename = $this->uniqueFileNames
