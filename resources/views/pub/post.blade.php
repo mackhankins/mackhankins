@@ -34,12 +34,12 @@
 
 @section('scripts')
     <script>
-        @if($post->status == 'published')
         jQuery(document).ready(function () {
             jQuery('pre').each(function (i, block) {
                 hljs.highlightBlock(block);
             });
         });
+        @if($post->status == 'published')
         /* * * CONFIGURATION VARIABLES * * */
         var disqus_shortname = '{!! env("DISQUS_NAME") !!}';
 
