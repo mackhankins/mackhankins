@@ -34,6 +34,7 @@
 
 @section('scripts')
     <script>
+        @if($post->status == 'published')
         jQuery(document).ready(function () {
             jQuery('pre').each(function (i, block) {
                 hljs.highlightBlock(block);
@@ -54,6 +55,7 @@
             s.src = '//' + disqus_shortname + '.disqus.com/count.js';
             (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
         })();
+        @endif
         @include('partials.pub._analytics')
     </script>
 @endsection

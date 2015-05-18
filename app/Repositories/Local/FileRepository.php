@@ -48,7 +48,7 @@ class FileRepository implements FileRepositoryInterface {
         foreach ($files as $filename)
         {
             $img['thumb'] = url('images/small/' . basename($filename));
-            $img['image'] = url('images/large/' . basename($filename));
+            $img['image'] = url('images/blog/' . basename($filename));
             $img['title'] = basename($filename);
             $imag[] = $img;
         }
