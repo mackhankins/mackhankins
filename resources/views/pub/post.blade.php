@@ -39,6 +39,7 @@
                 hljs.highlightBlock(block);
             });
         });
+        @if($post->status == 'published')
         /* * * CONFIGURATION VARIABLES * * */
         var disqus_shortname = '{!! env("DISQUS_NAME") !!}';
 
@@ -54,6 +55,7 @@
             s.src = '//' + disqus_shortname + '.disqus.com/count.js';
             (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
         })();
+        @endif
         @include('partials.pub._analytics')
     </script>
 @endsection

@@ -16,7 +16,7 @@ return array(
     |
     */
 
-    'route'     => 'images',
+    'route' => 'images',
 
     /*
     |--------------------------------------------------------------------------
@@ -30,7 +30,7 @@ return array(
     |
     */
 
-    'paths'     => array(
+    'paths' => array(
         storage_path(),
         storage_path(env('UPLOAD_PATH'))
     ),
@@ -52,18 +52,20 @@ return array(
     */
 
     'templates' => array(
-        'small'  => function ($image)
-        {
+        'small' => function ($image) {
             return $image->fit(120, 90);
         },
-        'medium' => function ($image)
-        {
+        'medium' => function ($image) {
             return $image->fit(400, 180);
         },
-        'large'  => function ($image)
-        {
+        'large' => function ($image) {
             return $image->fit(960, 260);
-        }
+        },
+        'blog' => function ($image) {
+            $image->resize(960, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        },
     ),
 
     /*
