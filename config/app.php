@@ -141,6 +141,7 @@ return [
          * Application Service Providers...
          */
         MH\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
         MH\Providers\EventServiceProvider::class,
         MH\Providers\RouteServiceProvider::class,
         MH\Providers\PostServiceProvider::class,
