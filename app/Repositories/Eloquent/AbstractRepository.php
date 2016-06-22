@@ -5,7 +5,8 @@ namespace MH\Repositories\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
 
-abstract class AbstractRepository {
+abstract class AbstractRepository
+{
 
     /**
      * The model to execute queries on.

@@ -2,8 +2,8 @@
 
 namespace MH\Repositories;
 
-
-interface FileRepositoryInterface {
+interface FileRepositoryInterface
+{
 
 
     /**
@@ -13,7 +13,7 @@ interface FileRepositoryInterface {
      * @param $file
      * @return mixed
      */
-    public function buildImageJson($path,$file);
+    public function buildImageJson($path, $file);
 
     /**
      * Upload an Image with Laravel and
@@ -23,5 +23,4 @@ interface FileRepositoryInterface {
      * @return mixed
      */
     public function uploadImage($file);
-
 }

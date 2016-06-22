@@ -2,7 +2,8 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class PostServiceProvider extends ServiceProvider {
+class PostServiceProvider extends ServiceProvider
+{
 
     /**
      * Bootstrap the application services.
@@ -24,5 +25,4 @@ class PostServiceProvider extends ServiceProvider {
         $app = $this->app;
         $app->bind('MH\Repositories\PostRepositoryInterface', 'MH\Repositories\Eloquent\PostRepository');
     }
-
 }

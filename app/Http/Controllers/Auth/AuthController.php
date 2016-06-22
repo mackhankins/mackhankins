@@ -5,7 +5,8 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
-class AuthController extends Controller {
+class AuthController extends Controller
+{
 
     protected $redirectTo = '/';
 
@@ -38,6 +39,4 @@ class AuthController extends Controller {
         $this->middleware('guest', ['except' => 'getLogout']);
 
     }
-
-
 }

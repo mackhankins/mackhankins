@@ -3,7 +3,8 @@
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
-class IsAdminAccount {
+class IsAdminAccount
+{
 
     /**
      * The Guard implementation.
@@ -32,11 +33,9 @@ class IsAdminAccount {
      */
     public function handle($request, Closure $next)
     {
-        if( ! $this->auth->user()->hasRole('admin'))
-        {
+        if (! $this->auth->user()->hasRole('admin')) {
             return abort(404);
         }
         return $next($request);
     }
-
 }

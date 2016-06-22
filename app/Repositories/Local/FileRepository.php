@@ -8,7 +8,8 @@ use Storage;
 use Image;
 use File;
 
-class FileRepository implements FileRepositoryInterface {
+class FileRepository implements FileRepositoryInterface
+{
 
 
     /**
@@ -25,8 +26,7 @@ class FileRepository implements FileRepositoryInterface {
         $basename = basename(str_slug($name), '.' . $ext);
         $i = 2;
 
-        while (File::exists($path . $output))
-        {
+        while (File::exists($path . $output)) {
             $output = $basename . $i . '.' . $ext;
             $i ++;
         }
@@ -45,8 +45,7 @@ class FileRepository implements FileRepositoryInterface {
     public function buildImageJson($path, $file)
     {
         $files = preg_grep('/index\.html$/', glob($path . '*'), PREG_GREP_INVERT);
-        foreach ($files as $filename)
-        {
+        foreach ($files as $filename) {
             $img['thumb'] = url('images/small/' . basename($filename));
             $img['image'] = url('images/blog/' . basename($filename));
             $img['title'] = basename($filename);
@@ -66,8 +65,7 @@ class FileRepository implements FileRepositoryInterface {
      */
     public function uploadImage($file)
     {
-        $filename = $this->uniqueFileNames
-        (
+        $filename = $this->uniqueFileNames(
             storage_path(env('UPLOAD_PATH')),
             $file->getClientOriginalName(),
             $file->getClientOriginalExtension()
@@ -82,6 +80,4 @@ class FileRepository implements FileRepositoryInterface {
 
         return $filename;
     }
-
-
 }

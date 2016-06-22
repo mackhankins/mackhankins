@@ -6,7 +6,8 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Meta;
 
-abstract class Controller extends BaseController {
+abstract class Controller extends BaseController
+{
 
     use DispatchesCommands, ValidatesRequests;
 
@@ -18,5 +19,4 @@ abstract class Controller extends BaseController {
         # Default robots
         Meta::meta('robots', 'index,follow');
     }
-
 }

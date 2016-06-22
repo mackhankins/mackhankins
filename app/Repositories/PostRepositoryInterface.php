@@ -2,8 +2,8 @@
 
 namespace MH\Repositories;
 
-
-interface PostRepositoryInterface {
+interface PostRepositoryInterface
+{
 
     public function getAll();
 
