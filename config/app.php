@@ -1,4 +1,5 @@
 <?php
+        Illuminate\Broadcasting\BroadcastServiceProvider::class,
 
 return [
 
