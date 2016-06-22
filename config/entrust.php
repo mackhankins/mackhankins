@@ -19,7 +19,7 @@ return array(
     | the role if it is in a different namespace.
     |
     */
-    'role'                  => 'MH\Role',
+    'role'                  => MH\Role::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -40,7 +40,7 @@ return array(
     | Update the permission if it is in a different namespace.
     |
     */
-    'permission'            => 'MH\Permission',
+    'permission'            => MH\Permission::class,
 
     /*
     |--------------------------------------------------------------------------

@@ -25,7 +25,7 @@ class Post extends Model implements SluggableInterface
 
     public function user()
     {
-        return $this->belongsTo('MH\User', 'user_id');
+        return $this->belongsTo(\MH\User::class, 'user_id');
     }
 
     protected $sluggable = array(

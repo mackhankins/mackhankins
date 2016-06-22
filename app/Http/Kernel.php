@@ -11,12 +11,12 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        'Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode',
+        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \MH\Http\Middleware\EncryptCookies::class,
-        'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
-        'Illuminate\Session\Middleware\StartSession',
-        'Illuminate\View\Middleware\ShareErrorsFromSession',
-        'MH\Http\Middleware\VerifyCsrfToken',
+        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+        \Illuminate\Session\Middleware\StartSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        \MH\Http\Middleware\VerifyCsrfToken::class,
     ];
 
     /**
@@ -25,9 +25,9 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'       => 'MH\Http\Middleware\Authenticate',
-        'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-        'guest'      => 'MH\Http\Middleware\RedirectIfAuthenticated',
-        'is.admin'   => 'MH\Http\Middleware\IsAdminAccount',
+        'auth'       => \MH\Http\Middleware\Authenticate::class,
+        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'guest'      => \MH\Http\Middleware\RedirectIfAuthenticated::class,
+        'is.admin'   => \MH\Http\Middleware\IsAdminAccount::class,
     ];
 }

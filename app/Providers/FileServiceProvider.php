@@ -23,6 +23,6 @@ class FileServiceProvider extends ServiceProvider
     public function register()
     {
         $app = $this->app;
-        $app->bind('MH\Repositories\FileRepositoryInterface', 'MH\Repositories\Local\FileRepository');
+        $app->bind(\MH\Repositories\FileRepositoryInterface::class, \MH\Repositories\Local\FileRepository::class);
     }
 }
