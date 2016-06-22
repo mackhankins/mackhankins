@@ -141,8 +141,6 @@ return [
          * Application Service Providers...
          */
         'MH\Providers\AppServiceProvider',
-        'MH\Providers\BusServiceProvider',
-        'MH\Providers\ConfigServiceProvider',
         'MH\Providers\EventServiceProvider',
         'MH\Providers\RouteServiceProvider',
         'MH\Providers\PostServiceProvider',
