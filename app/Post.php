@@ -14,7 +14,8 @@ class Post extends Model
      * @var array
      * @return array
      */
-    public function sluggable() {
+    public function sluggable()
+    {
         return [
             'slug' => [
                 'source'         => 'title',
@@ -42,5 +43,4 @@ class Post extends Model
     {
         return $this->belongsTo(\MH\User::class, 'user_id');
     }
-
 }
