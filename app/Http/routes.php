@@ -26,13 +26,13 @@ Route::group(['middleware' => 'auth'], function () {
     
         Route::group(['prefix' => 'admin'], function () {
         
-            get('dashboard', ['as' => 'admin.dashboard', 'uses' => 'Admin\IndexController@index']);
-            get('post/create', ['uses' => 'Admin\IndexController@create']);
-            get('post/edit/{id}', ['uses' => 'Admin\IndexController@edit']);
-            post('post/store', ['uses' => 'Admin\IndexController@store']);
-            post('post/update/{id}', ['uses' => 'Admin\IndexController@update']);
-            get('post/delete/{id}', ['uses' => 'Admin\IndexController@delete']);
-            post('post/upload', ['uses' => 'Admin\IndexController@upload']);
+            Route::get('dashboard', ['as' => 'admin.dashboard', 'uses' => 'Admin\IndexController@index']);
+            Route::get('post/create', ['uses' => 'Admin\IndexController@create']);
+            Route::get('post/edit/{id}', ['uses' => 'Admin\IndexController@edit']);
+            Route::post('post/store', ['uses' => 'Admin\IndexController@store']);
+            Route::post('post/update/{id}', ['uses' => 'Admin\IndexController@update']);
+            Route::get('post/delete/{id}', ['uses' => 'Admin\IndexController@delete']);
+            Route::post('post/upload', ['uses' => 'Admin\IndexController@upload']);
 
         });
     });

@@ -14,25 +14,25 @@ return [
     |
     */
 
-    'mailgun'  => [
-        'domain' => '',
-        'secret' => '',
+    'mailgun' => [
+        'domain' => env('MAILGUN_DOMAIN'),
+        'secret' => env('MAILGUN_SECRET'),
     ],
 
-    'mandrill' => [
-        'secret' => '',
-    ],
-
-    'ses'      => [
-        'key'    => '',
-        'secret' => '',
+    'ses' => [
+        'key' => env('SES_KEY'),
+        'secret' => env('SES_SECRET'),
         'region' => 'us-east-1',
     ],
 
-    'stripe'   => [
-        'model'  => MH\User::class,
-        'key'    => '',
-        'secret' => '',
+    'sparkpost' => [
+        'secret' => env('SPARKPOST_SECRET'),
+    ],
+
+    'stripe' => [
+        'model' => App\User::class,
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
     ],
 
 ];
