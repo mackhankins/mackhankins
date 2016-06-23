@@ -5,6 +5,10 @@ namespace MH\Repositories\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class AbstractRepository
+ * @package MH\Repositories\Eloquent
+ */
 abstract class AbstractRepository
 {
 

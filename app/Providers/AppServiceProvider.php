@@ -2,6 +2,10 @@
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class AppServiceProvider
+ * @package MH\Providers
+ */
 class AppServiceProvider extends ServiceProvider
 {
 

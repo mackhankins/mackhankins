@@ -8,6 +8,10 @@ use Storage;
 use Image;
 use File;
 
+/**
+ * Class FileRepository
+ * @package MH\Repositories\Local
+ */
 class FileRepository implements FileRepositoryInterface
 {
 

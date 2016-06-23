@@ -3,6 +3,10 @@
 use MH\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
+/**
+ * Class PasswordController
+ * @package MH\Http\Controllers\Auth
+ */
 class PasswordController extends Controller
 {
 
@@ -23,7 +27,6 @@ class PasswordController extends Controller
     /**
      * Create a new password controller instance.
      *
-     * @return void
      */
     public function __construct()
     {

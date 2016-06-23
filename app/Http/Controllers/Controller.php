@@ -8,11 +8,18 @@ use Illuminate\Foundation\Auth\Access\AuthorizesResources;
 
 use Meta;
 
+/**
+ * Class Controller
+ * @package MH\Http\Controllers
+ */
 class Controller extends BaseController
 {
 
     use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
 
+    /**
+     * Controller constructor.
+     */
     public function __construct()
     {
         # Default title

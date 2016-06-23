@@ -2,6 +2,10 @@
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Class User
+ * @package MH
+ */
 class User extends Authenticatable
 {
     /**
@@ -22,6 +26,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function post()
     {
         return $this->hasMany(\MH\Post::class);

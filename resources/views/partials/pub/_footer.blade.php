@@ -13,6 +13,11 @@
                     <i class="fa fa-twitter"></i>
                     Twitter
                 </a>
+                &nbsp;|&nbsp;
+                <a href="https://telegram.me/mackhankins" target="_blank">
+                    <i class="fa fa-paper-plane"></i>
+                    Telegram
+                </a>
             </div>
         </div>
     </div>

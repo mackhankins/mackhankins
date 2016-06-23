@@ -2,6 +2,10 @@
 
 namespace MH\Repositories;
 
+/**
+ * Interface FileRepositoryInterface
+ * @package MH\Repositories
+ */
 interface FileRepositoryInterface
 {
 

@@ -6,11 +6,19 @@ namespace MH\Http\Controllers\Pub;
 use MH\Http\Controllers\Controller;
 use MH\Repositories\PostRepositoryInterface;
 
+/**
+ * Class IndexController
+ * @package MH\Http\Controllers\Pub
+ */
 class IndexController extends Controller
 {
 
     protected $redirectTo = '/dashboard';
 
+    /**
+     * IndexController constructor.
+     * @param PostRepositoryInterface $post
+     */
     public function __construct(PostRepositoryInterface $post)
     {
         $this->middleware('guest');

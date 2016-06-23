@@ -3,6 +3,10 @@
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
+/**
+ * Class IsAdminAccount
+ * @package MH\Http\Middleware
+ */
 class IsAdminAccount
 {
 
@@ -16,8 +20,7 @@ class IsAdminAccount
     /**
      * Create a new filter instance.
      *
-     * @param  Guard  $auth
-     * @return void
+     * @param  Guard $auth
      */
     public function __construct(Guard $auth)
     {

@@ -3,6 +3,10 @@
 use Menu;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class MenuServiceProvider
+ * @package MH\Providers
+ */
 class MenuServiceProvider extends ServiceProvider
 {
 

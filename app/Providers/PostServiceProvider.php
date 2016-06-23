@@ -2,6 +2,10 @@
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class PostServiceProvider
+ * @package MH\Providers
+ */
 class PostServiceProvider extends ServiceProvider
 {
 

@@ -3,6 +3,10 @@
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 
+/**
+ * Class Post
+ * @package MH
+ */
 class Post extends Model
 {
 
@@ -39,6 +43,9 @@ class Post extends Model
      */
     protected $fillable = ['title', 'slug', 'pcontent', 'type', 'user_id', 'featuredimage', 'status', 'extlink', 'commentcount', 'mimetype', 'excerpt'];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo(\MH\User::class, 'user_id');

@@ -2,6 +2,10 @@
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class FileServiceProvider
+ * @package MH\Providers
+ */
 class FileServiceProvider extends ServiceProvider
 {
 

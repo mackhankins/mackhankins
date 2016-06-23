@@ -4,6 +4,10 @@ namespace MH\Jobs;
 
 use Illuminate\Bus\Queueable;
 
+/**
+ * Class Job
+ * @package MH\Jobs
+ */
 abstract class Job
 {
     /*

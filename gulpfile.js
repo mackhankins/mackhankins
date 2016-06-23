@@ -12,16 +12,20 @@ var elixir = require('laravel-elixir');
  */
 
 var paths = {
-    'jquery': './vendor/bower_components/jquery/',
-    'bootstrap': './vendor/bower_components/bootstrap-sass-official/assets/',
-    'fontawesome': './vendor/bower_components/fontawesome/',
-    'simplelineicons': './vendor/bower_components/simple-line-icons/',
-    'highlightjs': './vendor/bower_components/highlightjs/',
+    'jquery': './node_modules/jquery/',
+    'bootstrap': './node_modules/bootstrap-sass/assets/',
+    'fontawesome': './node_modules/font-awesome/',
+    'simplelineicons': './node_modules/simple-line-icons/',
+    'highlightjs': './node_modules/highlightjs/',
     'redactor': './resources/assets/redactor/'
 }
 
 elixir(function (mix) {
-    mix.sass('app.scss', 'public/css/', {includePaths: [paths.bootstrap + 'stylesheets', paths.fontawesome + 'scss', paths.simplelineicons + 'scss']})
+    mix.sass('app.scss', 'public/css/', {includePaths: [
+        paths.bootstrap + 'stylesheets',
+        paths.fontawesome + 'scss',
+        paths.simplelineicons + 'scss',
+    ]})
         .scripts([
             paths.redactor + 'redactor.js',
             paths.redactor + 'imagemanager.js',

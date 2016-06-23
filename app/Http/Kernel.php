@@ -4,6 +4,10 @@ namespace MH\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
+/**
+ * Class Kernel
+ * @package MH\Http
+ */
 class Kernel extends HttpKernel
 {
     /**

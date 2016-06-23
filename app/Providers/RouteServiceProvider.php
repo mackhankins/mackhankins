@@ -3,6 +3,10 @@
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
+/**
+ * Class RouteServiceProvider
+ * @package MH\Providers
+ */
 class RouteServiceProvider extends ServiceProvider
 {
 

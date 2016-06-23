@@ -8,45 +8,81 @@ use MH\Repositories\PostRepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\App;
 
+/**
+ * Class PostRepository
+ * @package MH\Repositories\Eloquent
+ */
 class PostRepository extends AbstractRepository implements PostRepositoryInterface
 {
 
+    /**
+     * PostRepository constructor.
+     * @param Post $post
+     * @param FileRepositoryInterface $file
+     */
     public function __construct(Post $post, FileRepositoryInterface $file)
     {
         $this->model = $post;
         $this->file = $file;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
     public function getAll()
     {
         return $this->model->all();
     }
 
+    /**
+     * @param $number
+     * @return mixed
+     */
     public function limit($number)
     {
         return $this->model->orderBy('created_at', 'desc')->take($number);
     }
 
+    /**
+     * @param $number
+     * @return mixed
+     */
     public function paginate($number)
     {
         return $this->model->where('type', '=', 'post')->orderBy('created_at', 'desc')->paginate(intval($number));
     }
 
+    /**
+     * @param $number
+     * @return mixed
+     */
     public function paginatePosts($number)
     {
         return $this->model->where('type', '=', 'post')->where('status', '=', 'published')->orderBy('created_at', 'desc')->paginate(intval($number));
     }
 
+    /**
+     * @param $number
+     * @return mixed
+     */
     public function paginateLinks($number)
     {
         return $this->model->where('type', '=', 'link')->where('status', '=', 'published')->orderBy('created_at', 'desc')->paginate(intval($number));
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function findById($id)
     {
         return $this->model->find($id);
     }
 
+    /**
+     * @param $slug
+     * @return mixed
+     */
     public function findBySlug($slug)
     {
         try {
@@ -56,11 +92,19 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
         }
     }
 
+    /**
+     * @param $query
+     * @return mixed
+     */
     public function searchPosts($query)
     {
         return $this->model->where('type', '=', 'post')->where('status', '=', 'published')->search($query);
     }
 
+    /**
+     * @param array $data
+     * @return mixed|void
+     */
     public function store(array $data)
     {
         $post = $this->getNew();
@@ -77,6 +121,11 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
         $post->save();
     }
 
+    /**
+     * @param $id
+     * @param array $data
+     * @return mixed|void
+     */
     public function update($id, array $data)
     {
         $post = $this->findById($id);
@@ -93,6 +142,10 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
         $post->save();
     }
 
+    /**
+     * @param $id
+     * @return mixed|void
+     */
     public function delete($id)
     {
         $post = $this->findById($id);

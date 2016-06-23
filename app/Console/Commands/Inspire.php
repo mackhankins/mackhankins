@@ -3,6 +3,10 @@
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;
 
+/**
+ * Class Inspire
+ * @package MH\Console\Commands
+ */
 class Inspire extends Command
 {
 

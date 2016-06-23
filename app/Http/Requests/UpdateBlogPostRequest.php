@@ -2,6 +2,10 @@
 
 use MH\Http\Requests\Request;
 
+/**
+ * Class UpdateBlogPostRequest
+ * @package MH\Http\Requests
+ */
 class UpdateBlogPostRequest extends Request
 {
 
