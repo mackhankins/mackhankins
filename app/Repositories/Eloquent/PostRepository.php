@@ -8,7 +8,8 @@ use MH\Repositories\PostRepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\App;
 
-class PostRepository extends AbstractRepository implements PostRepositoryInterface {
+class PostRepository extends AbstractRepository implements PostRepositoryInterface
+{
 
     public function __construct(Post $post, FileRepositoryInterface $file)
     {
@@ -48,11 +49,9 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
 
     public function findBySlug($slug)
     {
-        try
-        {
+        try {
             return $this->model->where('slug', '=', $slug)->firstOrFail();
-        } catch (ModelNotFoundException $e)
-        {
+        } catch (ModelNotFoundException $e) {
             return App::abort(404);
         }
     }
@@ -71,8 +70,7 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
         $post->type = 'post';
         $post->user_id = $data['user_id'];
         $post->status = $data['status'];
-        if($data['featured']->isValid())
-        {
+        if ($data['featured']->isValid()) {
             $filename = $this->file->uploadImage($data['featured']);
             $post->featuredimage = $filename;
         }
@@ -88,8 +86,7 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
         $post->pcontent = $data['content'];
         $post->type = 'post';
         $post->status = $data['status'];
-        if(!empty($data['featured']) AND $data['featured']->isValid())
-        {
+        if (!empty($data['featured']) and $data['featured']->isValid()) {
             $filename = $this->file->uploadImage($data['featured']);
             $post->featuredimage = $filename;
         }
@@ -101,5 +98,4 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
         $post = $this->findById($id);
         $post->delete();
     }
-
 }

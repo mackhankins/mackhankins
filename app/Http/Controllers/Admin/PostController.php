@@ -3,11 +3,11 @@
 
 namespace MH\Http\Controllers\Admin;
 
-
 use MH\Http\Controllers\Controller;
 use MH\Repositories\PostRepositoryInterface;
 
-class PostController extends Controller{
+class PostController extends Controller
+{
 
     protected $posts;
 

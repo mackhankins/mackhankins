@@ -12,7 +12,8 @@ use MH\Repositories\FileRepositoryInterface;
 use MH\Repositories\PostRepositoryInterface;
 use Auth;
 
-class IndexController extends Controller{
+class IndexController extends Controller
+{
 
     public function __construct(PostRepositoryInterface $posts, FileRepositoryInterface $files)
     {
@@ -29,7 +30,7 @@ class IndexController extends Controller{
     public function create()
     {
         $user = Auth::user();
-        $this->file->buildImageJson(storage_path(env('UPLOAD_PATH')),'uploads.json');
+        $this->file->buildImageJson(storage_path(env('UPLOAD_PATH')), 'uploads.json');
         $filesjson = url('app/uploads.json');
         return view('admin.new')->with(compact('user', 'filesjson'));
     }
@@ -37,7 +38,7 @@ class IndexController extends Controller{
     public function edit($id)
     {
         $post = $this->post->findById($id);
-        $this->file->buildImageJson(storage_path(env('UPLOAD_PATH')),'uploads.json');
+        $this->file->buildImageJson(storage_path(env('UPLOAD_PATH')), 'uploads.json');
         $filesjson = url('app/uploads.json');
         return view('admin.edit')->with(compact('post', 'filesjson'));
     }
@@ -62,12 +63,10 @@ class IndexController extends Controller{
 
     public function upload()
     {
-        if(Request::file('file')->isValid())
-        {
+        if (Request::file('file')->isValid()) {
             $filename = $this->file->uploadImage(Request::file('file'));
 
             return stripslashes(json_encode(['filelink' => '/images/large/'.$filename]));
         }
     }
-
 }

@@ -1,13 +1,28 @@
 <?php namespace MH;
 
 use Illuminate\Database\Eloquent\Model;
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
+use Cviebrock\EloquentSluggable\Sluggable;
 
+class Post extends Model
+{
 
-class Post extends Model implements SluggableInterface {
+    use Sluggable;
 
-    use SluggableTrait;
+    /**
+     * Sluggable configuration.
+     *
+     * @var array
+     * @return array
+     */
+    public function sluggable() {
+        return [
+            'slug' => [
+                'source'         => 'title',
+                'separator'      => '-',
+                'includeTrashed' => true,
+            ]
+        ];
+    }
 
     /**
      * The database table used by the model.
@@ -25,11 +40,7 @@ class Post extends Model implements SluggableInterface {
 
     public function user()
     {
-        return $this->belongsTo('MH\User', 'user_id');
+        return $this->belongsTo(\MH\User::class, 'user_id');
     }
 
-    protected $sluggable = array(
-        'build_from' => 'title',
-        'save_to'    => 'slug',
-    );
 }

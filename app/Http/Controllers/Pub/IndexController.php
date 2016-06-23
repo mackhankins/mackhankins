@@ -3,11 +3,11 @@
 
 namespace MH\Http\Controllers\Pub;
 
-
 use MH\Http\Controllers\Controller;
 use MH\Repositories\PostRepositoryInterface;
 
-class IndexController extends Controller {
+class IndexController extends Controller
+{
 
     protected $redirectTo = '/dashboard';
 
@@ -29,5 +29,4 @@ class IndexController extends Controller {
 
         return view('pub.index')->with(compact('posts', 'links'));
     }
-
 }

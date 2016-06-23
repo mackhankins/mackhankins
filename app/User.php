@@ -7,9 +7,13 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
-    use Authenticatable, CanResetPassword, EntrustUserTrait;
+class User extends Model implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
+{
+
+    use Authenticatable, Authorizable, CanResetPassword, EntrustUserTrait;
 
     /**
      * The database table used by the model.
@@ -34,7 +38,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function post()
     {
-        return $this->hasMany('MH\Post');
+        return $this->hasMany(\MH\Post::class);
     }
-
 }

@@ -3,7 +3,8 @@
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;
 
-class Inspire extends Command {
+class Inspire extends Command
+{
 
     /**
      * The console command name.
@@ -28,5 +29,4 @@ class Inspire extends Command {
     {
         $this->comment(PHP_EOL . Inspiring::quote() . PHP_EOL);
     }
-
 }

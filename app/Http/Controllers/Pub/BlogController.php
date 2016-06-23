@@ -3,14 +3,14 @@
 
 namespace MH\Http\Controllers\Pub;
 
-
 use MH\Http\Controllers\Controller;
 use MH\Repositories\PostRepositoryInterface;
 
 use Meta;
 use Breadcrumbs;
 
-class BlogController extends Controller {
+class BlogController extends Controller
+{
 
     public function __construct(PostRepositoryInterface $post)
     {
