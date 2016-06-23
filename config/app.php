@@ -2,6 +2,9 @@
 
 return [
 
+    'env' => env('APP_ENV', 'production'),
+
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
@@ -113,13 +116,11 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
-        Illuminate\Foundation\Providers\ArtisanServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Cache\CacheServiceProvider::class,
         Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
-        Illuminate\Routing\ControllerServiceProvider::class,
         Illuminate\Cookie\CookieServiceProvider::class,
         Illuminate\Database\DatabaseServiceProvider::class,
         Illuminate\Encryption\EncryptionServiceProvider::class,
@@ -148,13 +149,13 @@ return [
         MH\Providers\MenuServiceProvider::class,
         MH\Providers\FileServiceProvider::class,
 
-        'Intervention\Image\ImageServiceProvider',
+        Intervention\Image\ImageServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
-        'DaveJamesMiller\Breadcrumbs\ServiceProvider',
+        DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
         Caffeinated\Menus\MenusServiceProvider::class,
-        'Roumen\Sitemap\SitemapServiceProvider',
-        'Former\FormerServiceProvider',
-        'Zizaco\Entrust\EntrustServiceProvider',
+        Roumen\Sitemap\SitemapServiceProvider::class,
+        Former\FormerServiceProvider::class,
+        Zizaco\Entrust\EntrustServiceProvider::class,
         'GrahamCampbell\Markdown\MarkdownServiceProvider',
     ],
 
@@ -175,7 +176,6 @@ return [
         'Artisan'     => Illuminate\Support\Facades\Artisan::class,
         'Auth'        => Illuminate\Support\Facades\Auth::class,
         'Blade'       => Illuminate\Support\Facades\Blade::class,
-        'Bus'         => Illuminate\Support\Facades\Bus::class,
         'Cache'       => Illuminate\Support\Facades\Cache::class,
         'Config'      => Illuminate\Support\Facades\Config::class,
         'Cookie'      => Illuminate\Support\Facades\Cookie::class,
@@ -186,7 +186,6 @@ return [
         'File'        => Illuminate\Support\Facades\File::class,
         'Gate'        => Illuminate\Support\Facades\Gate::class,
         'Hash'        => Illuminate\Support\Facades\Hash::class,
-        'Input'       => Illuminate\Support\Facades\Input::class,
         'Inspiring'   => Illuminate\Foundation\Inspiring::class,
         'Lang'        => Illuminate\Support\Facades\Lang::class,
         'Log'         => Illuminate\Support\Facades\Log::class,
@@ -205,11 +204,11 @@ return [
         'Validator'   => Illuminate\Support\Facades\Validator::class,
         'View'        => Illuminate\Support\Facades\View::class,
 
-        'Image'       => 'Intervention\Image\Facades\Image',
-        'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
         'Menu' => Caffeinated\Menus\Facades\Menu::class,
-        'Former'      => 'Former\Facades\Former',
-        'Entrust'     => 'Zizaco\Entrust\EntrustFacade',
+        'Former'      => Former\Facades\Former::class,
+        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Markdown' => 'GrahamCampbell\Markdown\Facades\Markdown',
 
     ],
