@@ -1,5 +1,4 @@
 <?php
-        Illuminate\Broadcasting\BroadcastServiceProvider::class,
 
 return [
 
@@ -116,6 +115,7 @@ return [
          */
         Illuminate\Foundation\Providers\ArtisanServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
+        Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Cache\CacheServiceProvider::class,
         Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
@@ -141,7 +141,7 @@ return [
          * Application Service Providers...
          */
         MH\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
+        MH\Providers\AuthServiceProvider::class,
         MH\Providers\EventServiceProvider::class,
         MH\Providers\RouteServiceProvider::class,
         MH\Providers\PostServiceProvider::class,
@@ -149,9 +149,9 @@ return [
         MH\Providers\FileServiceProvider::class,
 
         'Intervention\Image\ImageServiceProvider',
-        'Cviebrock\EloquentSluggable\SluggableServiceProvider',
+        Cviebrock\EloquentSluggable\ServiceProvider::class,
         'DaveJamesMiller\Breadcrumbs\ServiceProvider',
-        'Caffeinated\Menus\MenusServiceProvider',
+        Caffeinated\Menus\MenusServiceProvider::class,
         'Roumen\Sitemap\SitemapServiceProvider',
         'Former\FormerServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
@@ -207,7 +207,7 @@ return [
 
         'Image'       => 'Intervention\Image\Facades\Image',
         'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
-        'Menu'        => 'Caffeinated\Menus\Facades\Menu',
+        'Menu' => Caffeinated\Menus\Facades\Menu::class,
         'Former'      => 'Former\Facades\Former',
         'Entrust'     => 'Zizaco\Entrust\EntrustFacade',
         'Markdown' => 'GrahamCampbell\Markdown\Facades\Markdown',

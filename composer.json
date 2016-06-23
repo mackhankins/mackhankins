@@ -13,7 +13,7 @@
         "intervention/imagecache": "~2.2",
         "cviebrock/eloquent-sluggable": ">=3.0.0-alpha",
         "davejamesmiller/laravel-breadcrumbs": "~3.0",
-        "caffeinated/menus": "~1.0@dev",
+        "caffeinated/menus": "~2.0",
         "roumen/sitemap": "~2.5",
         "anahkiasen/former": "~4.0@dev",
         "zizaco/entrust": "dev-laravel-5",
@@ -39,6 +39,12 @@
         ]
     },
     "scripts": {
+        "post-root-package-install": [
+            "php -r \"copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "php artisan key:generate"
+        ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan optimize"
@@ -46,10 +52,6 @@
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize"
-        ],
-        "post-create-project-cmd": [
-            "php -r \"copy('.env.example', '.env');\"",
-            "php artisan key:generate"
         ]
     },
     "config": {
