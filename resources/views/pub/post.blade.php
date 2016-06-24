@@ -27,6 +27,12 @@
                     &nbsp;
                     <i class="icon-bubbles"></i>
                     <a href="{!! action('Pub\BlogController@single', $post->slug) !!}#disqus_thread"></a>
+                    @role('admin')
+                    &nbsp;
+                    <a href="{{ action('Admin\IndexController@edit', $post->id) }}">
+                        <i class="fa fa-pencil"></i> Edit
+                    </a>
+                    @endrole
                 </div>
                 <div class="portlet-body bordered">
                     @include('partials.pub._post_content')
