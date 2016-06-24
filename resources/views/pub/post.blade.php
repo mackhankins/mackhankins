@@ -1,9 +1,5 @@
 @extends('layouts.pub.master')
 
-@section('styles')
-    <link rel="stylesheet" href="{!! URL::asset('css/github.css') !!}">
-@endsection
-
 @section('page-header')
     @include('partials.pub._page-header')
 @endsection
@@ -37,7 +33,9 @@
                 <div class="portlet-body bordered">
                     @include('partials.pub._post_content')
                 </div>
+                @if(env('production'))
                 <div id="disqus_thread"></div>
+                    @endif
             </div>
         </div>
     </div>
@@ -45,12 +43,7 @@
 
 @section('scripts')
     <script>
-        jQuery(document).ready(function () {
-            jQuery('pre').each(function (i, block) {
-                hljs.highlightBlock(block);
-            });
-        });
-        @if($post->status == 'published')
+        @if($post->status == 'published' AND env('production'))
         /* * * CONFIGURATION VARIABLES * * */
         var disqus_shortname = '{!! env("DISQUS_NAME") !!}';
 
