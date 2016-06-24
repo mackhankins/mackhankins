@@ -41,6 +41,7 @@
 
                     <div class="top10">
                         {!! Former::file('featured')->label('')->accept('image') !!}
+                        {!! Former::text('imgsrc')->label('Image Source Url')->value($post->imgsrc) !!}
                     </div>
                 </div>
             </div>

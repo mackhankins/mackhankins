@@ -23,7 +23,7 @@ class RolesTableSeeder extends Seeder {
         $modRole->name = 'moderator';
         $modRole->save();
 
-        $user = User::where('email', '=', $_ENV['ADMIN_EMAIL'])->first();
+        $user = User::where('email', '=', env('ADMIN_EMAIL'))->first();
         $user->attachRole($adminRole);
     }
 

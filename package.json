@@ -14,7 +14,7 @@
     "font-awesome": "^4.6.3",
     "google-code-prettify": "^1.0.1",
     "highlightjs": "^8.7.0",
-    "jquery": "^3.0.0",
+    "jquery": "^1.9.1",
     "simple-line-icons": "^2.3.2"
   }
 }
