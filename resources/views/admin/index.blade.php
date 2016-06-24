@@ -27,7 +27,7 @@
                         <tbody>
                         @foreach($posts as $post)
                             <tr>
-                                <td>{{ $post->title }}</td>
+                                <td><a href="{{ action('Pub\BlogController@single', $post->slug) }}">{{ $post->title }}</a></td>
                                 <td>{{ $post->status }}</td>
                                 <td>
                                     {!!
