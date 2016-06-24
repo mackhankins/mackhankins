@@ -14,7 +14,7 @@
         @foreach($posts as $post)
             <div class="col-md-4 top17">
                 <img src="{!! URL::to('images/medium/'.$post->featuredimage) !!}" alt="{{$post->title}}"
-                     class="post-image bordered">
+                     class="post-image full bordered">
 
                 <div class=" portlet light bordered">
                     <div class="portlet-title front">
