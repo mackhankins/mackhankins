@@ -8,11 +8,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="portlet light bordered top">
-                    <div class="actions pull-right">
-                        <a href="{{ action('Admin\IndexController@create') }}" class="btn btn-circle btn-default">
-                            <i class="fa fa-plus"></i> Create </a>
+                <div class="portlet-title">
+                    <div class="caption">
+                        Blog Posts
                     </div>
-                    <div class="clearfix"></div>
+                </div>
                 <div class="portlet-body">
                     <table width="100%" class="table table-striped table-bordered">
                         <thead>

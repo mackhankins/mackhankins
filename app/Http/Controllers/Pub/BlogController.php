@@ -34,7 +34,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $posts = $this->post->paginatePosts(10);
+        $posts = $this->post->paginatePosts(5);
         $meta = ['title' => 'Blog'];
         $breadcrumbs = Breadcrumbs::render('blog');
 

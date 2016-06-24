@@ -12,13 +12,8 @@
     <div class="row">
         <div class="col-md-12 top17">
             @if(!empty($post->featuredimage))
-                    <div class="image-credit-wrapper">
-                        @if(!empty($post->imgsrc))
-                            <span class="image-credit">{{ $post->imgsrc }}</span>
-                        @endif
-                        <img src="{{ URL::to('images/large/'.$post->featuredimage) }}" alt="{{$post->title}}"
-                             class="post-image">
-                    </div>
+                <img src="{{ URL::to('images/large/'.$post->featuredimage) }}"
+                     alt="{{$post->title}}" class="post-image">
             @endif
             <div class="portlet light bordered">
                 <div class="subtext">

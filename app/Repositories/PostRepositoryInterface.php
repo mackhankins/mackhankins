@@ -33,6 +33,12 @@ interface PostRepositoryInterface
      * @param $int
      * @return mixed
      */
+    public function paginateLinks($int);
+
+    /**
+     * @param $int
+     * @return mixed
+     */
     public function findById($int);
 
     /**

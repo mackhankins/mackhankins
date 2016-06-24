@@ -48,7 +48,6 @@ class FileRepository implements FileRepositoryInterface
      */
     public function buildImageJson($path, $file)
     {
-        $imag = array();
         $files = preg_grep('/index\.html$/', glob($path . '*'), PREG_GREP_INVERT);
         foreach ($files as $filename) {
             $img['thumb'] = url('images/small/' . basename($filename));
@@ -70,10 +69,6 @@ class FileRepository implements FileRepositoryInterface
      */
     public function uploadImage($file)
     {
-        if(!is_dir(storage_path(env('UPLOAD_PATH'))))
-        {
-            mkdir(storage_path(env('UPLOAD_PATH')));
-        }
         $filename = $this->uniqueFileNames(
             storage_path(env('UPLOAD_PATH')),
             $file->getClientOriginalName(),

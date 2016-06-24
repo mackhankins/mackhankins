@@ -32,7 +32,7 @@ elixir(function (mix) {
             paths.redactor + 'table.js',
         ], 'public/js/redactor.js', './')
         .scripts([
-            paths.jquery + "jquery.js",
+            paths.jquery + "dist/jquery.js",
             paths.bootstrap + "javascripts/bootstrap.js",
             paths.highlightjs + 'highlight.pack.js',
             './resources/javascripts/**/*.js',

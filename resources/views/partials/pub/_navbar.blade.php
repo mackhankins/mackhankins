@@ -14,19 +14,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="main-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ route('/') }}">Home</a></li>
-                <li><a href="{{ route('blog') }}">Blog</a></li>
-                @role('admin')
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <span class="caret"></span> Admin
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        <li><a href="{{ url('/logout') }}">logout</a></li>
-                    </ul>
-                </li>
-                @endrole
+                @include('partials.pub._navbar_items', ['items'=> $menu_public->roots()])
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->

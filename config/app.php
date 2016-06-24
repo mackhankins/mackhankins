@@ -146,11 +146,13 @@ return [
         MH\Providers\EventServiceProvider::class,
         MH\Providers\RouteServiceProvider::class,
         MH\Providers\PostServiceProvider::class,
+        MH\Providers\MenuServiceProvider::class,
         MH\Providers\FileServiceProvider::class,
 
         Intervention\Image\ImageServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
+        Caffeinated\Menus\MenusServiceProvider::class,
         Roumen\Sitemap\SitemapServiceProvider::class,
         Former\FormerServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
@@ -204,6 +206,7 @@ return [
 
         'Image' => Intervention\Image\Facades\Image::class,
         'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
+        'Menu' => Caffeinated\Menus\Facades\Menu::class,
         'Former'      => Former\Facades\Former::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Markdown' => 'GrahamCampbell\Markdown\Facades\Markdown',
