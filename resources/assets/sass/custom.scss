@@ -1,0 +1,36 @@
+.image-credit-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+
+.image-credit-wrapper .image-credit {
+  position: absolute;
+  right: 1px;
+  bottom: 0px;
+}
+
+.image-credit {
+  background: rgba(0,0,0,0.7);
+  color: #ccc;
+  display: inline-block;
+  font-size: 11px;
+  font-family: helvetica;
+  font-weight: 300;
+  padding: 5px 8px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.portlet-body {
+  > p {
+    font-size: 1.2em;
+  }
+  > pre {
+    font-size: 12px;
+  }
+}

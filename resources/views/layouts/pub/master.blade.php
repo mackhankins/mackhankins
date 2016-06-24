@@ -11,7 +11,7 @@
     @include('partials.pub._meta')
 
     <link rel="icon" href="{{ URL::asset('favicon.png') }}"/>
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ elixir('css/app.css') }}">
     @yield('styles')
 </head>

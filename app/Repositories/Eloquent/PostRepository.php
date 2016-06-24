@@ -49,7 +49,7 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
      */
     public function paginate($number)
     {
-        return $this->model->where('type', '=', 'post')->orderBy('created_at', 'desc')->paginate(intval($number));
+        return $this->model->orderBy('created_at', 'desc')->paginate(intval($number));
     }
 
     /**
@@ -58,16 +58,7 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
      */
     public function paginatePosts($number)
     {
-        return $this->model->where('type', '=', 'post')->where('status', '=', 'published')->orderBy('created_at', 'desc')->paginate(intval($number));
-    }
-
-    /**
-     * @param $number
-     * @return mixed
-     */
-    public function paginateLinks($number)
-    {
-        return $this->model->where('type', '=', 'link')->where('status', '=', 'published')->orderBy('created_at', 'desc')->paginate(intval($number));
+        return $this->model->where('status', '=', 'published')->orderBy('created_at', 'desc')->paginate(intval($number));
     }
 
     /**
@@ -111,8 +102,8 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
         $post->title = $data['title'];
         $post->excerpt = strip_tags($data['excerpt']);
         $post->pcontent = $data['content'];
-        $post->type = 'post';
         $post->user_id = $data['user_id'];
+        $post->imgsrc = $data['imgsrc'];
         $post->status = $data['status'];
         if ($data['featured']->isValid()) {
             $filename = $this->file->uploadImage($data['featured']);
@@ -133,7 +124,7 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
         $post->slug = $data['slug'];
         $post->excerpt = strip_tags($data['excerpt']);
         $post->pcontent = $data['content'];
-        $post->type = 'post';
+        $post->imgsrc = $data['imgsrc'];
         $post->status = $data['status'];
         if (!empty($data['featured']) and $data['featured']->isValid()) {
             $filename = $this->file->uploadImage($data['featured']);

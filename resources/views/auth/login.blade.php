@@ -12,7 +12,7 @@
                         </div>
                     </div>
                     <div class="portlet-body">
-                        {!! Former::verticalopen('/auth/login') !!}
+                        {!! Former::verticalopen('/login') !!}
                         {!! Former::text('email')->placeholder('Email Address') !!}
                         {!! Former::password('password')->placeholder('Password') !!}
                         {!! Former::submit('login') !!}

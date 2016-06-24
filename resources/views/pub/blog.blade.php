@@ -29,11 +29,6 @@
                     <div class="portlet-body">
                         {{ $post->excerpt }}
                     </div>
-                    <div class="text-left-lg top10">
-                        <a href="{!! action('Pub\BlogController@single', $post->slug) !!}">
-                            <button>Read More</button>
-                        </a>
-                    </div>
                 </div>
             @endforeach
         </div>
