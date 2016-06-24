@@ -14,7 +14,7 @@
                     Twitter
                 </a>
                 &nbsp;|&nbsp;
-                <a href="https://telegram.me/mackhankins" target="_blank">
+                <a href="https://telegram.me/mhankins" target="_blank">
                     <i class="fa fa-paper-plane"></i>
                     Telegram
                 </a>
