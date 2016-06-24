@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1d8110759d13af2a217257b6578aa244",
-    "content-hash": "2382679afb09fd36647b9a786f1bf54d",
+    "hash": "0acd16369bfe185d432e217f92bfbbc6",
+    "content-hash": "9c1aeac163abc6678d0274add4be533c",
     "packages": [
         {
             "name": "anahkiasen/former",
@@ -2842,6 +2842,61 @@
                 "environment"
             ],
             "time": "2016-06-14 14:14:52"
+        },
+        {
+            "name": "webuni/commonmark-attributes-extension",
+            "version": "0.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webuni/commonmark-attributes-extension.git",
+                "reference": "c4ca74cf86889b3e64305684234c33b6cb6733f6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webuni/commonmark-attributes-extension/zipball/c4ca74cf86889b3e64305684234c33b6cb6733f6",
+                "reference": "c4ca74cf86889b3e64305684234c33b6cb6733f6",
+                "shasum": ""
+            },
+            "require": {
+                "league/commonmark": "^0.11|^0.12|^0.13",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "^1.9",
+                "phpunit/phpunit": "^4.3",
+                "symfony/var-dumper": "^2.7",
+                "webuni/commonmark-table-extension": "0.4.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Webuni\\CommonMark\\AttributesExtension\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Martin Hasoň",
+                    "email": "martin.hason@gmail.com",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "The attributes extension adds a syntax to define attributes on the various HTML elements in CommonMark PHP implementation.",
+            "homepage": "https://github.com/webuni/commonmark-attributes-extension",
+            "keywords": [
+                "attributes",
+                "commonmark",
+                "markdown"
+            ],
+            "time": "2016-01-14 23:00:32"
         },
         {
             "name": "zizaco/entrust",

@@ -18,7 +18,8 @@
     "anahkiasen/former": "^4.0",
     "zizaco/entrust": "dev-laravel-5",
     "graham-campbell/markdown": "^6.0",
-    "doctrine/dbal": "^2.5"
+    "doctrine/dbal": "^2.5",
+    "webuni/commonmark-attributes-extension": "^0.3.2"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0",

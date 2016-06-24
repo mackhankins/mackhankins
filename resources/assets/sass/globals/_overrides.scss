@@ -31,7 +31,9 @@ a {
 }
 
 .blog-image {
-  order: 1px solid lighten($primary-color, 40%) !important;
+  border-right: 1px solid lighten($primary-color, 40%) !important;
+  border-top: 1px solid lighten($primary-color, 40%) !important;
+  border-left: 1px solid lighten($primary-color, 40%) !important;
   margin: 10px 0px;
 
   &.full {
