@@ -13,11 +13,7 @@
     "bootstrap-sass": "^3.3.6",
     "font-awesome": "^4.6.3",
     "google-code-prettify": "^1.0.1",
-    "highlightjs": "^8.7.0",
     "jquery": "^1.9.1",
-    "prismjs": "^1.5.1",
-    "simple-line-icons": "^2.3.2",
-    "underscore": "^1.8.3",
-    "underscore-deep-extend": "^1.1.5"
+    "simple-line-icons": "^2.3.2"
   }
 }

@@ -31,7 +31,7 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $posts = $this->post->limit(9)->where('status', '=', 'published')->get();
+        $posts = $this->post->limit(12)->where('status', '=', 'published')->get();
 
         return view('pub.index')->with(compact('posts'));
     }

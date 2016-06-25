@@ -32,6 +32,7 @@
                 </div>
                 <div class="portlet-body bordered">
                     @include('partials.pub._post_content')
+                    @include('partials.pub._share')
                 </div>
                 <div id="disqus_thread"></div>
             </div>
@@ -60,4 +61,5 @@
         @endif
         @include('partials.pub._analytics')
     </script>
+    <script type='text/javascript' data-cfasync='false' src='//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js' data-shr-siteid='02363f32bcce7b931759440bc26fc537' async='async'></script>
 @endsection
