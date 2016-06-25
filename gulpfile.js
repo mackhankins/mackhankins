@@ -1,6 +1,4 @@
 var elixir = require('laravel-elixir');
-
-//require('./elixir-prism');
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -18,8 +16,7 @@ var paths = {
     'fontawesome': './node_modules/font-awesome/',
     'simplelineicons': './node_modules/simple-line-icons/',
     'highlightjs': './node_modules/highlightjs/',
-    'prismjs': './node_modules/prismjs/',
-    'redactor': './resources/assets/redactor/'
+    'redactor': './resources/assets/redactor/',
 }
 
 elixir(function (mix) {
@@ -45,7 +42,6 @@ elixir(function (mix) {
         .copy(paths.bootstrap + 'fonts/bootstrap/**', 'public/fonts/bootstrap')
         .copy(paths.fontawesome + 'fonts/**', 'public/fonts/fontawesome')
         .copy(paths.simplelineicons + 'fonts/**', 'public/fonts/simple-line-icons')
-        .copy(paths.highlightjs + 'styles/github.css', 'public/css/github.css')
         .copy(paths.redactor + 'redactor.css', 'public/css/redactor.css')
         .copy(paths.redactor + 'redactor-font.eot', 'public/fonts/redactor')
         .version([

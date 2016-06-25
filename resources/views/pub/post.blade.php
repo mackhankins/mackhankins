@@ -33,9 +33,7 @@
                 <div class="portlet-body bordered">
                     @include('partials.pub._post_content')
                 </div>
-                @if(env('production'))
                 <div id="disqus_thread"></div>
-                    @endif
             </div>
         </div>
     </div>
@@ -43,7 +41,7 @@
 
 @section('scripts')
     <script>
-        @if($post->status == 'published' AND env('production'))
+        @if($post->status == 'published')
         /* * * CONFIGURATION VARIABLES * * */
         var disqus_shortname = '{!! env("DISQUS_NAME") !!}';
 
