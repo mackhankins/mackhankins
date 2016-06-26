@@ -16,6 +16,7 @@ var paths = {
     'fontawesome': './node_modules/font-awesome/',
     'simplelineicons': './node_modules/simple-line-icons/',
     'highlightjs': './node_modules/highlightjs/',
+    'breakpoint': './node_modules/breakpoint-sass/',
     'redactor': './resources/assets/redactor/',
 }
 
@@ -24,6 +25,7 @@ elixir(function (mix) {
         paths.bootstrap + 'stylesheets',
         paths.fontawesome + 'scss',
         paths.simplelineicons + 'scss',
+        paths.breakpoint + 'stylesheets',
     ]})
         .styles([
             './public/css/app.css',

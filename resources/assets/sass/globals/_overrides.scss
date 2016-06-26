@@ -48,6 +48,13 @@ a {
   }
 }
 
+.rounded-top {
+  border-top-right-radius: 0.5em;
+  border-top-left-radius: 0.5em;
+}
+
+
+
 /* margin tops for offsets */
 .top5 {
   margin-top: 5px;

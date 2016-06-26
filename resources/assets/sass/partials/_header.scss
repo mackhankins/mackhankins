@@ -1,9 +1,38 @@
+.nav {
+
+  & img {
+    width: 32px;
+    height: 32px;
+    @media screen and (max-height: 736px) {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  & span {
+    line-height: 33px;
+    @media screen and (max-height: 736px) {
+      line-height: 29px;
+    }
+  }
+
+
+  & .navbar-right a {
+    line-height: 33px;
+    @media screen and (min-width: 768px) {
+      line-height: 29px;
+      padding-top: 15px;
+    }
+  }
+
+}
+
 .navbar {
   background-color: white;
   border-bottom-color: $primary-color;
   font-family: $font-family-primary;
 
-  .active a{
+  .active a {
     background-color: $body-bg !important;
   }
 
@@ -14,20 +43,31 @@
   font-weight: 400;
   font-family: inherit;
   font-size: 20px;
+
+  @media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (orientation : portrait) {
+    padding-top: 2px !important;
+  }
+
   &:hover,
   &:focus {
     color: $primary-color !important;
+  }
+
+  > .rounded-logo {
+    border-radius: 55%;
+    margin-right: 10px;
+    border: 1px solid $primary-color;
   }
 }
 
 .page-header {
   background-color: $primary-color;
 
-    h1 {
-      color: white !important;
-      padding-top: 20px;
-      font-family: $font-family-primary !important;
-      font-weight: inherit;
-      font-size: 24px;
-    }
+  h1 {
+    color: white !important;
+    padding-top: 20px;
+    font-family: $font-family-primary !important;
+    font-weight: inherit;
+    font-size: 24px;
+  }
 }

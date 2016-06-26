@@ -13,7 +13,7 @@
                             <span class="image-credit">{{ $post->imgsrc }}</span>
                         @endif
                         <img src="{{ URL::to('images/large/'.$post->featuredimage) }}" alt="{{$post->title}}"
-                             class="post-image">
+                             class="post-image rounded-top">
                     </div>
             @endif
             <div class="portlet light bordered">

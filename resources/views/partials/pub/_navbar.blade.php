@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="nav navbar navbar-default navbar-fixed-top">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{!! route('/') !!}">Mack Hankins</a>
+            <a class="navbar-brand" href="{!! route('/') !!}"><img class="rounded-logo pull-left" src="https://secure.gravatar.com/avatar/49ed7404a83bac76d656eecfa908db82?s=32" /> <span>Mack Hankins</span></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
