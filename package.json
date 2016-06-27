@@ -12,6 +12,7 @@
   "dependencies": {
     "bootstrap-sass": "^3.3.6",
     "breakpoint-sass": "^2.7.0",
+    "clipboard": "^1.5.12",
     "font-awesome": "^4.6.3",
     "google-code-prettify": "^1.0.1",
     "jquery": "^1.9.1",

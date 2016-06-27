@@ -1,9 +1,6 @@
-/* http://prismjs.com/download.html?themes=prism-coy&languages=markup+css+clike+javascript+apacheconf+bash+c+coffeescript+ruby+css-extras+git+go+http+json+less+markdown+nginx+perl+php+php-extras+puppet+python+jsx+rest+sass+scss+smarty+sql+swift+twig+vim+yaml&plugins=line-numbers+autoloader */
-/**
- * prism.js Coy theme for JavaScript, CoffeeScript, CSS and HTML
- * Based on https://github.com/tshedor/workshop-wp-theme (Example: http://workshop.kansan.com/category/sessions/basics or http://workshop.timshedor.com/category/sessions/basics);
- * @author Tim  Shedor
- */
+/****
+PrismJS Gist Theme
+*****/
 
 code[class*="language-"],
 pre[class*="language-"] {

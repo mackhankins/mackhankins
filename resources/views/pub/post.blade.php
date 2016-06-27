@@ -44,6 +44,20 @@
 
 @section('scripts')
     <script>
+        $( document ).ready(function () {
+            $('pre').addClass('line-numbers');
+            $('pre').append('<div class="meta"><span class="pull-left">❤ PrismJS Gist</span><span class="pull-right"><a href="javascript:;" id="clippy" title="copy to clipboard"><i class="fa fa-clipboard"></i></a></span></div>');
+        });
+
+        new Clipboard("#clippy", {
+            text: function(trigger) {
+                var code = $(trigger).closest('pre').find('code').text();
+                return code;
+            }
+        });
+    </script>
+
+    <script>
         @if($post->status == 'published')
         /* * * CONFIGURATION VARIABLES * * */
         var disqus_shortname = '{!! env("DISQUS_NAME") !!}';

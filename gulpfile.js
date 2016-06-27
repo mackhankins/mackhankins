@@ -17,6 +17,7 @@ var paths = {
     'simplelineicons': './node_modules/simple-line-icons/',
     'highlightjs': './node_modules/highlightjs/',
     'breakpoint': './node_modules/breakpoint-sass/',
+    'clipboard': './node_modules/clipboard/dist/',
     'redactor': './resources/assets/redactor/',
 }
 
@@ -39,6 +40,7 @@ elixir(function (mix) {
         .scripts([
             paths.jquery + "jquery.js",
             paths.bootstrap + "javascripts/bootstrap.js",
+            paths.clipboard + "clipboard.js",
             './resources/assets/prism/prism.js',
         ], 'public/js/app.js', './')
         .copy(paths.bootstrap + 'fonts/bootstrap/**', 'public/fonts/bootstrap')

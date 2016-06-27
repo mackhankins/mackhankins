@@ -8,18 +8,23 @@
 h1 {
   font-size: $font-size-h1;
 }
+
 h2 {
   font-size: $font-size-h2;
 }
+
 h3 {
   font-size: $font-size-h3;
 }
+
 h4 {
   font-size: $font-size-h4;
 }
+
 h5 {
   font-size: $font-size-h5;
 }
+
 h6 {
   font-size: $font-size-h6;
 }
@@ -119,4 +124,34 @@ blockquote {
 /*change active color*/
 .breadcrumb > .active {
   color: lighten($primary-color, 40%);
+}
+
+.meta {
+  display: block;
+  position: relative;
+  padding: 10px;
+  overflow: hidden;
+  font: 12px Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  color: #767676;
+  background-color: #f7f7f7;
+  border-top: 1px solid #dddddd;
+  border-radius: 0 0 2px 2px;
+  width: 100%;
+  margin: 0 auto !important;
+
+  > span {
+    color: black;
+
+    .fa-heart {
+      color: rgba(227, 36, 4, 0.8);
+      text-shadow: 1px 4px 6px #fff, 0 0 0 #000, 1px 4px 6px transparent;
+    }
+
+  }
+
+  > #clippy a, a:link, a:visited, a:hover, a:active {
+    color: black !important;
+  }
+
+
 }
