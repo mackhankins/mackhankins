@@ -3,7 +3,7 @@
   & img {
     width: 32px;
     height: 32px;
-    @media screen and (max-height: 736px) {
+    @media screen and (max-width: 800px) {
       width: 24px;
       height: 24px;
     }
@@ -11,8 +11,8 @@
 
   & span {
     line-height: 33px;
-    @media screen and (max-height: 736px) {
-      line-height: 29px;
+    @media screen and (max-width: 736px) {
+      padding-top: 0px !important;
     }
   }
 
@@ -44,10 +44,6 @@
   font-family: inherit;
   font-size: 20px;
 
-  @media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (orientation : portrait) {
-    padding-top: 2px !important;
-  }
-
   &:hover,
   &:focus {
     color: $primary-color !important;
@@ -62,6 +58,7 @@
 
 .page-header {
   background-color: $primary-color;
+  padding-bottom: 0px !important;
 
   h1 {
     color: white !important;
@@ -69,5 +66,10 @@
     font-family: $font-family-primary !important;
     font-weight: inherit;
     font-size: 24px;
+
+    @media screen and (max-width: 600px) and (orientation: portrait){
+      padding-top: 0px;
+    }
+
   }
 }

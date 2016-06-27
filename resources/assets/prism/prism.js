@@ -1,4 +1,4 @@
-/* http://prismjs.com/download.html?themes=prism&languages=markup+css+clike+javascript+apacheconf+bash+ruby+css-extras+git+http+json+less+markdown+nginx+php+php-extras+puppet+python+jsx+rest+sass+scss+smarty+sql+vim+yaml */
+/* http://prismjs.com/download.html?themes=prism-coy&languages=markup+css+clike+javascript+apacheconf+bash+c+coffeescript+ruby+css-extras+git+go+http+json+less+markdown+nginx+perl+php+php-extras+puppet+python+jsx+rest+sass+scss+smarty+sql+swift+twig+vim+yaml&plugins=line-numbers+autoloader */
 var _self = (typeof window !== 'undefined')
 	? window   // if in browser
 	: (
@@ -807,6 +807,131 @@ Prism.languages.apacheconf = {
 	inside.punctuation = Prism.languages.bash.punctuation;
 })(Prism);
 
+Prism.languages.c = Prism.languages.extend('clike', {
+	'keyword': /\b(asm|typeof|inline|auto|break|case|char|const|continue|default|do|double|else|enum|extern|float|for|goto|if|int|long|register|return|short|signed|sizeof|static|struct|switch|typedef|union|unsigned|void|volatile|while)\b/,
+	'operator': /\-[>-]?|\+\+?|!=?|<<?=?|>>?=?|==?|&&?|\|?\||[~^%?*\/]/,
+	'number': /\b-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)[ful]*\b/i
+});
+
+Prism.languages.insertBefore('c', 'string', {
+	'macro': {
+		// allow for multiline macro definitions
+		// spaces after the # character compile fine with gcc
+		pattern: /(^\s*)#\s*[a-z]+([^\r\n\\]|\\.|\\(?:\r\n?|\n))*/im,
+		lookbehind: true,
+		alias: 'property',
+		inside: {
+			// highlight the path of the include statement as a string
+			'string': {
+				pattern: /(#\s*include\s*)(<.+?>|("|')(\\?.)+?\3)/,
+				lookbehind: true
+			},
+			// highlight macro directives as keywords
+			'directive': {
+				pattern: /(#\s*)\b(define|elif|else|endif|error|ifdef|ifndef|if|import|include|line|pragma|undef|using)\b/,
+				lookbehind: true,
+				alias: 'keyword'
+			}
+		}
+	},
+	// highlight predefined macros as constants
+	'constant': /\b(__FILE__|__LINE__|__DATE__|__TIME__|__TIMESTAMP__|__func__|EOF|NULL|stdin|stdout|stderr)\b/
+});
+
+delete Prism.languages.c['class-name'];
+delete Prism.languages.c['boolean'];
+
+(function(Prism) {
+
+// Ignore comments starting with { to privilege string interpolation highlighting
+var comment = /#(?!\{).+/,
+    interpolation = {
+    	pattern: /#\{[^}]+\}/,
+    	alias: 'variable'
+    };
+
+Prism.languages.coffeescript = Prism.languages.extend('javascript', {
+	'comment': comment,
+	'string': [
+
+		// Strings are multiline
+		{
+			pattern: /'(?:\\?[^\\])*?'/,
+			greedy: true,
+		},
+
+		{
+			// Strings are multiline
+			pattern: /"(?:\\?[^\\])*?"/,
+			greedy: true,
+			inside: {
+				'interpolation': interpolation
+			}
+		}
+	],
+	'keyword': /\b(and|break|by|catch|class|continue|debugger|delete|do|each|else|extend|extends|false|finally|for|if|in|instanceof|is|isnt|let|loop|namespace|new|no|not|null|of|off|on|or|own|return|super|switch|then|this|throw|true|try|typeof|undefined|unless|until|when|while|window|with|yes|yield)\b/,
+	'class-member': {
+		pattern: /@(?!\d)\w+/,
+		alias: 'variable'
+	}
+});
+
+Prism.languages.insertBefore('coffeescript', 'comment', {
+	'multiline-comment': {
+		pattern: /###[\s\S]+?###/,
+		alias: 'comment'
+	},
+
+	// Block regexp can contain comments and interpolation
+	'block-regex': {
+		pattern: /\/{3}[\s\S]*?\/{3}/,
+		alias: 'regex',
+		inside: {
+			'comment': comment,
+			'interpolation': interpolation
+		}
+	}
+});
+
+Prism.languages.insertBefore('coffeescript', 'string', {
+	'inline-javascript': {
+		pattern: /`(?:\\?[\s\S])*?`/,
+		inside: {
+			'delimiter': {
+				pattern: /^`|`$/,
+				alias: 'punctuation'
+			},
+			rest: Prism.languages.javascript
+		}
+	},
+
+	// Block strings
+	'multiline-string': [
+		{
+			pattern: /'''[\s\S]*?'''/,
+			greedy: true,
+			alias: 'string'
+		},
+		{
+			pattern: /"""[\s\S]*?"""/,
+			greedy: true,
+			alias: 'string',
+			inside: {
+				interpolation: interpolation
+			}
+		}
+	]
+
+});
+
+Prism.languages.insertBefore('coffeescript', 'keyword', {
+	// Object property
+	'property': /(?!\d)\w+(?=\s*:(?!:))/
+});
+
+delete Prism.languages.coffeescript['template-string'];
+
+}(Prism));
 /**
  * Original by Samuel Flores
  *
@@ -1000,6 +1125,16 @@ Prism.languages.git = {
 	 */
 	'commit_sha1': /^commit \w{40}$/m
 };
+
+Prism.languages.go = Prism.languages.extend('clike', {
+	'keyword': /\b(break|case|chan|const|continue|default|defer|else|fallthrough|for|func|go(to)?|if|import|interface|map|package|range|return|select|struct|switch|type|var)\b/,
+	'builtin': /\b(bool|byte|complex(64|128)|error|float(32|64)|rune|string|u?int(8|16|32|64|)|uintptr|append|cap|close|complex|copy|delete|imag|len|make|new|panic|print(ln)?|real|recover)\b/,
+	'boolean': /\b(_|iota|nil|true|false)\b/,
+	'operator': /[*\/%^!=]=?|\+[=+]?|-[=-]?|\|[=|]?|&(?:=|&|\^=?)?|>(?:>=?|=)?|<(?:<=?|=|-)?|:=|\.\.\./,
+	'number': /\b(-?(0x[a-f\d]+|(\d+\.?\d*|\.\d+)(e[-+]?\d+)?)i?)\b/i,
+	'string': /("|'|`)(\\?.|\r|\n)*?\1/
+});
+delete Prism.languages.go['class-name'];
 
 Prism.languages.http = {
 	'request-line': {
@@ -1256,6 +1391,147 @@ Prism.languages.nginx = Prism.languages.extend('clike', {
 Prism.languages.insertBefore('nginx', 'keyword', {
         'variable': /\$[a-z_]+/i
 });
+Prism.languages.perl = {
+	'comment': [
+		{
+			// POD
+			pattern: /(^\s*)=\w+[\s\S]*?=cut.*/m,
+			lookbehind: true
+		},
+		{
+			pattern: /(^|[^\\$])#.*/,
+			lookbehind: true
+		}
+	],
+	// TODO Could be nice to handle Heredoc too.
+	'string': [
+		// q/.../
+		/\b(?:q|qq|qx|qw)\s*([^a-zA-Z0-9\s\{\(\[<])(?:[^\\]|\\[\s\S])*?\1/,
+	
+		// q a...a
+		/\b(?:q|qq|qx|qw)\s+([a-zA-Z0-9])(?:[^\\]|\\[\s\S])*?\1/,
+	
+		// q(...)
+		/\b(?:q|qq|qx|qw)\s*\((?:[^()\\]|\\[\s\S])*\)/,
+	
+		// q{...}
+		/\b(?:q|qq|qx|qw)\s*\{(?:[^{}\\]|\\[\s\S])*\}/,
+	
+		// q[...]
+		/\b(?:q|qq|qx|qw)\s*\[(?:[^[\]\\]|\\[\s\S])*\]/,
+	
+		// q<...>
+		/\b(?:q|qq|qx|qw)\s*<(?:[^<>\\]|\\[\s\S])*>/,
+
+		// "...", `...`
+		/("|`)(?:[^\\]|\\[\s\S])*?\1/,
+
+		// '...'
+		// FIXME Multi-line single-quoted strings are not supported as they would break variables containing '
+		/'(?:[^'\\\r\n]|\\.)*'/
+	],
+	'regex': [
+		// m/.../
+		/\b(?:m|qr)\s*([^a-zA-Z0-9\s\{\(\[<])(?:[^\\]|\\[\s\S])*?\1[msixpodualngc]*/,
+	
+		// m a...a
+		/\b(?:m|qr)\s+([a-zA-Z0-9])(?:[^\\]|\\.)*?\1[msixpodualngc]*/,
+	
+		// m(...)
+		/\b(?:m|qr)\s*\((?:[^()\\]|\\[\s\S])*\)[msixpodualngc]*/,
+	
+		// m{...}
+		/\b(?:m|qr)\s*\{(?:[^{}\\]|\\[\s\S])*\}[msixpodualngc]*/,
+	
+		// m[...]
+		/\b(?:m|qr)\s*\[(?:[^[\]\\]|\\[\s\S])*\][msixpodualngc]*/,
+	
+		// m<...>
+		/\b(?:m|qr)\s*<(?:[^<>\\]|\\[\s\S])*>[msixpodualngc]*/,
+
+		// The lookbehinds prevent -s from breaking
+		// FIXME We don't handle change of separator like s(...)[...]
+		// s/.../.../
+		{
+			pattern: /(^|[^-]\b)(?:s|tr|y)\s*([^a-zA-Z0-9\s\{\(\[<])(?:[^\\]|\\[\s\S])*?\2(?:[^\\]|\\[\s\S])*?\2[msixpodualngcer]*/,
+			lookbehind: true
+		},
+	
+		// s a...a...a
+		{
+			pattern: /(^|[^-]\b)(?:s|tr|y)\s+([a-zA-Z0-9])(?:[^\\]|\\[\s\S])*?\2(?:[^\\]|\\[\s\S])*?\2[msixpodualngcer]*/,
+			lookbehind: true
+		},
+	
+		// s(...)(...)
+		{
+			pattern: /(^|[^-]\b)(?:s|tr|y)\s*\((?:[^()\\]|\\[\s\S])*\)\s*\((?:[^()\\]|\\[\s\S])*\)[msixpodualngcer]*/,
+			lookbehind: true
+		},
+	
+		// s{...}{...}
+		{
+			pattern: /(^|[^-]\b)(?:s|tr|y)\s*\{(?:[^{}\\]|\\[\s\S])*\}\s*\{(?:[^{}\\]|\\[\s\S])*\}[msixpodualngcer]*/,
+			lookbehind: true
+		},
+	
+		// s[...][...]
+		{
+			pattern: /(^|[^-]\b)(?:s|tr|y)\s*\[(?:[^[\]\\]|\\[\s\S])*\]\s*\[(?:[^[\]\\]|\\[\s\S])*\][msixpodualngcer]*/,
+			lookbehind: true
+		},
+	
+		// s<...><...>
+		{
+			pattern: /(^|[^-]\b)(?:s|tr|y)\s*<(?:[^<>\\]|\\[\s\S])*>\s*<(?:[^<>\\]|\\[\s\S])*>[msixpodualngcer]*/,
+			lookbehind: true
+		},
+	
+		// /.../
+		// The look-ahead tries to prevent two divisions on
+		// the same line from being highlighted as regex.
+		// This does not support multi-line regex.
+		/\/(?:[^\/\\\r\n]|\\.)*\/[msixpodualngc]*(?=\s*(?:$|[\r\n,.;})&|\-+*~<>!?^]|(lt|gt|le|ge|eq|ne|cmp|not|and|or|xor|x)\b))/
+	],
+
+	// FIXME Not sure about the handling of ::, ', and #
+	'variable': [
+		// ${^POSTMATCH}
+		/[&*$@%]\{\^[A-Z]+\}/,
+		// $^V
+		/[&*$@%]\^[A-Z_]/,
+		// ${...}
+		/[&*$@%]#?(?=\{)/,
+		// $foo
+		/[&*$@%]#?((::)*'?(?!\d)[\w$]+)+(::)*/i,
+		// $1
+		/[&*$@%]\d+/,
+		// $_, @_, %!
+		// The negative lookahead prevents from breaking the %= operator
+		/(?!%=)[$@%][!"#$%&'()*+,\-.\/:;<=>?@[\\\]^_`{|}~]/
+	],
+	'filehandle': {
+		// <>, <FOO>, _
+		pattern: /<(?![<=])\S*>|\b_\b/,
+		alias: 'symbol'
+	},
+	'vstring': {
+		// v1.2, 1.2.3
+		pattern: /v\d+(\.\d+)*|\d+(\.\d+){2,}/,
+		alias: 'string'
+	},
+	'function': {
+		pattern: /sub [a-z0-9_]+/i,
+		inside: {
+			keyword: /sub/
+		}
+	},
+	'keyword': /\b(any|break|continue|default|delete|die|do|else|elsif|eval|for|foreach|given|goto|if|last|local|my|next|our|package|print|redo|require|say|state|sub|switch|undef|unless|until|use|when|while)\b/,
+	'number': /\b-?(0x[\dA-Fa-f](_?[\dA-Fa-f])*|0b[01](_?[01])*|(\d(_?\d)*)?\.?\d(_?\d)*([Ee][+-]?\d+)?)\b/,
+	'operator': /-[rwxoRWXOezsfdlpSbctugkTBMAC]\b|\+[+=]?|-[-=>]?|\*\*?=?|\/\/?=?|=[=~>]?|~[~=]?|\|\|?=?|&&?=?|<(?:=>?|<=?)?|>>?=?|![~=]?|[%^]=?|\.(?:=|\.\.?)?|[\\?]|\bx(?:=|\b)|\b(lt|gt|le|ge|eq|ne|cmp|not|and|or|xor)\b/,
+	'punctuation': /[{}[\];(),:]/
+};
+
 /**
  * Original by Aaron Harun: http://aahacreative.com/2012/07/31/php-syntax-highlighting-prism/
  * Modified by Miles Johnson: http://milesj.me
@@ -2047,6 +2323,78 @@ Prism.languages.sql= {
 	'operator': /[-+*\/=%^~]|&&?|\|?\||!=?|<(?:=>?|<|>)?|>[>=]?|\b(?:AND|BETWEEN|IN|LIKE|NOT|OR|IS|DIV|REGEXP|RLIKE|SOUNDS LIKE|XOR)\b/i,
 	'punctuation': /[;[\]()`,.]/
 };
+// issues: nested multiline comments
+Prism.languages.swift = Prism.languages.extend('clike', {
+	'string': {
+		pattern: /("|')(\\(?:\((?:[^()]|\([^)]+\))+\)|\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
+		greedy: true,
+		inside: {
+			'interpolation': {
+				pattern: /\\\((?:[^()]|\([^)]+\))+\)/,
+				inside: {
+					delimiter: {
+						pattern: /^\\\(|\)$/,
+						alias: 'variable'
+					}
+					// See rest below
+				}
+			}
+		}
+	},
+	'keyword': /\b(as|associativity|break|case|catch|class|continue|convenience|default|defer|deinit|didSet|do|dynamic(?:Type)?|else|enum|extension|fallthrough|final|for|func|get|guard|if|import|in|infix|init|inout|internal|is|lazy|left|let|mutating|new|none|nonmutating|operator|optional|override|postfix|precedence|prefix|private|Protocol|public|repeat|required|rethrows|return|right|safe|self|Self|set|static|struct|subscript|super|switch|throws?|try|Type|typealias|unowned|unsafe|var|weak|where|while|willSet|__(?:COLUMN__|FILE__|FUNCTION__|LINE__))\b/,
+	'number': /\b([\d_]+(\.[\de_]+)?|0x[a-f0-9_]+(\.[a-f0-9p_]+)?|0b[01_]+|0o[0-7_]+)\b/i,
+	'constant': /\b(nil|[A-Z_]{2,}|k[A-Z][A-Za-z_]+)\b/,
+	'atrule': /@\b(IB(?:Outlet|Designable|Action|Inspectable)|class_protocol|exported|noreturn|NS(?:Copying|Managed)|objc|UIApplicationMain|auto_closure)\b/,
+	'builtin': /\b([A-Z]\S+|abs|advance|alignof(?:Value)?|assert|contains|count(?:Elements)?|debugPrint(?:ln)?|distance|drop(?:First|Last)|dump|enumerate|equal|filter|find|first|getVaList|indices|isEmpty|join|last|lexicographicalCompare|map|max(?:Element)?|min(?:Element)?|numericCast|overlaps|partition|print(?:ln)?|reduce|reflect|reverse|sizeof(?:Value)?|sort(?:ed)?|split|startsWith|stride(?:of(?:Value)?)?|suffix|swap|toDebugString|toString|transcode|underestimateCount|unsafeBitCast|with(?:ExtendedLifetime|Unsafe(?:MutablePointers?|Pointers?)|VaList))\b/
+});
+Prism.languages.swift['string'].inside['interpolation'].inside.rest = Prism.util.clone(Prism.languages.swift);
+Prism.languages.twig = {
+	'comment': /\{#[\s\S]*?#\}/,
+	'tag': {
+		pattern: /\{\{[\s\S]*?\}\}|\{%[\s\S]*?%\}/,
+		inside: {
+			'ld': {
+				pattern: /^(?:\{\{\-?|\{%\-?\s*\w+)/,
+				inside: {
+					'punctuation': /^(?:\{\{|\{%)\-?/,
+					'keyword': /\w+/
+				}
+			},
+			'rd': {
+				pattern: /\-?(?:%\}|\}\})$/,
+				inside: {
+					'punctuation': /.*/
+				}
+			},
+			'string': {
+				pattern: /("|')(?:\\?.)*?\1/,
+				inside: {
+					'punctuation': /^['"]|['"]$/
+				}
+			},
+			'keyword': /\b(?:even|if|odd)\b/,
+			'boolean': /\b(?:true|false|null)\b/,
+			'number': /\b-?(?:0x[\dA-Fa-f]+|\d*\.?\d+([Ee][-+]?\d+)?)\b/,
+			'operator': [
+				{
+					pattern: /(\s)(?:and|b\-and|b\-xor|b\-or|ends with|in|is|matches|not|or|same as|starts with)(?=\s)/,
+					lookbehind: true
+				},
+				/[=<>]=?|!=|\*\*?|\/\/?|\?:?|[-+~%|]/
+			],
+			'property': /\b[a-zA-Z_][a-zA-Z0-9_]*\b/,
+			'punctuation': /[()\[\]{}:.,]/
+		}
+	},
+
+	// The rest can be parsed as HTML
+	'other': {
+		// We want non-blank matches
+		pattern: /\S(?:[\s\S]*\S)?/,
+		inside: Prism.languages.markup
+	}
+};
+
 Prism.languages.vim = {
 	'string': /"(?:[^"\\\r\n]|\\.)*"|'(?:[^'\r\n]|'')*'/,
 	'comment': /".*/,
@@ -2102,3 +2450,253 @@ Prism.languages.yaml = {
 	'punctuation': /---|[:[\]{}\-,|>?]|\.\.\./
 };
 
+(function() {
+
+if (typeof self === 'undefined' || !self.Prism || !self.document) {
+	return;
+}
+
+Prism.hooks.add('complete', function (env) {
+	if (!env.code) {
+		return;
+	}
+
+	// works only for <code> wrapped inside <pre> (not inline)
+	var pre = env.element.parentNode;
+	var clsReg = /\s*\bline-numbers\b\s*/;
+	if (
+		!pre || !/pre/i.test(pre.nodeName) ||
+			// Abort only if nor the <pre> nor the <code> have the class
+		(!clsReg.test(pre.className) && !clsReg.test(env.element.className))
+	) {
+		return;
+	}
+
+	if (env.element.querySelector(".line-numbers-rows")) {
+		// Abort if line numbers already exists
+		return;
+	}
+
+	if (clsReg.test(env.element.className)) {
+		// Remove the class "line-numbers" from the <code>
+		env.element.className = env.element.className.replace(clsReg, '');
+	}
+	if (!clsReg.test(pre.className)) {
+		// Add the class "line-numbers" to the <pre>
+		pre.className += ' line-numbers';
+	}
+
+	var match = env.code.match(/\n(?!$)/g);
+	var linesNum = match ? match.length + 1 : 1;
+	var lineNumbersWrapper;
+
+	var lines = new Array(linesNum + 1);
+	lines = lines.join('<span></span>');
+
+	lineNumbersWrapper = document.createElement('span');
+	lineNumbersWrapper.className = 'line-numbers-rows';
+	lineNumbersWrapper.innerHTML = lines;
+
+	if (pre.hasAttribute('data-start')) {
+		pre.style.counterReset = 'linenumber ' + (parseInt(pre.getAttribute('data-start'), 10) - 1);
+	}
+
+	env.element.appendChild(lineNumbersWrapper);
+
+});
+
+}());
+(function () {
+	if (typeof self === 'undefined' || !self.Prism || !self.document || !document.createElement) {
+		return;
+	}
+
+	// The dependencies map is built automatically with gulp
+	var lang_dependencies = /*languages_placeholder[*/{"javascript":"clike","actionscript":"javascript","aspnet":"markup","bison":"c","c":"clike","csharp":"clike","cpp":"c","coffeescript":"javascript","crystal":"ruby","css-extras":"css","d":"clike","dart":"clike","fsharp":"clike","glsl":"clike","go":"clike","groovy":"clike","haml":"ruby","handlebars":"markup","haxe":"clike","jade":"javascript","java":"clike","kotlin":"clike","less":"css","markdown":"markup","nginx":"clike","objectivec":"c","parser":"markup","php":"clike","php-extras":"php","processing":"clike","protobuf":"clike","qore":"clike","jsx":["markup","javascript"],"ruby":"clike","sass":"css","scss":"css","scala":"java","smarty":"markup","swift":"clike","textile":"markup","twig":"markup","typescript":"javascript","wiki":"markup"}/*]*/;
+
+	var lang_data = {};
+
+	var config = Prism.plugins.autoloader = {
+		languages_path: 'components/',
+		use_minified: true
+	};
+
+	/**
+	 * Lazy loads an external script
+	 * @param {string} src
+	 * @param {function=} success
+	 * @param {function=} error
+	 */
+	var script = function (src, success, error) {
+		var s = document.createElement('script');
+		s.src = src;
+		s.async = true;
+		s.onload = function() {
+			document.body.removeChild(s);
+			success && success();
+		};
+		s.onerror = function() {
+			document.body.removeChild(s);
+			error && error();
+		};
+		document.body.appendChild(s);
+	};
+
+	/**
+	 * Returns the path to a grammar, using the language_path and use_minified config keys.
+	 * @param {string} lang
+	 * @returns {string}
+	 */
+	var getLanguagePath = function (lang) {
+		return config.languages_path +
+			'prism-' + lang
+			+ (config.use_minified ? '.min' : '') + '.js'
+	};
+
+	/**
+	 * Tries to load a grammar and
+	 * highlight again the given element once loaded.
+	 * @param {string} lang
+	 * @param {HTMLElement} elt
+	 */
+	var registerElement = function (lang, elt) {
+		var data = lang_data[lang];
+		if (!data) {
+			data = lang_data[lang] = {};
+		}
+
+		// Look for additional dependencies defined on the <code> or <pre> tags
+		var deps = elt.getAttribute('data-dependencies');
+		if (!deps && elt.parentNode && elt.parentNode.tagName.toLowerCase() === 'pre') {
+			deps = elt.parentNode.getAttribute('data-dependencies');
+		}
+
+		if (deps) {
+			deps = deps.split(/\s*,\s*/g);
+		} else {
+			deps = [];
+		}
+
+		loadLanguages(deps, function () {
+			loadLanguage(lang, function () {
+				Prism.highlightElement(elt);
+			});
+		});
+	};
+
+	/**
+	 * Sequentially loads an array of grammars.
+	 * @param {string[]|string} langs
+	 * @param {function=} success
+	 * @param {function=} error
+	 */
+	var loadLanguages = function (langs, success, error) {
+		if (typeof langs === 'string') {
+			langs = [langs];
+		}
+		var i = 0;
+		var l = langs.length;
+		var f = function () {
+			if (i < l) {
+				loadLanguage(langs[i], function () {
+					i++;
+					f();
+				}, function () {
+					error && error(langs[i]);
+				});
+			} else if (i === l) {
+				success && success(langs);
+			}
+		};
+		f();
+	};
+
+	/**
+	 * Load a grammar with its dependencies
+	 * @param {string} lang
+	 * @param {function=} success
+	 * @param {function=} error
+	 */
+	var loadLanguage = function (lang, success, error) {
+		var load = function () {
+			var force = false;
+			// Do we want to force reload the grammar?
+			if (lang.indexOf('!') >= 0) {
+				force = true;
+				lang = lang.replace('!', '');
+			}
+
+			var data = lang_data[lang];
+			if (!data) {
+				data = lang_data[lang] = {};
+			}
+			if (success) {
+				if (!data.success_callbacks) {
+					data.success_callbacks = [];
+				}
+				data.success_callbacks.push(success);
+			}
+			if (error) {
+				if (!data.error_callbacks) {
+					data.error_callbacks = [];
+				}
+				data.error_callbacks.push(error);
+			}
+
+			if (!force && Prism.languages[lang]) {
+				languageSuccess(lang);
+			} else if (!force && data.error) {
+				languageError(lang);
+			} else if (force || !data.loading) {
+				data.loading = true;
+				var src = getLanguagePath(lang);
+				script(src, function () {
+					data.loading = false;
+					languageSuccess(lang);
+
+				}, function () {
+					data.loading = false;
+					data.error = true;
+					languageError(lang);
+				});
+			}
+		};
+		var dependencies = lang_dependencies[lang];
+		if(dependencies && dependencies.length) {
+			loadLanguages(dependencies, load);
+		} else {
+			load();
+		}
+	};
+
+	/**
+	 * Runs all success callbacks for this language.
+	 * @param {string} lang
+	 */
+	var languageSuccess = function (lang) {
+		if (lang_data[lang] && lang_data[lang].success_callbacks && lang_data[lang].success_callbacks.length) {
+			lang_data[lang].success_callbacks.forEach(function (f) {
+				f(lang);
+			});
+		}
+	};
+
+	/**
+	 * Runs all error callbacks for this language.
+	 * @param {string} lang
+	 */
+	var languageError = function (lang) {
+		if (lang_data[lang] && lang_data[lang].error_callbacks && lang_data[lang].error_callbacks.length) {
+			lang_data[lang].error_callbacks.forEach(function (f) {
+				f(lang);
+			});
+		}
+	};
+
+	Prism.hooks.add('complete', function (env) {
+		if (env.element && env.language && !env.grammar) {
+			registerElement(env.language, env.element);
+		}
+	});
+
+}());

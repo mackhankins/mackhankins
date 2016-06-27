@@ -8,13 +8,13 @@
     <div class="row">
         <div class="col-md-12 top17">
             @if(!empty($post->featuredimage))
-                    <div class="image-credit-wrapper">
-                        @if(!empty($post->imgsrc))
-                            <span class="image-credit">{{ $post->imgsrc }}</span>
-                        @endif
-                        <img src="{{ URL::to('images/large/'.$post->featuredimage) }}" alt="{{$post->title}}"
-                             class="post-image rounded-top">
-                    </div>
+                <div class="image-credit-wrapper">
+                    @if(!empty($post->imgsrc))
+                        <span class="image-credit">{{ $post->imgsrc }}</span>
+                    @endif
+                    <img src="{{ URL::to('images/large/'.$post->featuredimage) }}" alt="{{$post->title}}"
+                         class="post-image rounded-top">
+                </div>
             @endif
             <div class="portlet light bordered">
                 <div class="subtext">
@@ -34,7 +34,9 @@
                     @include('partials.pub._post_content')
                     @include('partials.pub._share')
                 </div>
-                <div id="disqus_thread"></div>
+                @if(env('APP_ENV') == 'production')
+                    <div id="disqus_thread"></div>
+                @endif
             </div>
         </div>
     </div>
@@ -61,5 +63,6 @@
         @endif
         @include('partials.pub._analytics')
     </script>
-    <script type='text/javascript' data-cfasync='false' src='//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js' data-shr-siteid='02363f32bcce7b931759440bc26fc537' async='async'></script>
+    <script type='text/javascript' data-cfasync='false' src='//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js'
+            data-shr-siteid='02363f32bcce7b931759440bc26fc537' async='async'></script>
 @endsection
