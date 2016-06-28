@@ -61,33 +61,6 @@ hr {
   margin-left: 25px;
 }
 
-/* Code */
-
-//pre {
-//  border-left: $primary-color 6px solid !important;
-//  margin: 15px auto !important;
-//  border: 1px solid $primary-color;
-//  width: auto;
-//  max-height: 450px;
-//  white-space: pre;
-//  word-wrap: normal;
-//  background-color: lighten($primary-color, 50%) !important;
-//  padding: 0em 1em;
-//
-//  >code {
-//    background: none;
-//    border: none;
-//    color: inherit;
-//  }
-//
-//}
-//
-//code {
-//  background: $body-bg;
-//  border: darken($body-bg, 50%) 1px solid;
-//  color: darken($body-bg, 50%);
-//}
-
 blockquote {
   padding: 10px 20px;
   margin: 20px;
@@ -105,6 +78,7 @@ blockquote {
   -webkit-border-radius: 0;
   -o-border-radius: 0;
   padding-left: 2px;
+  margin-bottom: 15px !important;
 }
 
 .breadcrumb > li + li:before {

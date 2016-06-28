@@ -196,7 +196,6 @@ Portlets
 
 .subtext {
   color: lighten($primary-color, 20%);
-  margin-top: 8px;
   display: inline-block;
 
   a,
@@ -204,5 +203,9 @@ Portlets
   a:focus {
     color: inherit !important;
     text-decoration: none;
+  }
+
+  @media screen and (max-width: 736px) {
+    font-size: 10px;
   }
 }
