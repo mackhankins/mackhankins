@@ -2,200 +2,200 @@
 Portlets
 ***/
 
-
 /* Light Portlet */
 
 .portlet.light {
-    padding: 12px 20px 15px 20px;
-    background-color: #fff;
-    margin-bottom: 20px;
+  padding: 12px 20px 15px 20px;
+  background-color: #fff;
+  margin-bottom: 20px;
 
+  &.bordered {
+    border-left: 1px solid lighten($primary-color, 40%) !important;
+    border-right: 1px solid lighten($primary-color, 40%) !important;
+    border-bottom: 1px solid lighten($primary-color, 40%) !important;
+
+    &.top {
+      border-top: 1px solid lighten($primary-color, 40%) !important;
+    }
+
+    > .portlet-title {
+      border-bottom: 1px solid lighten($primary-color, 40%);
+    }
+  }
+
+  &.bg-inverse {
+    background: #F7F7F7;
+  }
+
+  > .portlet-title {
+    padding: 0;
+    min-height: 38px;
+
+    &.front {
+
+      @media(min-width: 992px) {
+        min-height: 60px;
+      }
+
+    }
+
+    > .caption {
+      color: $primary-color;
+      padding: 10px 0;
+      font-size: 18px;
+      line-height: 18px;
+
+      > .caption-subject {
+        font-size: 16px;
+      }
+
+      > i {
+        color: darken($primary-color, 30%);
+        font-size: 17px;
+        font-weight: 300;
+      }
+    }
+
+    > .actions {
+      padding: 6px 0 14px 0;
+
+      .btn-default {
+        color: #666;
+      }
+
+      .btn-icon-only {
+        height: 27px;
+        width: 27px;
+      }
+
+      .dropdown-menu {
+        li > a {
+          color: #555;
+        }
+      }
+    }
+
+    > .inputs {
+      float: right;
+      display: inline-block;
+      padding: 4px 0;
+
+      > .portlet-input {
+        .input-icon {
+          > i {
+            font-size: 14px;
+            margin-top: 9px;
+          }
+
+          > .form-control {
+            height: 30px;
+            padding: 2px 26px 3px 10px;
+            font-size: 13px;
+          }
+        }
+
+        > .form-control {
+          height: 30px;
+          padding: 3px 10px;
+          font-size: 13px;
+        }
+      }
+    }
+
+    > .pagination {
+      padding: 2px 0 13px 0;
+    }
+
+    > .tools {
+      padding: 10px 0 13px 0;
+      margin-top: 2px;
+    }
+
+    > .nav-tabs {
+      > li {
+        margin: 0;
+        padding: 0;
+
+        > a {
+          margin: 0;
+          padding: 12px 13px 13px 13px;
+          font-size: 13px;
+          color: #666;
+        }
+
+        &.active > a,
+        &:hover > a {
+          margin: 0;
+          background: none;
+          color: #333;
+        }
+      }
+    }
+  }
+
+  &.form-fit {
+    padding: 0;
+
+    > .portlet-title {
+      padding: 17px 20px 10px 20px;
+      margin-bottom: 0;
+    }
+  }
+
+  .portlet-body {
+    padding-top: 8px;
     &.bordered {
-        border-left: 1px solid lighten($primary-color, 40%) !important;
-        border-right: 1px solid lighten($primary-color, 40%) !important;
-        border-bottom: 1px solid lighten($primary-color, 40%) !important;
-
-        &.top {
-          border-top: 1px solid lighten($primary-color, 40%) !important;
-        }
-
-        > .portlet-title {
-            border-bottom: 1px solid lighten($primary-color, 40%);
-        }
+      border-top: 1px solid lighten($primary-color, 40%) !important;
+      margin-top: 8px;
     }
+  }
 
-    &.bg-inverse {
-        background: #F7F7F7;
+  &.portlet-fullscreen {
+    > .portlet-body {
+      padding: 8px 0;
     }
-
-    > .portlet-title {  
-        padding: 0;
-        min-height: 38px;
-
-      &.front {
-
-        @media(min-width: 992px) {
-          min-height: 60px;
-        }
-
-      }
-
-        > .caption {
-            color: $primary-color;
-            padding: 10px 0;
-            font-size: 18px;
-            line-height: 18px;
-
-            > .caption-subject {
-                font-size: 16px;
-            }
-
-            > i {
-                color: darken($primary-color, 30%);
-                font-size: 17px;
-                font-weight: 300;
-            }
-        }
-
-        > .actions {
-            padding: 6px 0 14px 0;
-
-            .btn-default {
-                color: #666;
-            }
-
-            .btn-icon-only {
-                height: 27px;
-                width: 27px;      
-            }
-
-            .dropdown-menu {
-                li > a {  
-                    color: #555;
-                }
-            }   
-        }
-
-        > .inputs {
-            float: right;
-            display: inline-block;
-            padding: 4px 0;      
-
-            > .portlet-input {
-                .input-icon {
-                    > i {
-                        font-size: 14px;
-                        margin-top: 9px;
-                    }
-
-                    > .form-control {
-                        height: 30px;
-                        padding: 2px 26px 3px 10px;
-                        font-size: 13px;
-                    }
-                }
-
-                > .form-control {
-                    height: 30px;
-                    padding: 3px 10px;
-                    font-size: 13px;
-                }                
-            }   
-        }
-
-        > .pagination {
-            padding: 2px 0 13px 0;
-        }
-
-        > .tools {
-            padding: 10px 0 13px 0;
-            margin-top: 2px;
-        }
-
-        > .nav-tabs {
-            > li {
-                margin: 0;
-                padding: 0;
-
-                > a {
-                    margin: 0;
-                    padding: 12px 13px 13px 13px; 
-                    font-size: 13px;
-                    color: #666;
-                }
-
-                &.active > a,
-                &:hover > a {
-                    margin: 0;
-                    background: none;
-                    color: #333;
-                }
-            }
-        }
-    }
-
-    &.form-fit {
-        padding: 0;
-
-        > .portlet-title { 
-            padding: 17px 20px 10px 20px;
-            margin-bottom: 0;
-        }
-    }
-
-    .portlet-body {
-        padding-top: 8px;
-      &.bordered {
-        border-top: 1px solid lighten($primary-color, 40%) !important;
-        margin-top: 8px;
-      }
-    }
-
-    &.portlet-fullscreen {
-        > .portlet-body {
-            padding: 8px 0; 
-        }
-    }
+  }
 }
 
 .tab-pane {
-    > p:last-child {
-        margin-bottom: 0px;
-    }
+  > p:last-child {
+    margin-bottom: 0px;
+  }
 }
 
 /* Reverse aligned tabs */
 
 .tabs-reversed {
-    > li {
-        float: right;
-        margin-right: 0; 
+  > li {
+    float: right;
+    margin-right: 0;
 
-        > a {
-            margin-right: 0;
-        }
+    > a {
+      margin-right: 0;
     }
+  }
 }
 
 /* jQuery UI Draggable Portlets */
 .portlet-sortable:not(.portlet-fullscreen) {
-    > .portlet-title {
-        cursor: move;   
-    }
+  > .portlet-title {
+    cursor: move;
+  }
 }
 
 .portlet-sortable-placeholder {
-    border: 2px dashed #eee;   
-    margin-bottom: 25px;
+  border: 2px dashed #eee;
+  margin-bottom: 25px;
 }
 
-.portlet-sortable-empty {   
-    box-shadow: none !important;
-    height: 45px;          
+.portlet-sortable-empty {
+  box-shadow: none !important;
+  height: 45px;
 }
 
 .subtext {
   color: lighten($primary-color, 20%);
+  padding-top: 8px;
   display: inline-block;
 
   a,
@@ -205,7 +205,10 @@ Portlets
     text-decoration: none;
   }
 
-  @media screen and (max-width: 736px) {
-    font-size: 10px;
+  .single {
+    @media screen and (max-width: 736px) {
+      padding-top: 0px;
+      font-size: 10px;
+    }
   }
 }

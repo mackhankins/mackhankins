@@ -17,7 +17,7 @@
                 </div>
             @endif
             <div class="portlet light bordered">
-                <div class="subtext">
+                <div class="subtext single">
                     <i class="icon-hourglass"></i>
                     {!! \Carbon\Carbon::createFromTimeStamp(strtotime($post->created_at))->toFormattedDateString() !!}
                     &nbsp;
