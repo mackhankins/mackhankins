@@ -3,15 +3,17 @@
   & img {
     width: 32px;
     height: 32px;
-    @media screen and (max-width: 800px) {
-      width: 24px;
-      height: 24px;
+    @media screen and (max-width: 736px) {
+      margin-top: 0px !important;
+      width: 20px;
+      height: 20px;
     }
   }
 
   & span {
     line-height: 33px;
     @media screen and (max-width: 736px) {
+      line-height: 22px;
       padding-top: 0px !important;
     }
   }

@@ -27,7 +27,7 @@
                         <a href="{!! action('Pub\BlogController@single', $post->slug) !!}#disqus_thread"></a>
                     </div>
                     <div class="portlet-body">
-                        {{ $post->excerpt }}
+                        {{ str_limit($post->excerpt, 350) }}
                     </div>
                 </div>
             @endforeach

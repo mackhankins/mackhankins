@@ -131,7 +131,8 @@ blockquote {
   position: relative;
   padding: 10px;
   overflow: hidden;
-  font: 12px Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 12px;
   color: #767676;
   background-color: #f7f7f7;
   border-top: 1px solid #dddddd;
@@ -142,16 +143,15 @@ blockquote {
   > span {
     color: black;
 
-    .fa-heart {
-      color: rgba(227, 36, 4, 0.8);
-      text-shadow: 1px 4px 6px #fff, 0 0 0 #000, 1px 4px 6px transparent;
+    > a, a:link, a:visited, a:hover, a:active {
+      color: black !important;
+      font-weight: bold;
+    }
+
+    > .fa-heart {
+      color: red !important;
     }
 
   }
-
-  > #clippy a, a:link, a:visited, a:hover, a:active {
-    color: black !important;
-  }
-
 
 }
