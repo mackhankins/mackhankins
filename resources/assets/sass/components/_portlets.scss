@@ -206,9 +206,11 @@ Portlets
   }
 
   .single {
-    @media screen and (max-width: 736px) {
-      padding-top: 0px;
-      font-size: 10px;
-    }
+    padding-top: 0px;
   }
+
+  @media screen and (max-width: 736px) {
+    font-size: 10px;
+  }
+
 }
