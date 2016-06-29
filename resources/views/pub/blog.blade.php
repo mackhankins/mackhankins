@@ -11,8 +11,8 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            @foreach($posts as $post)
-                <div class="portlet light bordered top">
+            <div class="portlet light bordered top">
+                @foreach($posts as $post)
                     <div class="portlet-title">
                         <div class="caption">
                             <a href="{!! action('Pub\BlogController@single', $post->slug) !!}">{!! $post->title !!}</a>
@@ -29,8 +29,9 @@
                     <div class="portlet-body">
                         {{ str_limit($post->excerpt, 350) }}
                     </div>
-                </div>
-            @endforeach
+                    <div class="top15"></div>
+                @endforeach
+            </div>
         </div>
     </div>
     <div class="row">
