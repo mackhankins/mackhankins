@@ -11,7 +11,7 @@ var elixir = require('laravel-elixir');
  */
 
 var paths = {
-    'jquery': './node_modules/jquery/',
+    'jquery': './node_modules/jquery/dist/',
     'bootstrap': './node_modules/bootstrap-sass/assets/',
     'fontawesome': './node_modules/font-awesome/',
     'simplelineicons': './node_modules/simple-line-icons/',
@@ -28,10 +28,6 @@ elixir(function (mix) {
         paths.simplelineicons + 'scss',
         paths.breakpoint + 'stylesheets',
     ]})
-        .styles([
-            './public/css/app.css',
-            './resources/assets/prism/prism.css',
-        ], 'public/css/app.css', './')
         .scripts([
             paths.redactor + 'redactor.js',
             paths.redactor + 'imagemanager.js',
