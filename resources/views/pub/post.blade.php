@@ -46,7 +46,7 @@
     <script>
         $( document ).ready(function () {
             $('pre').addClass('line-numbers');
-            $('pre').append('<div class="meta">' +
+            $('pre').append('<div class="meta visible-lg">' +
                     '<span class="pull-left"><i class="fa fa-code"></i> mackhankins.com</span>' +
                     '<span class="pull-right">' +
                     '<a href="javascript:;" id="clippy" title="copy to clipboard"><i class="fa fa-clipboard"></i></a>' +

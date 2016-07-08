@@ -36,3 +36,11 @@ body {
     font-size: 1.2em;
   }
 }
+
+pre {
+  @media screen and (max-width: 1024px)
+  {
+    max-height: 200px;
+    overflow: hidden;
+  }
+}
