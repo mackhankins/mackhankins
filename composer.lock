@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bcc08cc5f6919466594980787b7bb5f8",
+    "content-hash": "212b9e941f98923f1cc583c5ca3e2101",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -7749,116 +7749,6 @@
             "time": "2025-12-02T11:56:42+00:00"
         },
         {
-            "name": "turso/libsql",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tursodatabase/libsql-php.git",
-                "reference": "4f6c5669ee844074865a1ea4935d5440ebd28571"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tursodatabase/libsql-php/zipball/4f6c5669ee844074865a1ea4935d5440ebd28571",
-                "reference": "4f6c5669ee844074865a1ea4935d5440ebd28571",
-                "shasum": ""
-            },
-            "require": {
-                "ext-ffi": "*",
-                "php": ">=8.3"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.64",
-                "phpstan/phpstan": "2.0.x-dev",
-                "phpunit/phpunit": "^11"
-            },
-            "default-branch": true,
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/functions.php"
-                ],
-                "psr-4": {
-                    "Libsql\\": "src/",
-                    "Libsql\\Tests\\": "tests/"
-                },
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Levy A.",
-                    "email": "levyddsa@gmail.com"
-                }
-            ],
-            "description": "libSQL bindings for PHP",
-            "support": {
-                "issues": "https://github.com/tursodatabase/libsql-php/issues",
-                "source": "https://github.com/tursodatabase/libsql-php/tree/master"
-            },
-            "time": "2025-06-16T14:43:24+00:00"
-        },
-        {
-            "name": "turso/libsql-laravel",
-            "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tursodatabase/libsql-laravel.git",
-                "reference": "c7bc3b0adcc223f8e22680e019ee622867e428ab"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tursodatabase/libsql-laravel/zipball/c7bc3b0adcc223f8e22680e019ee622867e428ab",
-                "reference": "c7bc3b0adcc223f8e22680e019ee622867e428ab",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/database": "^11.0|^12.0",
-                "spatie/laravel-package-tools": "^1.16",
-                "turso/libsql": "dev-master"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.64",
-                "orchestra/testbench": "^9.9||^10.0",
-                "pestphp/pest": "^3.7",
-                "phpstan/phpstan": "^2.1"
-            },
-            "default-branch": true,
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Libsql\\Laravel\\LibsqlServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
-                "psr-4": {
-                    "Libsql\\Laravel\\": "src/",
-                    "Libsql\\Laravel\\Tests\\": "tests/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "Levy A.",
-                    "email": "levyddsa@gmail.com"
-                }
-            ],
-            "support": {
-                "issues": "https://github.com/tursodatabase/libsql-laravel/issues",
-                "source": "https://github.com/tursodatabase/libsql-laravel/tree/v0.2.0"
-            },
-            "time": "2025-06-18T04:39:12+00:00"
-        },
-        {
             "name": "ueberdosis/tiptap-php",
             "version": "2.1.0",
             "source": {
@@ -11666,10 +11556,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "turso/libsql": 20,
-        "turso/libsql-laravel": 20
-    },
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
