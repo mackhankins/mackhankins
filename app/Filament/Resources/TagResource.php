@@ -6,7 +6,7 @@ use App\Filament\Resources\TagResource\Pages;
 use App\Models\Tag;
 use Filament\Actions;
 use Filament\Forms;
-use Filament\Forms\Set;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables;
