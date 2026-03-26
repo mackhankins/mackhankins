@@ -9,7 +9,9 @@
         "php": "^8.2",
         "filament/filament": "^5.4",
         "laravel/framework": "^12.0",
-        "laravel/tinker": "^2.10.1"
+        "laravel/tinker": "^2.10.1",
+        "turso/libsql": "dev-master",
+        "turso/libsql-laravel": "dev-main"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

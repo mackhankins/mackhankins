@@ -44,6 +44,20 @@ return [
             'transaction_mode' => 'DEFERRED',
         ],
 
+        'libsql' => [
+            'driver' => 'libsql',
+            'url' => env('DB_URL', 'file:'.database_path('database.sqlite')),
+            'authToken' => env('TURSO_AUTH_TOKEN', ''),
+            'syncUrl' => env('TURSO_SYNC_URL', ''),
+            'syncInterval' => env('TURSO_SYNC_INTERVAL', 5),
+            'readYourWrites' => true,
+            'encryptionKey' => '',
+            'remoteOnly' => env('TURSO_REMOTE_ONLY', false),
+            'prefix' => '',
+            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
+        ],
+
+
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),
