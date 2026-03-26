@@ -217,6 +217,58 @@ body {
     color: var(--color-base-100);
 }
 
+/* Torchlight code highlighting */
+.prose-custom pre.torchlight {
+    padding: 0;
+    border: 1px solid var(--color-base-600);
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.prose-custom pre.torchlight code {
+    display: block;
+    padding: 1.25em;
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    line-height: 1.7;
+    min-width: max-content;
+    background: none;
+    color: inherit;
+}
+
+.prose-custom pre.torchlight code .line {
+    display: block;
+}
+
+.prose-custom pre.torchlight code .line-number {
+    display: inline-block;
+    width: 2.5em;
+    text-align: right;
+    margin-right: 1em;
+    color: var(--color-base-500);
+    user-select: none;
+}
+
+/* Torchlight diff indicators */
+.prose-custom pre.torchlight .line.line-has-add {
+    background-color: rgba(91, 168, 168, 0.08);
+}
+
+.prose-custom pre.torchlight .line.line-has-remove {
+    background-color: rgba(184, 132, 127, 0.08);
+}
+
+/* Torchlight focus/highlight */
+.prose-custom pre.torchlight.has-focus-lines .line:not(.line-has-focus) {
+    opacity: 0.4;
+    transition: opacity 0.2s;
+}
+
+.prose-custom pre.torchlight.has-focus-lines:hover .line:not(.line-has-focus) {
+    opacity: 0.8;
+}
+
 .prose-custom ul,
 .prose-custom ol {
     padding-left: 1.5em;
