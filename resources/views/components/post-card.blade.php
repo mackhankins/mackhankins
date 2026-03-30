@@ -4,7 +4,7 @@
     {{-- Clickable overlay for the card (behind tags) --}}
     <a href="{{ route('blog.show', $post) }}" class="absolute inset-0 z-0 rounded-xl" aria-label="{{ $post->title }}"></a>
 
-    <div class="relative z-10">
+    <div class="relative z-10 pointer-events-none">
         <div class="flex items-center gap-3 text-xs text-base-400 font-display">
             <time datetime="{{ $post->published_at->toDateString() }}">
                 {{ $post->published_at->format('M d, Y') }}
@@ -24,7 +24,7 @@
         @endif
 
         @if($post->tags->isNotEmpty())
-            <div class="mt-4 flex flex-wrap gap-1.5 relative z-20">
+            <div class="mt-4 flex flex-wrap gap-1.5 relative z-20 pointer-events-auto">
                 @foreach($post->tags->take(3) as $tag)
                     <x-tag-badge :tag="$tag" route="blog.index" />
                 @endforeach
