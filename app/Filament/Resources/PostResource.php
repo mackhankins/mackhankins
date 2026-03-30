@@ -6,9 +6,9 @@ use App\Filament\Resources\PostResource\Pages;
 use App\Models\Post;
 use Filament\Actions;
 use Filament\Forms;
-use Filament\Schemas\Components\Utilities\Set;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -104,9 +104,22 @@ class PostResource extends Resource
                     ->limit(50),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'published' => 'success',
-                        'draft' => 'gray',
+                    ->formatStateUsing(function (string $state, Post $record): string {
+                        if ($state === 'published' && $record->published_at?->isFuture()) {
+                            return 'Scheduled';
+                        }
+
+                        return ucfirst($state);
+                    })
+                    ->color(function (string $state, Post $record): string {
+                        if ($state === 'published' && $record->published_at?->isFuture()) {
+                            return 'warning';
+                        }
+
+                        return match ($state) {
+                            'published' => 'success',
+                            'draft' => 'gray',
+                        };
                     }),
                 Tables\Columns\TextColumn::make('published_at')
                     ->label('Published')

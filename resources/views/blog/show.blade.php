@@ -1,6 +1,12 @@
 <x-layouts.app :title="$post->title">
     <article class="py-24">
         <div class="max-w-3xl mx-auto px-6">
+            @if(!empty($preview))
+                <div class="mb-6 rounded-lg border border-amber-accent/30 bg-amber-accent/10 px-4 py-3 text-sm font-display text-amber-accent animate-fade-in">
+                    Preview mode — this post is not published yet.
+                </div>
+            @endif
+
             {{-- Back link --}}
             <a href="{{ route('blog.index') }}"
                class="inline-flex items-center gap-2 text-sm font-display font-medium text-base-400 hover:text-base-50 transition-colors mb-8 animate-fade-in">
@@ -11,8 +17,8 @@
             {{-- Header --}}
             <header class="animate-fade-up" style="animation-delay: 0.1s;">
                 <div class="flex items-center gap-3 text-sm text-base-400 font-display">
-                    <time datetime="{{ $post->published_at->toDateString() }}">
-                        {{ $post->published_at->format('F j, Y') }}
+                    <time datetime="{{ ($post->published_at ?? $post->created_at)->toDateString() }}">
+                        {{ ($post->published_at ?? $post->created_at)->format('F j, Y') }}
                     </time>
                     <span class="w-1 h-1 rounded-full bg-base-500"></span>
                     <span>{{ $post->reading_time }} min read</span>

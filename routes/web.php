@@ -11,6 +11,7 @@ Route::get('/projects', [ProjectController::class, 'index'])->name('projects.ind
 Route::get('/projects/{project:slug}', [ProjectController::class, 'show'])->name('projects.show');
 
 Route::get('/blog', [PostController::class, 'index'])->name('blog.index');
+Route::get('/blog/preview/{post:slug}', [PostController::class, 'preview'])->name('blog.preview')->middleware('signed');
 Route::get('/blog/{post:slug}', [PostController::class, 'show'])->name('blog.show');
 
 Route::view('/about', 'about')->name('about');

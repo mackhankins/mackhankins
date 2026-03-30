@@ -42,4 +42,14 @@ class PostController extends Controller
             'post' => $post,
         ]);
     }
+
+    public function preview(Post $post): View
+    {
+        $post->load('tags');
+
+        return view('blog.show', [
+            'post' => $post,
+            'preview' => true,
+        ]);
+    }
 }
