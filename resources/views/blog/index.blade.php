@@ -1,17 +1,17 @@
-<x-layouts.app :title="'Blog'">
+<x-layouts.app :title="'Things'">
     <section class="py-24">
         <div class="max-w-6xl mx-auto px-6">
             {{-- Page header --}}
             <div class="max-w-2xl mb-16 animate-fade-up">
                 <p class="font-display text-sm font-semibold tracking-widest uppercase text-indigo-accent">
-                    Blog
+                    Things
                 </p>
                 <h1 class="mt-4 font-display font-extrabold text-4xl md:text-5xl tracking-tight text-base-50">
                     Writing &amp; Thoughts
                 </h1>
                 <p class="mt-4 text-base-300 font-body text-lg leading-relaxed">
                     Notes on development, tools, and the occasional deep dive into
-                    things that interest me.
+                    stuff that interests me.
                 </p>
             </div>
 

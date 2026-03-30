@@ -12,9 +12,8 @@
                     Developer &amp; Creator
                 </p>
 
-                <h1 class="mt-6 font-display font-extrabold text-5xl sm:text-6xl md:text-7xl tracking-tight leading-[1.05] text-base-50 animate-fade-up" style="animation-delay: 0.2s;">
-                    Hey, I'm
-                    <span class="bg-gradient-to-r from-amber-accent via-teal-accent to-indigo-accent bg-clip-text text-transparent">Mack Hankins</span>
+                <h1 class="mt-6 font-display font-extrabold text-5xl sm:text-6xl md:text-6xl tracking-tight leading-[1.05] text-base-50 animate-fade-up" style="animation-delay: 0.2s;">
+                    <span class="bg-gradient-to-r from-amber-accent via-teal-accent to-indigo-accent bg-clip-text text-transparent uppercase">Stuff &amp; Things</span>
                 </h1>
 
                 <p class="mt-6 text-lg md:text-xl text-base-300 leading-relaxed font-body max-w-xl animate-fade-up" style="animation-delay: 0.3s;">
@@ -25,12 +24,12 @@
                 <div class="mt-10 flex flex-wrap gap-4 animate-fade-up" style="animation-delay: 0.4s;">
                     <a href="{{ route('projects.index') }}"
                        class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-amber-accent/10 text-amber-accent border border-amber-accent/20 font-display font-semibold text-sm hover:bg-amber-accent/20 hover:border-amber-accent/40 transition-all">
-                        View Projects
+                        View Stuff
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                     </a>
                     <a href="{{ route('blog.index') }}"
                        class="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-base-300 border border-base-600/50 font-display font-semibold text-sm hover:text-base-50 hover:border-base-500 transition-all">
-                        Read Blog
+                        Read Things
                     </a>
                 </div>
             </div>
@@ -46,8 +45,8 @@
         <section class="py-24 reveal">
             <div class="max-w-6xl mx-auto px-6">
                 <x-section-heading
-                    title="Featured Projects"
-                    subtitle="A selection of things I've built."
+                    title="Featured Stuff"
+                    subtitle="A selection of stuff I've built."
                     :href="route('projects.index')"
                 />
 
@@ -67,8 +66,8 @@
         <section class="py-24 border-t border-base-700/30 reveal">
             <div class="max-w-6xl mx-auto px-6">
                 <x-section-heading
-                    title="Latest Writing"
-                    subtitle="Thoughts on development, tools, and building things."
+                    title="Latest Things"
+                    subtitle="Thoughts on development, tools, and building stuff."
                     :href="route('blog.index')"
                 />
 
@@ -138,7 +137,7 @@
                         {{-- View all link --}}
                         <a href="{{ route('blog.index') }}"
                            class="flex items-center justify-center gap-2 rounded-xl border border-dashed border-base-600/50 p-5 text-sm font-display font-medium text-base-400 hover:text-amber-accent hover:border-amber-accent/30 transition-colors">
-                            View all posts
+                            View all things
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                         </a>
                     </div>
