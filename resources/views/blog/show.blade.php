@@ -55,7 +55,7 @@
 
             {{-- Content --}}
             <div class="prose-custom animate-fade-up" style="animation-delay: 0.3s;">
-                {!! str($post->content)->markdown()->sanitizeHtml() !!}
+                {!! str($post->content)->markdown(extensions: [new \Torchlight\Commonmark\V2\TorchlightExtension]) !!}
             </div>
 
             {{-- Footer divider --}}

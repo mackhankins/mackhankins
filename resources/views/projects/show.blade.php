@@ -51,7 +51,7 @@
             {{-- Content --}}
             <div class="mt-12 max-w-3xl animate-fade-up" style="animation-delay: 0.3s;">
                 <div class="prose-custom">
-                    {!! str($project->description)->markdown()->sanitizeHtml() !!}
+                    {!! str($project->description)->markdown(extensions: [new \Torchlight\Commonmark\V2\TorchlightExtension]) !!}
                 </div>
             </div>
 
