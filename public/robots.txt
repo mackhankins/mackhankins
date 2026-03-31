@@ -1,2 +1,4 @@
 User-agent: *
 Disallow:
+
+Sitemap: https://mackhankins.com/sitemap.xml
