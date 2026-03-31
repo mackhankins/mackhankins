@@ -32,6 +32,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// Reading progress bar
+document.addEventListener('DOMContentLoaded', () => {
+    const bar = document.getElementById('reading-progress-bar');
+    const article = document.getElementById('article');
+
+    if (!bar || !article) return;
+
+    window.addEventListener('scroll', () => {
+        const articleTop = article.offsetTop;
+        const articleHeight = article.offsetHeight;
+        const scrollY = window.scrollY;
+        const windowHeight = window.innerHeight;
+
+        const progress = Math.min(1, Math.max(0, (scrollY - articleTop) / (articleHeight - windowHeight)));
+        bar.style.width = `${progress * 100}%`;
+    }, { passive: true });
+});
+
 // Mobile nav toggle
 document.addEventListener('DOMContentLoaded', () => {
     const toggle = document.getElementById('mobile-nav-toggle');

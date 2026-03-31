@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Database\Factories\PostFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Spatie\Feed\Feedable;
+use Spatie\Feed\FeedItem;
 
-class Post extends Model
+class Post extends Model implements Feedable
 {
     /** @use HasFactory<PostFactory> */
     use HasFactory;
@@ -55,5 +58,25 @@ class Post extends Model
     public function getReadingTimeAttribute(): int
     {
         return max(1, (int) ceil(str_word_count(strip_tags($this->content)) / 200));
+    }
+
+    public function toFeedItem(): FeedItem
+    {
+        return FeedItem::create()
+            ->id($this->id)
+            ->title($this->title)
+            ->summary($this->excerpt ?? '')
+            ->updated($this->published_at)
+            ->link(route('blog.show', $this))
+            ->authorName('Mack Hankins');
+    }
+
+    public static function getFeedItems(): Collection
+    {
+        return static::query()
+            ->published()
+            ->latest('published_at')
+            ->limit(20)
+            ->get();
     }
 }

@@ -15,3 +15,5 @@ Route::get('/blog/preview/{post:slug}', [PostController::class, 'preview'])->nam
 Route::get('/blog/{post:slug}', [PostController::class, 'show'])->name('blog.show');
 
 Route::view('/about', 'about')->name('about');
+
+Route::feeds();

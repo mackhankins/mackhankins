@@ -1,5 +1,10 @@
 <x-layouts.app :title="$post->title">
-    <article class="py-24">
+    {{-- Reading progress bar --}}
+    <div id="reading-progress" class="fixed top-16 left-0 right-0 z-30 h-0.5 pointer-events-none">
+        <div id="reading-progress-bar" class="h-full w-0 bg-gradient-to-r from-amber-accent to-teal-accent transition-none"></div>
+    </div>
+
+    <article id="article" class="py-24">
         <div class="max-w-3xl mx-auto px-6">
             @if(!empty($preview))
                 <div class="mb-6 rounded-lg border border-amber-accent/30 bg-amber-accent/10 px-4 py-3 text-sm font-display text-amber-accent animate-fade-in">
