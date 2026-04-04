@@ -1,7 +1,7 @@
 <x-layouts.app
     :title="$post->title"
     :meta-description="$post->excerpt"
-    :meta-image="$post->featured_image ? url(Storage::url($post->featured_image)) : null"
+    :meta-image="$post->featured_image ? route('storage.proxy', $post->featured_image) : null"
     :meta-url="route('blog.show', $post)"
 >
     {{-- Reading progress bar --}}

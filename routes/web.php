@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LlmsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\StorageProxyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -21,3 +22,5 @@ Route::feeds();
 
 Route::get('/llms.txt', [LlmsController::class, 'index'])->name('llms.txt');
 Route::get('/llms-full.txt', [LlmsController::class, 'full'])->name('llms-full.txt');
+
+Route::get('/storage/{path}', StorageProxyController::class)->where('path', '.*')->name('storage.proxy');
