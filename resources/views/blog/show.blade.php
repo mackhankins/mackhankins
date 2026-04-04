@@ -1,9 +1,4 @@
-<x-layouts.app
-    :title="$post->title"
-    :meta-description="$post->excerpt"
-    :meta-image="$post->featured_image ? url(Storage::url($post->featured_image)) : null"
-    :meta-url="route('blog.show', $post)"
->
+<x-layouts.app :title="$post->title">
     {{-- Reading progress bar --}}
     <div id="reading-progress" class="fixed top-16 left-0 right-0 z-30 h-0.5 pointer-events-none">
         <div id="reading-progress-bar" class="h-full w-0 bg-gradient-to-r from-amber-accent to-teal-accent transition-none"></div>
