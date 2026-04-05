@@ -9,7 +9,8 @@
         <div id="reading-progress-bar" class="h-full w-0 bg-gradient-to-r from-amber-accent to-teal-accent transition-none"></div>
     </div>
 
-    <article id="article" class="py-24">
+    <article id="article" class="relative py-24">
+        <x-gutter-grid />
         <div class="max-w-3xl mx-auto px-6">
             @if(!empty($preview))
                 <div class="mb-6 rounded-lg border border-amber-accent/30 bg-amber-accent/10 px-4 py-3 text-sm font-display text-amber-accent animate-fade-in">
@@ -65,7 +66,7 @@
             {{-- Divider --}}
             <div class="mt-10 mb-10 flex items-center gap-4 animate-fade-up" style="animation-delay: 0.25s;">
                 <div class="flex-1 h-px bg-base-700/50"></div>
-                <div class="w-1.5 h-1.5 rounded-full bg-amber-accent/60"></div>
+                <span class="font-display text-xs text-amber-accent/60 select-none">+</span>
                 <div class="flex-1 h-px bg-base-700/50"></div>
             </div>
 

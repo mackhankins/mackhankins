@@ -33,7 +33,7 @@
     /* Animations */
     --animate-fade-in: fade-in 0.8s ease-out both;
     --animate-fade-up: fade-up 0.8s ease-out both;
-    --animate-glow-pulse: glow-pulse 4s ease-in-out infinite;
+    --animate-flow-drift: flow-drift 20s ease-in-out infinite;
     --animate-float: float 6s ease-in-out infinite;
 }
 
@@ -48,9 +48,9 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes glow-pulse {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.6; }
+@keyframes flow-drift {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
 }
 
 @keyframes float {
@@ -134,7 +134,7 @@ body {
     border-radius: inherit;
     opacity: 0;
     transition: opacity 0.3s ease;
-    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(201, 168, 114, 0.06), transparent 40%);
+    background: linear-gradient(135deg, transparent, rgba(201, 168, 114, 0.04) var(--mouse-y, 50%), transparent);
     pointer-events: none;
 }
 
@@ -353,13 +353,32 @@ body {
     color: var(--color-base-50);
 }
 
-/* Ambient glow blobs */
-.ambient-glow {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    pointer-events: none;
-    animation: glow-pulse 4s ease-in-out infinite;
+/* Flow lines */
+.flow-lines svg {
+    animation: flow-drift 20s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .flow-lines svg {
+        animation: none;
+    }
+}
+
+/* Gutter grid */
+.gutter-grid {
+    background-image:
+        linear-gradient(to right, var(--color-base-500) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--color-base-500) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.07;
+    mask-image:
+        linear-gradient(to bottom, black 0%, black 92%, transparent 100%),
+        linear-gradient(to right, black 0%, black calc(50% - 36rem), transparent calc(50% - 36rem + 40px), transparent calc(50% + 36rem - 40px), black calc(50% + 36rem), black 100%);
+    mask-composite: intersect;
+    -webkit-mask-image:
+        linear-gradient(to bottom, black 0%, black 92%, transparent 100%),
+        linear-gradient(to right, black 0%, black calc(50% - 36rem), transparent calc(50% - 36rem + 40px), transparent calc(50% + 36rem - 40px), black calc(50% + 36rem), black 100%);
+    -webkit-mask-composite: source-in;
 }
 
 /* Selection */

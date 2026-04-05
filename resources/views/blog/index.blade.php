@@ -1,6 +1,7 @@
 <x-layouts.app :title="'Things'">
-    <section class="py-24">
-        <div class="max-w-6xl mx-auto px-6">
+    <section class="relative py-24">
+        <x-gutter-grid />
+        <div class="relative z-10 max-w-6xl mx-auto px-6">
             {{-- Page header --}}
             <div class="max-w-2xl mb-16 animate-fade-up">
                 <p class="font-display text-sm font-semibold tracking-widest uppercase text-indigo-accent">

@@ -1,8 +1,8 @@
 <x-layouts.app :title="'404'">
     <section class="relative min-h-[80vh] flex items-center overflow-hidden">
-        {{-- Ambient glows --}}
-        <div class="ambient-glow w-[400px] h-[400px] -top-32 -left-24 bg-rose-accent/15" style="animation-delay: 0s;"></div>
-        <div class="ambient-glow w-[300px] h-[300px] bottom-0 right-1/4 bg-amber-accent/10" style="animation-delay: 1.5s;"></div>
+        {{-- Flowing contour lines --}}
+        <x-flow-lines variant="404" />
+        <x-gutter-grid />
 
         <div class="relative z-10 max-w-6xl mx-auto px-6 py-24 text-center">
             <p class="font-display text-sm font-semibold tracking-widest uppercase text-rose-accent animate-fade-up" style="animation-delay: 0.1s;">
@@ -34,8 +34,5 @@
             </div>
         </div>
 
-        {{-- Decorative grid --}}
-        <div class="absolute inset-0 pointer-events-none opacity-[0.03]"
-             style="background-image: linear-gradient(var(--color-base-400) 1px, transparent 1px), linear-gradient(to right, var(--color-base-400) 1px, transparent 1px); background-size: 60px 60px;"></div>
     </section>
 </x-layouts.app>

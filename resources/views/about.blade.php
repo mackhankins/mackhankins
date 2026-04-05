@@ -1,6 +1,7 @@
 <x-layouts.app :title="'About'">
-    <section class="py-24">
-        <div class="max-w-6xl mx-auto px-6">
+    <section class="relative py-24">
+        <x-gutter-grid />
+        <div class="relative z-10 max-w-6xl mx-auto px-6">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
                 {{-- Left column --}}
                 <div class="lg:col-span-7">
