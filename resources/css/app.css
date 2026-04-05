@@ -5,13 +5,15 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
     /* Typography */
     --font-display: 'Syne', ui-sans-serif, system-ui, sans-serif;
     --font-body: 'Newsreader', ui-serif, Georgia, serif;
     --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-    /* Surface Colors */
+    /* Surface Colors — dark mode defaults (overridden for light in html:not(.dark)) */
     --color-base-950: #0a0c12;
     --color-base-900: #0e1016;
     --color-base-800: #171b27;
@@ -37,7 +39,38 @@
     --animate-float: float 6s ease-in-out infinite;
 }
 
-/* Keyframes */
+/* ========================================
+   Light Mode — variable overrides
+   ======================================== */
+html:not(.dark) {
+    --color-base-950: #f7f6f3;
+    --color-base-900: #efede8;
+    --color-base-800: #e5e3dd;
+    --color-base-700: #d8d5ce;
+    --color-base-600: #c8c4bb;
+    --color-base-500: #a9a59b;
+    --color-base-400: #85817a;
+    --color-base-300: #65625b;
+    --color-base-200: #3d3b36;
+    --color-base-100: #2a2823;
+    --color-base-50: #1a1815;
+
+    /* Darken accents for contrast on light backgrounds */
+    --color-amber-accent: #9e8350;
+    --color-teal-accent: #3d8585;
+    --color-indigo-accent: #5c659e;
+    --color-rose-accent: #9a6a65;
+
+    color-scheme: light;
+}
+
+html.dark {
+    color-scheme: dark;
+}
+
+/* ========================================
+   Keyframes
+   ======================================== */
 @keyframes fade-in {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -71,7 +104,9 @@
     90% { transform: translate(1%, 1%); }
 }
 
-/* Base styles */
+/* ========================================
+   Base styles
+   ======================================== */
 html {
     scroll-behavior: smooth;
 }
@@ -98,7 +133,13 @@ body {
     animation: grain 8s steps(10) infinite;
 }
 
-/* Scroll reveal */
+html:not(.dark) .grain::before {
+    opacity: 0.04;
+}
+
+/* ========================================
+   Scroll reveal
+   ======================================== */
 .reveal {
     opacity: 0;
     transform: translateY(24px);
@@ -121,7 +162,9 @@ body {
 .stagger-children .reveal:nth-child(8) { transition-delay: 0.4s; }
 .stagger-children .reveal:nth-child(9) { transition-delay: 0.45s; }
 
-/* Card hover glow */
+/* ========================================
+   Card hover glow
+   ======================================== */
 .card-glow {
     position: relative;
     transition: transform 0.3s ease, border-color 0.3s ease;
@@ -138,6 +181,10 @@ body {
     pointer-events: none;
 }
 
+html:not(.dark) .card-glow::after {
+    background: linear-gradient(135deg, transparent, rgba(158, 131, 80, 0.06) var(--mouse-y, 50%), transparent);
+}
+
 .card-glow:hover {
     transform: translateY(-2px);
     border-color: var(--color-base-500);
@@ -147,7 +194,9 @@ body {
     opacity: 1;
 }
 
-/* Prose/Markdown styling */
+/* ========================================
+   Prose / Markdown styling
+   ======================================== */
 .prose-custom {
     line-height: 1.8;
     color: var(--color-base-100);
@@ -217,6 +266,15 @@ body {
     color: var(--color-base-100);
 }
 
+/* Torchlight dual-theme: show/hide based on dark mode */
+html.dark code.torchlight[data-theme="light"] {
+    display: none;
+}
+
+html:not(.dark) code.torchlight[data-theme="dark"] {
+    display: none;
+}
+
 /* Torchlight code highlighting */
 .prose-custom pre:has(code.torchlight) {
     padding: 0;
@@ -257,6 +315,14 @@ body {
 
 .prose-custom code.torchlight .line.line-has-remove {
     background-color: rgba(184, 132, 127, 0.08);
+}
+
+html:not(.dark) .prose-custom code.torchlight .line.line-has-add {
+    background-color: rgba(61, 133, 133, 0.1);
+}
+
+html:not(.dark) .prose-custom code.torchlight .line.line-has-remove {
+    background-color: rgba(154, 106, 101, 0.1);
 }
 
 /* Torchlight focus/highlight */
@@ -322,10 +388,12 @@ body {
 }
 
 .prose-custom tbody tr:hover {
-    background-color: rgba(255, 255, 255, 0.02);
+    background-color: var(--color-base-800);
 }
 
-/* Active nav link */
+/* ========================================
+   Active nav link
+   ======================================== */
 .nav-link {
     position: relative;
     transition: color 0.2s;
@@ -353,9 +421,15 @@ body {
     color: var(--color-base-50);
 }
 
-/* Flow lines */
+/* ========================================
+   Flow lines
+   ======================================== */
 .flow-lines svg {
     animation: flow-drift 20s ease-in-out infinite;
+}
+
+html:not(.dark) .flow-lines svg {
+    opacity: 0.85;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -364,7 +438,9 @@ body {
     }
 }
 
-/* Gutter grid */
+/* ========================================
+   Gutter grid
+   ======================================== */
 .gutter-grid {
     background-image:
         linear-gradient(to right, var(--color-base-500) 1px, transparent 1px),
@@ -381,13 +457,25 @@ body {
     -webkit-mask-composite: source-in;
 }
 
-/* Selection */
+html:not(.dark) .gutter-grid {
+    opacity: 0.12;
+}
+
+/* ========================================
+   Selection
+   ======================================== */
 ::selection {
     background-color: rgba(201, 168, 114, 0.25);
     color: var(--color-base-50);
 }
 
-/* Scrollbar */
+html:not(.dark) ::selection {
+    background-color: rgba(158, 131, 80, 0.2);
+}
+
+/* ========================================
+   Scrollbar
+   ======================================== */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -403,4 +491,29 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--color-base-500);
+}
+
+/* ========================================
+   Theme toggle
+   ======================================== */
+.theme-toggle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s, color 0.2s;
+    color: var(--color-base-400);
+    cursor: pointer;
+}
+
+.theme-toggle:hover {
+    color: var(--color-base-50);
+    background-color: var(--color-base-700);
+}
+
+html:not(.dark) .theme-toggle:hover {
+    background-color: var(--color-base-800);
 }

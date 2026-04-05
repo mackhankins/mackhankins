@@ -9,18 +9,12 @@ return [
     // Cache blocks for 30 days. Set null to store permanently
     'cache_seconds' => env('TORCHLIGHT_CACHE_TTL', 60 * 60 * 24 * 30),
 
-    // Which theme you want to use. You can find all of the themes at
-    // https://torchlight.dev/docs/themes.
-    'theme' => env('TORCHLIGHT_THEME', 'material-theme-palenight'),
-
-    // If you want to use two separate themes for dark and light modes,
-    // you can use an array to define both themes. Torchlight renders
-    // both on the page, and you will be responsible for hiding one
-    // or the other depending on the dark / light mode via CSS.
-    // 'theme' => [
-    //     'dark' => 'github-dark',
-    //     'light' => 'github-light',
-    // ],
+    // Dual themes for dark/light mode. Torchlight renders both,
+    // CSS hides the inactive one based on .dark class.
+    'theme' => [
+        'dark' => env('TORCHLIGHT_THEME_DARK', 'material-theme-palenight'),
+        'light' => env('TORCHLIGHT_THEME_LIGHT', 'github-light'),
+    ],
 
     // Your API token from torchlight.dev.
     'token' => env('TORCHLIGHT_TOKEN'),

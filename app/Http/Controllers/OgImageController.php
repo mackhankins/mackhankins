@@ -38,13 +38,13 @@ class OgImageController extends Controller
 
         $canvas->fill('#0a0c12');
 
-        $this->drawGradientBackground($canvas);
+        $this->drawGridPattern($canvas);
 
         $contentRightBound = self::WIDTH - 80;
 
         // Decorative amber accent line at top
         $canvas->drawRectangle(function ($draw) {
-            $draw->size(60, 4);
+            $draw->size(60, 3);
             $draw->at(80, 80);
             $draw->background('#c9a872');
         });
@@ -69,29 +69,27 @@ class OgImageController extends Controller
         return $canvas->encode(new PngEncoder)->toString();
     }
 
-    private function drawGradientBackground(ImageInterface $canvas): void
+    private function drawGridPattern(ImageInterface $canvas): void
     {
-        // Subtle teal glow in bottom-right
-        $canvas->drawEllipse(function ($draw) {
-            $draw->size(600, 400);
-            $draw->at(self::WIDTH - 100, self::HEIGHT + 50);
-            $draw->background('rgba(91, 168, 168, 0.05)');
-        });
+        $gridSize = 40;
+        $color = 'rgba(53, 60, 82, 0.12)';
 
-        // Subtle amber glow top-left
-        $canvas->drawEllipse(function ($draw) {
-            $draw->size(500, 350);
-            $draw->at(100, -50);
-            $draw->background('rgba(201, 168, 114, 0.04)');
-        });
+        // Full-background vertical lines
+        for ($x = 0; $x <= self::WIDTH; $x += $gridSize) {
+            $canvas->drawLine(function ($draw) use ($x, $color) {
+                $draw->from($x, 0);
+                $draw->to($x, self::HEIGHT);
+                $draw->color($color);
+                $draw->width(1);
+            });
+        }
 
-        // Subtle horizontal scan lines for texture
-        for ($i = 0; $i < self::HEIGHT; $i += 4) {
-            $alpha = ($i % 8 === 0) ? 0.03 : 0.015;
-            $canvas->drawLine(function ($draw) use ($i, $alpha) {
-                $draw->from(0, $i);
-                $draw->to(self::WIDTH, $i);
-                $draw->color("rgba(255, 255, 255, {$alpha})");
+        // Full-background horizontal lines
+        for ($y = 0; $y <= self::HEIGHT; $y += $gridSize) {
+            $canvas->drawLine(function ($draw) use ($y, $color) {
+                $draw->from(0, $y);
+                $draw->to(self::WIDTH, $y);
+                $draw->color($color);
                 $draw->width(1);
             });
         }
@@ -169,14 +167,14 @@ class OgImageController extends Controller
         $canvas->drawRectangle(function ($draw) {
             $draw->size(self::WIDTH, 70);
             $draw->at(0, self::HEIGHT - 70);
-            $draw->background('rgba(10, 12, 18, 0.8)');
+            $draw->background('rgba(10, 12, 18, 0.85)');
         });
 
-        // Top border line
+        // Top border — gradient-style using a faint amber line
         $canvas->drawLine(function ($draw) {
             $draw->from(80, self::HEIGHT - 70);
             $draw->to(self::WIDTH - 80, self::HEIGHT - 70);
-            $draw->color('rgba(29, 34, 52, 0.8)');
+            $draw->color('rgba(201, 168, 114, 0.15)');
             $draw->width(1);
         });
 
