@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LlmsController;
+use App\Http\Controllers\OgImageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,7 @@ Route::get('/projects/{project:slug}', [ProjectController::class, 'show'])->name
 Route::get('/blog', [PostController::class, 'index'])->name('blog.index');
 Route::get('/blog/preview/{post:slug}', [PostController::class, 'preview'])->name('blog.preview')->middleware('signed');
 Route::get('/blog/{post:slug}', [PostController::class, 'show'])->name('blog.show');
+Route::get('/blog/{post:slug}/og-image.png', OgImageController::class)->name('blog.og-image');
 
 Route::view('/about', 'about')->name('about');
 
