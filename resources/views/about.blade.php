@@ -75,6 +75,17 @@
                 {{-- Right column - Sidebar --}}
                 <aside class="lg:col-span-5">
                     <div class="lg:sticky lg:top-24 space-y-8">
+                        {{-- Avatar --}}
+                        <div class="flex justify-center reveal">
+                            <div class="relative">
+                                <div class="absolute -inset-1 rounded-full bg-gradient-to-br from-amber-accent via-rose-accent to-teal-accent opacity-30 dark:opacity-0 blur-sm"></div>
+                                <img src="{{ asset('images/avatar.jpg') }}"
+                                     alt="Mack Hankins"
+                                     class="relative w-40 h-40 rounded-full object-cover ring-2 ring-base-700 dark:ring-base-600"
+                                />
+                            </div>
+                        </div>
+
                         {{-- Connect --}}
                         <div class="rounded-xl border border-base-600/50 bg-base-800/40 p-6 reveal">
                             <h3 class="font-display font-bold text-lg text-base-50 mb-4">Connect</h3>

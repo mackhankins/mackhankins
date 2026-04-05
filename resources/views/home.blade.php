@@ -156,19 +156,30 @@
             <div class="max-w-6xl mx-auto px-6">
                 <div class="relative rounded-2xl border border-base-600/50 bg-base-800/40 p-8 md:p-12 overflow-hidden">
                     <x-flow-lines variant="card" />
-                    <div class="relative z-10 max-w-lg">
-                        <h2 class="font-display font-bold text-2xl md:text-3xl tracking-tight text-base-50">
-                            A bit about me
-                        </h2>
-                        <p class="mt-4 text-base-300 font-body leading-relaxed">
-                            I'm a developer who cares about building things that work well and look good doing it.
-                            Most of my projects are internal tools, but I'm always working on something interesting.
-                        </p>
-                        <a href="{{ route('about') }}"
-                           class="inline-flex items-center gap-2 mt-6 text-sm font-display font-semibold text-amber-accent hover:text-teal-accent transition-colors group">
-                            Learn more about me
-                            <span class="inline-block transition-transform group-hover:translate-x-0.5">&rarr;</span>
-                        </a>
+                    <div class="relative z-10 flex flex-col md:flex-row items-center gap-10 md:gap-16">
+                        {{-- Text --}}
+                        <div class="flex-1 min-w-0">
+                            <h2 class="font-display font-bold text-2xl md:text-3xl tracking-tight text-base-50">
+                                A bit about me
+                            </h2>
+                            <p class="mt-4 text-base-300 font-body leading-relaxed">
+                                I'm a developer who cares about building things that work well and look good doing it.
+                                Most of my projects are internal tools, but I'm always working on something interesting.
+                            </p>
+                            <a href="{{ route('about') }}"
+                               class="inline-flex items-center gap-2 mt-6 text-sm font-display font-semibold text-amber-accent hover:text-teal-accent transition-colors group">
+                                Learn more about me
+                                <span class="inline-block transition-transform group-hover:translate-x-0.5">&rarr;</span>
+                            </a>
+                        </div>
+                        {{-- Avatar --}}
+                        <div class="relative shrink-0">
+                            <div class="absolute -inset-1 rounded-full bg-gradient-to-br from-amber-accent via-rose-accent to-teal-accent opacity-30 dark:opacity-20 blur-sm"></div>
+                            <img src="{{ asset('images/avatar.jpg') }}"
+                                 alt="Mack Hankins"
+                                 class="relative w-36 h-36 md:w-44 md:h-44 rounded-full object-cover ring-2 ring-base-700"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
