@@ -105,8 +105,7 @@ class OgImageController extends Controller
 
     private function drawFeaturedImage(ImageInterface $canvas, ImageManager $manager, Post $post): void
     {
-        $imagePath = Storage::disk('public')->path($post->featured_image);
-        $featured = $manager->decode(file_get_contents($imagePath));
+        $featured = $manager->decode(Storage::disk('public')->get($post->featured_image));
 
         $featured = $featured->cover(440, 470);
 
