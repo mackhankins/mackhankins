@@ -41,7 +41,7 @@
                                     <svg class="w-4 h-4 text-amber-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
                                 </div>
                                 <h3 class="font-display font-bold text-base-50">Backend</h3>
-                                <p class="mt-1 text-sm text-base-300">PHP, Laravel, Python, Node.js, REST APIs, GraphQL</p>
+                                <p class="mt-1 text-sm text-base-300">PHP, Laravel, Python, Bash, Node.js, REST APIs</p>
                             </div>
 
                             <div class="rounded-xl border border-base-600/50 bg-base-800/40 p-5">
@@ -49,7 +49,7 @@
                                     <svg class="w-4 h-4 text-teal-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                                 </div>
                                 <h3 class="font-display font-bold text-base-50">Frontend</h3>
-                                <p class="mt-1 text-sm text-base-300">Vue.js, React, Livewire, Alpine.js, Tailwind CSS</p>
+                                <p class="mt-1 text-sm text-base-300">Livewire, Alpine.js, React, Tailwind CSS</p>
                             </div>
 
                             <div class="rounded-xl border border-base-600/50 bg-base-800/40 p-5">
@@ -124,7 +124,7 @@
                                 <div class="h-px bg-base-700/50"></div>
                                 <div class="flex justify-between">
                                     <dt class="text-base-400 font-display">Primary Stack</dt>
-                                    <dd class="text-base-200">Laravel + Vue.js</dd>
+                                    <dd class="text-base-200">Laravel + Livewire</dd>
                                 </div>
                                 <div class="h-px bg-base-700/50"></div>
                                 <div class="flex justify-between">
