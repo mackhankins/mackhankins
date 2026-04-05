@@ -1,14 +1,14 @@
-<x-layouts.app :title="'Stuff'">
+<x-layouts.app :title="'Things'">
     <section class="relative py-24">
         <x-gutter-grid />
         <div class="relative z-10 max-w-6xl mx-auto px-6">
             {{-- Page header --}}
             <div class="max-w-2xl mb-16 animate-fade-up">
                 <p class="font-display text-sm font-semibold tracking-widest uppercase text-teal-accent">
-                    Stuff
+                    Things
                 </p>
                 <h1 class="mt-4 font-display font-extrabold text-4xl md:text-5xl tracking-tight text-base-50">
-                    Stuff I've built
+                    Things I've built
                 </h1>
                 <p class="mt-4 text-base-300 font-body text-lg leading-relaxed">
                     A collection of projects, tools, and experiments. Most of my work is internal,

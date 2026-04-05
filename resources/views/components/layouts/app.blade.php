@@ -54,12 +54,12 @@
 
             {{-- Desktop nav --}}
             <div class="hidden md:flex items-center gap-8">
-                <a href="{{ route('projects.index') }}"
-                   class="nav-link text-sm font-display font-medium text-base-300 {{ request()->routeIs('projects.*') ? 'active' : '' }}">
-                    Stuff
-                </a>
                 <a href="{{ route('blog.index') }}"
                    class="nav-link text-sm font-display font-medium text-base-300 {{ request()->routeIs('blog.*') ? 'active' : '' }}">
+                    Stuff
+                </a>
+                <a href="{{ route('projects.index') }}"
+                   class="nav-link text-sm font-display font-medium text-base-300 {{ request()->routeIs('projects.*') ? 'active' : '' }}">
                     Things
                 </a>
                 <a href="{{ route('about') }}"
@@ -94,8 +94,8 @@
         {{-- Mobile menu --}}
         <div id="mobile-nav-menu" class="hidden md:hidden border-t border-base-700/50 bg-base-900/95 backdrop-blur-xl">
             <div class="px-6 py-4 flex flex-col gap-3">
-                <a href="{{ route('projects.index') }}" class="text-sm font-display font-medium text-base-300 hover:text-base-50 transition-colors py-1">Stuff</a>
-                <a href="{{ route('blog.index') }}" class="text-sm font-display font-medium text-base-300 hover:text-base-50 transition-colors py-1">Things</a>
+                <a href="{{ route('blog.index') }}" class="text-sm font-display font-medium text-base-300 hover:text-base-50 transition-colors py-1">Stuff</a>
+                <a href="{{ route('projects.index') }}" class="text-sm font-display font-medium text-base-300 hover:text-base-50 transition-colors py-1">Things</a>
                 <a href="{{ route('about') }}" class="text-sm font-display font-medium text-base-300 hover:text-base-50 transition-colors py-1">About</a>
             </div>
         </div>

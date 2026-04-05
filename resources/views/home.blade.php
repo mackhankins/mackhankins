@@ -20,14 +20,14 @@
                 </p>
 
                 <div class="mt-10 flex flex-wrap gap-4 animate-fade-up" style="animation-delay: 0.4s;">
-                    <a href="{{ route('projects.index') }}"
+                    <a href="{{ route('blog.index') }}"
                        class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-amber-accent/10 text-amber-accent border border-amber-accent/20 font-display font-semibold text-sm hover:bg-amber-accent/20 hover:border-amber-accent/40 transition-all">
-                        View Stuff
+                        Read Stuff
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                     </a>
-                    <a href="{{ route('blog.index') }}"
+                    <a href="{{ route('projects.index') }}"
                        class="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-base-300 border border-base-600/50 font-display font-semibold text-sm hover:text-base-50 hover:border-base-500 transition-all">
-                        Read Things
+                        View Things
                     </a>
                 </div>
             </div>
@@ -39,37 +39,13 @@
     <div class="relative">
         <x-gutter-grid />
 
-        {{-- Featured Projects --}}
-        @if($featuredProjects->isNotEmpty())
-            <section class="relative z-10 py-24 reveal">
-                <div class="max-w-6xl mx-auto px-6">
-                    <x-section-heading
-                        title="Featured Stuff"
-                        subtitle="A selection of stuff I've built."
-                        :href="route('projects.index')"
-                    />
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
-                        @foreach($featuredProjects as $project)
-                            <div class="reveal">
-                                <x-project-card :project="$project" />
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </section>
-        @endif
-
-        {{-- Latest Posts --}}
+        {{-- Latest Stuff (Blog Posts) --}}
         @if($latestPosts->isNotEmpty())
-            <div class="relative z-10 max-w-6xl mx-auto px-6">
-                <div class="h-px bg-gradient-to-r from-transparent via-base-600/60 to-transparent"></div>
-            </div>
             <section class="relative z-10 py-24 reveal">
                 <div class="max-w-6xl mx-auto px-6">
                     <x-section-heading
-                        title="Latest Things"
-                        subtitle="Thoughts on development, tools, and building stuff."
+                        title="Latest Stuff"
+                        subtitle="Thoughts on development, tools, and building things."
                         :href="route('blog.index')"
                     />
 
@@ -139,10 +115,34 @@
                             {{-- View all link --}}
                             <a href="{{ route('blog.index') }}"
                                class="flex items-center justify-center gap-2 rounded-xl border border-dashed border-base-600/50 p-5 text-sm font-display font-medium text-base-400 hover:text-amber-accent hover:border-amber-accent/30 transition-colors">
-                                View all things
+                                View all stuff
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                             </a>
                         </div>
+                    </div>
+                </div>
+            </section>
+        @endif
+
+        {{-- Featured Things (Projects) --}}
+        @if($featuredProjects->isNotEmpty())
+            <div class="relative z-10 max-w-6xl mx-auto px-6">
+                <div class="h-px bg-gradient-to-r from-transparent via-base-600/60 to-transparent"></div>
+            </div>
+            <section class="relative z-10 py-24 reveal">
+                <div class="max-w-6xl mx-auto px-6">
+                    <x-section-heading
+                        title="Featured Things"
+                        subtitle="A selection of things I've built."
+                        :href="route('projects.index')"
+                    />
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
+                        @foreach($featuredProjects as $project)
+                            <div class="reveal">
+                                <x-project-card :project="$project" />
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </section>

@@ -23,13 +23,13 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
                     Go home
                 </a>
-                <a href="{{ route('projects.index') }}"
-                   class="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-base-300 border border-base-600/50 font-display font-semibold text-sm hover:text-base-50 hover:border-base-500 transition-all">
-                    View Stuff
-                </a>
                 <a href="{{ route('blog.index') }}"
                    class="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-base-300 border border-base-600/50 font-display font-semibold text-sm hover:text-base-50 hover:border-base-500 transition-all">
-                    Read Things
+                    Read Stuff
+                </a>
+                <a href="{{ route('projects.index') }}"
+                   class="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-base-300 border border-base-600/50 font-display font-semibold text-sm hover:text-base-50 hover:border-base-500 transition-all">
+                    View Things
                 </a>
             </div>
         </div>

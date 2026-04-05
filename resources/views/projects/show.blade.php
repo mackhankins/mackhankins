@@ -4,13 +4,14 @@
     :meta-image="$project->featured_image ? url(Storage::url($project->featured_image)) : null"
     :meta-url="route('projects.show', $project)"
 >
-    <article class="py-24">
-        <div class="max-w-6xl mx-auto px-6">
+    <article class="relative py-24">
+        <x-gutter-grid />
+        <div class="relative z-10 max-w-6xl mx-auto px-6">
             {{-- Back link --}}
             <a href="{{ route('projects.index') }}"
                class="inline-flex items-center gap-2 text-sm font-display font-medium text-base-400 hover:text-base-50 transition-colors mb-8 animate-fade-in">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
-                All stuff
+                All things
             </a>
 
             {{-- Header --}}
