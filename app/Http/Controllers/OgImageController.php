@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Imagick\Driver;
 use Intervention\Image\Encoders\PngEncoder;
 use Intervention\Image\ImageManager;
@@ -41,12 +40,7 @@ class OgImageController extends Controller
 
         $this->drawGradientBackground($canvas);
 
-        // Featured image on the right side if available
         $contentRightBound = self::WIDTH - 80;
-        if ($post->featured_image && Storage::disk('public')->exists($post->featured_image)) {
-            $this->drawFeaturedImage($canvas, $manager, $post);
-            $contentRightBound = 680;
-        }
 
         // Decorative amber accent line at top
         $canvas->drawRectangle(function ($draw) {
@@ -98,34 +92,6 @@ class OgImageController extends Controller
                 $draw->from(0, $i);
                 $draw->to(self::WIDTH, $i);
                 $draw->color("rgba(255, 255, 255, {$alpha})");
-                $draw->width(1);
-            });
-        }
-    }
-
-    private function drawFeaturedImage(ImageInterface $canvas, ImageManager $manager, Post $post): void
-    {
-        $featured = $manager->decode(Storage::disk('public')->get($post->featured_image));
-
-        $featured = $featured->cover(440, 470);
-
-        // Place on the right side
-        $canvas->insert($featured, 680, 80);
-
-        // Semi-transparent overlay to blend with background
-        $canvas->drawRectangle(function ($draw) {
-            $draw->size(440, 470);
-            $draw->at(680, 80);
-            $draw->background('rgba(10, 12, 18, 0.3)');
-        });
-
-        // Left edge fade — progressively more opaque strips
-        for ($i = 0; $i < 80; $i++) {
-            $opacity = round(1 - $i / 80, 2);
-            $canvas->drawLine(function ($draw) use ($i, $opacity) {
-                $draw->from(680 + $i, 80);
-                $draw->to(680 + $i, 550);
-                $draw->color("rgba(10, 12, 18, {$opacity})");
                 $draw->width(1);
             });
         }
