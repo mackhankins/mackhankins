@@ -14,7 +14,7 @@ class HomeController extends Controller
             'featuredProjects' => Project::query()
                 ->where('status', 'published')
                 ->orderBy('sort_order')
-                ->limit(7)
+                ->limit(8)
                 ->get(),
             'latestPosts' => Post::query()
                 ->published()
