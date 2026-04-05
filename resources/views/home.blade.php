@@ -137,13 +137,87 @@
                         :href="route('projects.index')"
                     />
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
-                        @foreach($featuredProjects as $project)
-                            <div class="reveal">
-                                <x-project-card :project="$project" />
+                    {{-- Hero project — sort 1, big & open --}}
+                    @php $hero = $featuredProjects->first(); @endphp
+                    <a href="{{ route('projects.show', $hero) }}" class="group block mb-16 reveal">
+                        <div class="flex items-center gap-3 text-xs text-base-400 font-display">
+                            <span class="uppercase tracking-widest text-teal-accent font-semibold">Featured</span>
+                            @if($hero->tech_stack)
+                                <span class="w-1 h-1 rounded-full bg-base-500"></span>
+                                <span>{{ implode(' / ', array_slice($hero->tech_stack, 0, 4)) }}</span>
+                            @endif
+                        </div>
+
+                        <h3 class="mt-4 font-display font-extrabold text-3xl md:text-4xl lg:text-5xl text-base-50 group-hover:text-teal-accent transition-colors tracking-tight leading-tight">
+                            {{ $hero->name }}
+                        </h3>
+
+                        @if($hero->short_description)
+                            <p class="mt-4 text-lg text-base-300 font-body leading-relaxed max-w-3xl">
+                                {{ $hero->short_description }}
+                            </p>
+                        @endif
+
+                        <span class="inline-flex items-center gap-2 mt-6 text-sm font-display font-semibold text-teal-accent group-hover:text-amber-accent transition-colors">
+                            View project
+                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </span>
+                    </a>
+
+                    {{-- Remaining projects — two-column flat list, sketch line down the center --}}
+                    @if($featuredProjects->count() > 1)
+                        @php
+                            $remaining = $featuredProjects->skip(1)->values();
+                            $leftCol = $remaining->take(3);
+                            $rightCol = $remaining->skip(3)->take(3);
+                        @endphp
+                        <div class="relative">
+                            {{-- Center line --}}
+                            <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px hidden md:block bg-gradient-to-b from-teal-accent/25 via-amber-accent/20 to-indigo-accent/10"></div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 stagger-children">
+                                {{-- Left column --}}
+                                <div class="md:pr-10">
+                                    @foreach($leftCol as $project)
+                                        <div class="reveal">
+                                            <div class="h-px bg-gradient-to-r from-transparent via-base-600/40 to-base-600/60 md:to-base-600/40 mb-0"></div>
+                                            <a href="{{ route('projects.show', $project) }}"
+                                               class="group block py-5">
+                                                <h4 class="font-display font-bold text-base md:text-lg text-base-50 group-hover:text-amber-accent transition-colors tracking-tight">
+                                                    {{ $project->name }}
+                                                </h4>
+                                                @if($project->short_description)
+                                                    <p class="mt-1 text-sm text-base-400 font-body leading-relaxed line-clamp-1">
+                                                        {{ $project->short_description }}
+                                                    </p>
+                                                @endif
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                {{-- Right column --}}
+                                <div class="md:pl-10">
+                                    @foreach($rightCol as $project)
+                                        <div class="reveal">
+                                            <div class="h-px bg-gradient-to-r from-base-600/60 md:from-base-600/40 via-base-600/40 to-transparent mb-0"></div>
+                                            <a href="{{ route('projects.show', $project) }}"
+                                               class="group block py-5">
+                                                <h4 class="font-display font-bold text-base md:text-lg text-base-50 group-hover:text-amber-accent transition-colors tracking-tight">
+                                                    {{ $project->name }}
+                                                </h4>
+                                                @if($project->short_description)
+                                                    <p class="mt-1 text-sm text-base-400 font-body leading-relaxed line-clamp-1">
+                                                        {{ $project->short_description }}
+                                                    </p>
+                                                @endif
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
-                        @endforeach
-                    </div>
+                        </div>
+                    @endif
                 </div>
             </section>
         @endif

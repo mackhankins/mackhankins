@@ -13,9 +13,8 @@ class HomeController extends Controller
         return view('home', [
             'featuredProjects' => Project::query()
                 ->where('status', 'published')
-                ->where('is_featured', true)
                 ->orderBy('sort_order')
-                ->limit(3)
+                ->limit(7)
                 ->get(),
             'latestPosts' => Post::query()
                 ->published()
