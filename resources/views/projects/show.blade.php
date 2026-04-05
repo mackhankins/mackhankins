@@ -1,4 +1,9 @@
-<x-layouts.app :title="$project->name">
+<x-layouts.app
+    :title="$project->name"
+    :meta-description="$project->short_description"
+    :meta-image="$project->featured_image ? url(Storage::url($project->featured_image)) : null"
+    :meta-url="route('projects.show', $project)"
+>
     <article class="py-24">
         <div class="max-w-6xl mx-auto px-6">
             {{-- Back link --}}
