@@ -184,27 +184,17 @@ class OgImageController extends Controller
     private function drawTags(ImageInterface $canvas, array $tags, int $y): void
     {
         $fontPath = resource_path('fonts/Syne-Bold.ttf');
+        $fontSize = 15;
         $x = 80;
 
-        foreach ($tags as $tag) {
-            // Tag dot
-            $canvas->drawEllipse(function ($draw) use ($x, $y) {
-                $draw->size(8, 8);
-                $draw->at($x + 5, $y + 10);
-                $draw->background('#c9a872');
-            });
+        $label = implode('  /  ', $tags);
 
-            $x += 16;
-
-            $canvas->text($tag, $x, $y, function (FontFactory $font) use ($fontPath) {
-                $font->filename($fontPath);
-                $font->size(16);
-                $font->color('#b8bcc6');
-                $font->align('left', 'top');
-            });
-
-            $x += (int) (strlen($tag) * 9.5) + 20;
-        }
+        $canvas->text($label, $x, $y, function (FontFactory $font) use ($fontPath, $fontSize) {
+            $font->filename($fontPath);
+            $font->size($fontSize);
+            $font->color('#c9a872');
+            $font->align('left', 'top');
+        });
     }
 
     private function drawBranding(ImageInterface $canvas): void
