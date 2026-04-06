@@ -1,20 +1,16 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Project;
-use Illuminate\Console\Command;
+use Illuminate\Http\Response;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 
-class GenerateSitemap extends Command
+class SitemapController extends Controller
 {
-    protected $signature = 'app:generate-sitemap';
-
-    protected $description = 'Generate the sitemap.xml file';
-
-    public function handle(): void
+    public function __invoke(): Response
     {
         $sitemap = Sitemap::create()
             ->add(Url::create(route('home'))->setPriority(1.0)->setChangeFrequency('weekly'))
@@ -40,8 +36,8 @@ class GenerateSitemap extends Command
                     ->setChangeFrequency('monthly')
             ));
 
-        $sitemap->writeToFile(public_path('sitemap.xml'));
-
-        $this->info('Sitemap generated successfully.');
+        return response($sitemap->render(), 200, [
+            'Content-Type' => 'application/xml',
+        ]);
     }
 }
