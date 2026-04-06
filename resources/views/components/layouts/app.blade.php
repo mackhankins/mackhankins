@@ -44,7 +44,7 @@
 
     @include('feed::links')
 </head>
-<body class="grain min-h-screen flex flex-col">
+<body class="grain min-h-dvh flex flex-col">
     {{-- Navigation --}}
     <nav class="fixed top-0 inset-x-0 z-40 border-b border-base-700/50 bg-base-900/80 backdrop-blur-xl">
         <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
