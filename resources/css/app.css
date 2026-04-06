@@ -437,6 +437,11 @@ html:not(.dark) .prose-custom code.torchlight .line.line-has-remove {
 /* ========================================
    Flow lines
    ======================================== */
+.flow-lines {
+    animation: fade-in 1.5s ease-out both;
+    animation-delay: 0.3s;
+}
+
 html:not(.dark) .flow-lines svg {
     opacity: 0.85;
 }
