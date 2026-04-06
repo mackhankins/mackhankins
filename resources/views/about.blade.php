@@ -5,13 +5,27 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
                 {{-- Left column --}}
                 <div class="lg:col-span-7">
+                    {{-- Intro with inline avatar --}}
                     <div class="animate-fade-up">
-                        <p class="font-display text-sm font-semibold tracking-widest uppercase text-rose-accent">
-                            About
-                        </p>
-                        <h1 class="mt-4 font-display font-extrabold text-4xl md:text-5xl tracking-tight text-base-50">
-                            Hi, I'm Mack
-                        </h1>
+                        <div class="flex items-start gap-6 sm:gap-8">
+                            <div class="shrink-0">
+                                <div class="relative">
+                                    <div class="absolute -inset-1 rounded-full bg-gradient-to-br from-amber-accent via-rose-accent to-teal-accent opacity-30 dark:opacity-20 blur-sm"></div>
+                                    <img src="{{ asset('images/avatar.jpg') }}"
+                                         alt="Mack Hankins"
+                                         class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover ring-2 ring-base-700 dark:ring-base-600"
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-display text-sm font-semibold tracking-widest uppercase text-rose-accent">
+                                    About
+                                </p>
+                                <h1 class="mt-3 font-display font-extrabold text-4xl md:text-5xl tracking-tight text-base-50">
+                                    Hi, I'm Mack
+                                </h1>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="mt-8 space-y-6 font-body text-base-200 text-lg leading-relaxed animate-fade-up" style="animation-delay: 0.15s;">
@@ -165,16 +179,26 @@
 
                 {{-- Right column - Sidebar --}}
                 <aside class="lg:col-span-5">
-                    <div class="lg:sticky lg:top-24 space-y-8">
-                        {{-- Avatar --}}
-                        <div class="flex justify-center reveal">
-                            <div class="relative">
-                                <div class="absolute -inset-1 rounded-full bg-gradient-to-br from-amber-accent via-rose-accent to-teal-accent opacity-30 dark:opacity-0 blur-sm"></div>
-                                <img src="{{ asset('images/avatar.jpg') }}"
-                                     alt="Mack Hankins"
-                                     class="relative w-40 h-40 rounded-full object-cover ring-2 ring-base-700 dark:ring-base-600"
-                                />
-                            </div>
+                    <div class="lg:sticky lg:top-24 space-y-6">
+                        {{-- Quick facts --}}
+                        <div class="rounded-xl border border-base-600/50 bg-base-800/40 p-6 reveal">
+                            <h3 class="font-display font-bold text-lg text-base-50 mb-4">Quick Facts</h3>
+                            <dl class="space-y-3 text-sm">
+                                <div class="flex justify-between">
+                                    <dt class="text-base-400 font-display">Focus</dt>
+                                    <dd class="text-base-200">Full-stack Development</dd>
+                                </div>
+                                <div class="h-px bg-base-700/50"></div>
+                                <div class="flex justify-between">
+                                    <dt class="text-base-400 font-display">Primary Stack</dt>
+                                    <dd class="text-base-200">Laravel + Livewire</dd>
+                                </div>
+                                <div class="h-px bg-base-700/50"></div>
+                                <div class="flex justify-between">
+                                    <dt class="text-base-400 font-display">Specialty</dt>
+                                    <dd class="text-base-200">Internal Tools</dd>
+                                </div>
+                            </dl>
                         </div>
 
                         {{-- Connect --}}
@@ -214,27 +238,6 @@
                                     </div>
                                 </a>
                             </div>
-                        </div>
-
-                        {{-- Quick facts --}}
-                        <div class="rounded-xl border border-base-600/50 bg-base-800/40 p-6 reveal">
-                            <h3 class="font-display font-bold text-lg text-base-50 mb-4">Quick Facts</h3>
-                            <dl class="space-y-3 text-sm">
-                                <div class="flex justify-between">
-                                    <dt class="text-base-400 font-display">Focus</dt>
-                                    <dd class="text-base-200">Full-stack Development</dd>
-                                </div>
-                                <div class="h-px bg-base-700/50"></div>
-                                <div class="flex justify-between">
-                                    <dt class="text-base-400 font-display">Primary Stack</dt>
-                                    <dd class="text-base-200">Laravel + Livewire</dd>
-                                </div>
-                                <div class="h-px bg-base-700/50"></div>
-                                <div class="flex justify-between">
-                                    <dt class="text-base-400 font-display">Specialty</dt>
-                                    <dd class="text-base-200">Internal Tools</dd>
-                                </div>
-                            </dl>
                         </div>
                     </div>
                 </aside>

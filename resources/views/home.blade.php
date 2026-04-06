@@ -1,6 +1,6 @@
 <x-layouts.app>
     {{-- Hero Section --}}
-    <section class="relative min-h-[85vh] flex items-center overflow-hidden">
+    <section class="relative min-h-[65vh] flex items-center overflow-hidden">
         {{-- Flowing contour lines --}}
         <x-flow-lines variant="hero" />
 
@@ -15,7 +15,9 @@
                 </h1>
 
                 <p class="mt-6 text-lg md:text-xl text-base-300 leading-relaxed font-body max-w-xl animate-fade-up" style="animation-delay: 0.3s;">
-                    I build tools, applications, and systems that solve real problems.
+                    I build <span class="hero-rotate-word inline-block text-amber-accent font-semibold">tools</span>
+                    that solve real problems.
+                    <br class="hidden sm:block">
                     Most of my work lives behind closed doors — this is where I share what I can.
                 </p>
 

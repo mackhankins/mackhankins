@@ -69,6 +69,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// Hero word rotation
+document.addEventListener('DOMContentLoaded', () => {
+    const el = document.querySelector('.hero-rotate-word');
+    if (!el) return;
+
+    const words = ['tools', 'dashboards', 'pipelines', 'systems', 'applications'];
+    let index = 0;
+
+    setInterval(() => {
+        el.style.opacity = '0';
+
+        setTimeout(() => {
+            index = (index + 1) % words.length;
+            el.textContent = words[index];
+            el.style.opacity = '1';
+        }, 300);
+    }, 3500);
+});
+
 // Mobile nav toggle
 document.addEventListener('DOMContentLoaded', () => {
     const toggle = document.getElementById('mobile-nav-toggle');

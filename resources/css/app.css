@@ -86,6 +86,12 @@ html.dark {
     50% { transform: translateY(-15px); }
 }
 
+@keyframes flow-drift-alt {
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    33% { transform: translateY(-10px) translateX(8px); }
+    66% { transform: translateY(8px) translateX(-5px); }
+}
+
 @keyframes float {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-12px); }
@@ -392,6 +398,13 @@ html:not(.dark) .prose-custom code.torchlight .line.line-has-remove {
 }
 
 /* ========================================
+   Hero word rotation
+   ======================================== */
+.hero-rotate-word {
+    transition: opacity 0.3s ease;
+}
+
+/* ========================================
    Active nav link
    ======================================== */
 .nav-link {
@@ -424,17 +437,23 @@ html:not(.dark) .prose-custom code.torchlight .line.line-has-remove {
 /* ========================================
    Flow lines
    ======================================== */
-.flow-lines svg {
-    animation: flow-drift 20s ease-in-out infinite;
-}
-
 html:not(.dark) .flow-lines svg {
     opacity: 0.85;
 }
 
+/* Individual line drift — each moves independently */
+.flow-line-1 { animation: flow-drift 18s ease-in-out infinite; }
+.flow-line-2 { animation: flow-drift 22s ease-in-out infinite reverse; }
+.flow-line-3 { animation: flow-drift-alt 20s ease-in-out infinite; }
+.flow-line-4 { animation: flow-drift-alt 24s ease-in-out infinite reverse; }
+.flow-line-5 { animation: flow-drift 26s ease-in-out infinite; }
+.flow-line-6 { animation: flow-drift-alt 28s ease-in-out infinite; }
+.flow-line-7 { animation: flow-drift 30s ease-in-out infinite reverse; }
+.flow-line-8 { animation: flow-drift-alt 32s ease-in-out infinite; }
+
 @media (prefers-reduced-motion: reduce) {
-    .flow-lines svg {
-        animation: none;
+    .flow-lines svg * {
+        animation: none !important;
     }
 }
 
