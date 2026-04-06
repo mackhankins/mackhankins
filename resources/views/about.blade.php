@@ -38,38 +38,129 @@
                         </h2>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div class="rounded-xl border border-base-600/50 bg-base-800/40 p-5">
-                                <div class="w-8 h-8 rounded-lg bg-amber-accent/10 flex items-center justify-center mb-3">
-                                    <svg class="w-4 h-4 text-amber-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                                <h3 class="font-display font-bold text-base-50 mb-3">Backend</h3>
+                                <div class="flex flex-wrap gap-3">
+                                    <x-about-skill-icon icon="si-php" label="PHP" />
+                                    <x-about-skill-icon icon="si-laravel" label="Laravel" />
+                                    <x-about-skill-icon icon="si-python" label="Python" />
+                                    <x-about-skill-icon icon="si-gnubash" label="Bash" />
+                                    <x-about-skill-icon icon="si-nodedotjs" label="Node.js" />
                                 </div>
-                                <h3 class="font-display font-bold text-base-50">Backend</h3>
-                                <p class="mt-1 text-sm text-base-300">PHP, Laravel, Python, Bash, Node.js, REST APIs</p>
                             </div>
 
                             <div class="rounded-xl border border-base-600/50 bg-base-800/40 p-5">
-                                <div class="w-8 h-8 rounded-lg bg-teal-accent/10 flex items-center justify-center mb-3">
-                                    <svg class="w-4 h-4 text-teal-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                <h3 class="font-display font-bold text-base-50 mb-3">Frontend</h3>
+                                <div class="flex flex-wrap gap-3">
+                                    <x-about-skill-icon icon="si-livewire" label="Livewire" />
+                                    <x-about-skill-icon icon="si-alpinedotjs" label="Alpine.js" />
+                                    <x-about-skill-icon icon="si-react" label="React" />
+                                    <x-about-skill-icon icon="si-tailwindcss" label="Tailwind" />
                                 </div>
-                                <h3 class="font-display font-bold text-base-50">Frontend</h3>
-                                <p class="mt-1 text-sm text-base-300">Livewire, Alpine.js, React, Tailwind CSS</p>
                             </div>
 
                             <div class="rounded-xl border border-base-600/50 bg-base-800/40 p-5">
-                                <div class="w-8 h-8 rounded-lg bg-indigo-accent/10 flex items-center justify-center mb-3">
-                                    <svg class="w-4 h-4 text-indigo-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/></svg>
+                                <h3 class="font-display font-bold text-base-50 mb-3">Data & Infrastructure</h3>
+                                <div class="flex flex-wrap gap-3">
+                                    <x-about-skill-icon icon="si-mysql" label="MySQL" />
+                                    <x-about-skill-icon icon="si-postgresql" label="PostgreSQL" />
+                                    <x-about-skill-icon icon="si-redis" label="Redis" />
+                                    <x-about-skill-icon icon="si-docker" label="Docker" />
+                                    <x-about-skill-icon icon="si-githubactions" label="CI/CD" />
                                 </div>
-                                <h3 class="font-display font-bold text-base-50">Data & Infrastructure</h3>
-                                <p class="mt-1 text-sm text-base-300">MySQL, PostgreSQL, Redis, Docker, CI/CD</p>
                             </div>
 
                             <div class="rounded-xl border border-base-600/50 bg-base-800/40 p-5">
-                                <div class="w-8 h-8 rounded-lg bg-rose-accent/10 flex items-center justify-center mb-3">
-                                    <svg class="w-4 h-4 text-rose-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                <h3 class="font-display font-bold text-base-50 mb-3">Tools & Interests</h3>
+                                <div class="flex flex-wrap gap-3">
+                                    <x-about-skill-icon icon="si-filament" label="Filament" />
+                                    <x-about-skill-icon icon="si-github" label="GitHub" />
+                                    <x-about-skill-icon icon="si-anthropic" label="Claude" />
                                 </div>
-                                <h3 class="font-display font-bold text-base-50">Tools & Interests</h3>
-                                <p class="mt-1 text-sm text-base-300">Filament, internal tooling, automation, DX</p>
                             </div>
                         </div>
                     </div>
+
+                    {{-- Work History --}}
+                    @if($experiences->isNotEmpty())
+                        <div class="mt-16 reveal">
+                            <h2 class="font-display font-bold text-2xl tracking-tight text-base-50 mb-8">
+                                Experience
+                            </h2>
+                            <div class="relative">
+                                {{-- Timeline line --}}
+                                <div class="absolute left-[7px] top-2 bottom-2 w-px bg-gradient-to-b from-amber-accent/60 via-teal-accent/40 to-base-700/20"></div>
+
+                                <div class="space-y-8">
+                                    @foreach($experiences as $experience)
+                                        <div class="relative pl-8">
+                                            {{-- Timeline dot --}}
+                                            <div class="absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full border-2 {{ $experience->isCurrent() ? 'border-amber-accent bg-amber-accent/20' : 'border-base-500 bg-base-800' }}"></div>
+
+                                            <div>
+                                                <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+                                                    <h3 class="font-display font-bold text-base-50">{{ $experience->title }}</h3>
+                                                    <span class="text-xs font-mono text-base-400 shrink-0">
+                                                        {{ $experience->start_date->format('M Y') }} — {{ $experience->end_date ? $experience->end_date->format('M Y') : 'Present' }}
+                                                    </span>
+                                                </div>
+                                                @if($experience->company_url)
+                                                    <a href="{{ $experience->company_url }}" target="_blank" rel="noopener noreferrer"
+                                                       class="text-sm text-teal-accent hover:text-amber-accent transition-colors">
+                                                        {{ $experience->company }}
+                                                    </a>
+                                                @else
+                                                    <p class="text-sm text-teal-accent">{{ $experience->company }}</p>
+                                                @endif
+                                                @if($experience->description)
+                                                    <p class="mt-2 text-sm text-base-300 leading-relaxed">{{ $experience->description }}</p>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    {{-- Certifications --}}
+                    @if($certifications->isNotEmpty())
+                        <div class="mt-16 reveal">
+                            <h2 class="font-display font-bold text-2xl tracking-tight text-base-50 mb-6">
+                                Certifications
+                            </h2>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                @foreach($certifications as $certification)
+                                    <div class="group rounded-xl border border-base-600/50 bg-base-800/40 p-4 {{ $certification->credential_url ? 'hover:border-amber-accent/30 transition-colors' : '' }}">
+                                        @if($certification->credential_url)
+                                            <a href="{{ $certification->credential_url }}" target="_blank" rel="noopener noreferrer" class="block">
+                                        @endif
+                                            <div class="flex items-start gap-3">
+                                                @if($certification->icon)
+                                                    <div class="w-8 h-8 rounded-lg bg-base-700 flex items-center justify-center shrink-0 group-hover:bg-amber-accent/10 transition-colors">
+                                                        <x-dynamic-component :component="'si-' . $certification->icon" class="w-4 h-4 text-base-300 group-hover:text-amber-accent transition-colors" />
+                                                    </div>
+                                                @else
+                                                    <div class="w-8 h-8 rounded-lg bg-base-700 flex items-center justify-center shrink-0 group-hover:bg-amber-accent/10 transition-colors">
+                                                        <svg class="w-4 h-4 text-base-300 group-hover:text-amber-accent transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                                                    </div>
+                                                @endif
+                                                <div class="min-w-0">
+                                                    <h3 class="font-display font-bold text-sm text-base-50 group-hover:text-amber-accent transition-colors">{{ $certification->name }}</h3>
+                                                    <p class="text-xs text-base-400 mt-0.5">{{ $certification->issuer }}</p>
+                                                    <p class="text-xs text-base-500 mt-0.5">{{ $certification->earned_at->format('M Y') }}</p>
+                                                </div>
+                                                @if($certification->credential_url)
+                                                    <svg class="w-4 h-4 text-base-500 group-hover:text-amber-accent transition-colors shrink-0 ml-auto mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                                                @endif
+                                            </div>
+                                        @if($certification->credential_url)
+                                            </a>
+                                        @endif
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
                 </div>
 
                 {{-- Right column - Sidebar --}}
@@ -93,7 +184,7 @@
                                 <a href="https://github.com/mackhankins" target="_blank" rel="noopener noreferrer"
                                    class="flex items-center gap-3 text-base-300 hover:text-amber-accent transition-colors group">
                                     <div class="w-9 h-9 rounded-lg bg-base-700 flex items-center justify-center group-hover:bg-amber-accent/10 transition-colors">
-                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                        <x-si-github class="w-4 h-4" />
                                     </div>
                                     <div>
                                         <span class="text-sm font-display font-medium">GitHub</span>
@@ -104,7 +195,7 @@
                                 <a href="https://x.com/mackhankins" target="_blank" rel="noopener noreferrer"
                                    class="flex items-center gap-3 text-base-300 hover:text-amber-accent transition-colors group">
                                     <div class="w-9 h-9 rounded-lg bg-base-700 flex items-center justify-center group-hover:bg-amber-accent/10 transition-colors">
-                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                        <x-si-x class="w-4 h-4" />
                                     </div>
                                     <div>
                                         <span class="text-sm font-display font-medium">X / Twitter</span>

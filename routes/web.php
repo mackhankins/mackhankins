@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LlmsController;
 use App\Http\Controllers\OgImageController;
@@ -17,7 +18,7 @@ Route::get('/blog/preview/{post:slug}', [PostController::class, 'preview'])->nam
 Route::get('/blog/{post:slug}', [PostController::class, 'show'])->name('blog.show');
 Route::get('/blog/{post:slug}/og-image.png', OgImageController::class)->name('blog.og-image');
 
-Route::view('/about', 'about')->name('about');
+Route::get('/about', AboutController::class)->name('about');
 
 Route::feeds();
 
