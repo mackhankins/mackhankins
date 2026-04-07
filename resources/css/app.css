@@ -467,10 +467,10 @@ html:not(.dark) .flow-lines svg {
    ======================================== */
 .gutter-grid {
     background-image:
-        linear-gradient(to right, var(--color-base-500) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--color-base-500) 1px, transparent 1px);
+        linear-gradient(to right, var(--color-base-300) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--color-base-300) 1px, transparent 1px);
     background-size: 40px 40px;
-    opacity: 0.07;
+    opacity: 0.12;
     mask-image:
         linear-gradient(to bottom, black 0%, black 92%, transparent 100%),
         linear-gradient(to right, black 0%, black calc(50% - 36rem), transparent calc(50% - 36rem + 40px), transparent calc(50% + 36rem - 40px), black calc(50% + 36rem), black 100%);
@@ -482,7 +482,9 @@ html:not(.dark) .flow-lines svg {
 }
 
 html:not(.dark) .gutter-grid {
-    opacity: 0.12;
+    background-image:
+        linear-gradient(to right, var(--color-base-500) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--color-base-500) 1px, transparent 1px);
 }
 
 /* ========================================
