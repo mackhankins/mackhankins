@@ -10,7 +10,7 @@
 @endphp
 
 <a href="{{ route('tags.show', $tag) }}"
-   class="inline-block px-2 py-0.5 text-xs font-display font-medium rounded-full border transition-colors {{ $colors }}"
+   class="tag-badge inline-block px-2 py-0.5 text-xs font-display font-medium rounded-full border transition-colors {{ $colors }}"
    title="View all {{ $tag->name }} content">
     {{ $tag->name }}
 </a>

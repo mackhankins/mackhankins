@@ -149,7 +149,7 @@ html:not(.dark) .grain::before {
 .reveal {
     opacity: 0;
     transform: translateY(24px);
-    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal.revealed {
@@ -169,11 +169,26 @@ html:not(.dark) .grain::before {
 .stagger-children .reveal:nth-child(9) { transition-delay: 0.45s; }
 
 /* ========================================
+   Focus-visible
+   ======================================== */
+:focus-visible {
+    outline: 2px solid var(--color-amber-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Cards and tags handle focus on the inner <a>, not the wrapper */
+.card-glow :focus-visible,
+.tag-badge:focus-visible {
+    outline-offset: -2px;
+}
+
+/* ========================================
    Card hover glow
    ======================================== */
 .card-glow {
     position: relative;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card-glow::after {
@@ -182,7 +197,7 @@ html:not(.dark) .grain::before {
     inset: 0;
     border-radius: inherit;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     background: linear-gradient(135deg, transparent, rgba(201, 168, 114, 0.04) var(--mouse-y, 50%), transparent);
     pointer-events: none;
 }
@@ -420,7 +435,7 @@ html:not(.dark) .prose-custom code.torchlight .line.line-has-remove {
     width: 0;
     height: 2px;
     background: var(--color-amber-accent);
-    transition: width 0.3s ease;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     border-radius: 1px;
 }
 
@@ -457,8 +472,30 @@ html:not(.dark) .flow-lines svg {
 .flow-line-8 { animation: flow-drift-alt 32s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
-    .flow-lines svg * {
+    .flow-lines svg *,
+    .grain::before {
         animation: none !important;
+    }
+
+    .animate-fade-in,
+    .animate-fade-up {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .card-glow {
+        transition: none !important;
+    }
+
+    .hero-rotate-word {
+        transition: none !important;
     }
 }
 
@@ -502,6 +539,13 @@ html:not(.dark) ::selection {
 /* ========================================
    Scrollbar
    ======================================== */
+/* Firefox */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-base-600) var(--color-base-900);
+}
+
+/* Webkit */
 ::-webkit-scrollbar {
     width: 8px;
 }

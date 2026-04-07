@@ -123,12 +123,12 @@
             </linearGradient>
         </defs>
 
-        <path d="M -100 350 C 200 280, 500 420, 750 340 S 1000 260, 1300 320" stroke="url(#flow-rose)" stroke-width="1" />
-        <path d="M -100 380 C 220 310, 520 440, 770 360 S 1020 280, 1300 345" stroke="url(#flow-rose)" stroke-width="0.5" opacity="0.5" />
-        <path d="M 1300 480 C 1000 440, 700 520, 450 460 S 200 400, -100 450" stroke="url(#flow-rose)" stroke-width="0.75" opacity="0.4" />
+        <path d="M -100 350 C 200 280, 500 420, 750 340 S 1000 260, 1300 320" stroke="url(#flow-rose)" stroke-width="1" class="flow-line-1" />
+        <path d="M -100 380 C 220 310, 520 440, 770 360 S 1020 280, 1300 345" stroke="url(#flow-rose)" stroke-width="0.5" opacity="0.5" class="flow-line-2" />
+        <path d="M 1300 480 C 1000 440, 700 520, 450 460 S 200 400, -100 450" stroke="url(#flow-rose)" stroke-width="0.75" opacity="0.4" class="flow-line-3" />
 
-        <path d="M -100 200 C 300 180, 600 240, 900 190 S 1100 160, 1300 200" stroke="url(#flow-rose-subtle)" stroke-width="0.5" />
-        <path d="M -100 600 C 400 580, 700 630, 1000 590 S 1150 570, 1300 590" stroke="url(#flow-rose-subtle)" stroke-width="0.5" />
+        <path d="M -100 200 C 300 180, 600 240, 900 190 S 1100 160, 1300 200" stroke="url(#flow-rose-subtle)" stroke-width="0.5" class="flow-line-6" />
+        <path d="M -100 600 C 400 580, 700 630, 1000 590 S 1150 570, 1300 590" stroke="url(#flow-rose-subtle)" stroke-width="0.5" class="flow-line-7" />
     </svg>
 </div>
 @endif

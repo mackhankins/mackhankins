@@ -51,11 +51,13 @@
             {{-- Desktop nav --}}
             <div class="hidden md:flex items-center gap-8">
                 <a href="{{ route('blog.index') }}"
-                   class="nav-link text-sm font-display font-medium text-base-300 {{ request()->routeIs('blog.*') ? 'active' : '' }}">
+                   class="nav-link text-sm font-display font-medium text-base-300 {{ request()->routeIs('blog.*') ? 'active' : '' }}"
+                   @if(request()->routeIs('blog.*')) aria-current="page" @endif>
                     Stuff
                 </a>
                 <a href="{{ route('projects.index') }}"
-                   class="nav-link text-sm font-display font-medium text-base-300 {{ request()->routeIs('projects.*') ? 'active' : '' }}">
+                   class="nav-link text-sm font-display font-medium text-base-300 {{ request()->routeIs('projects.*') ? 'active' : '' }}"
+                   @if(request()->routeIs('projects.*')) aria-current="page" @endif>
                     Things
                 </a>
                 <a href="{{ url('/#about') }}"
@@ -88,11 +90,15 @@
         </div>
 
         {{-- Mobile menu --}}
-        <div id="mobile-nav-menu" class="hidden md:hidden border-t border-base-700/50 bg-base-900/95 backdrop-blur-xl">
-            <div class="px-6 py-4 flex flex-col gap-3">
-                <a href="{{ route('blog.index') }}" class="text-sm font-display font-medium text-base-300 hover:text-base-50 transition-colors py-1">Stuff</a>
-                <a href="{{ route('projects.index') }}" class="text-sm font-display font-medium text-base-300 hover:text-base-50 transition-colors py-1">Things</a>
-                <a href="{{ url('/#about') }}" class="text-sm font-display font-medium text-base-300 hover:text-base-50 transition-colors py-1">About</a>
+        <div id="mobile-nav-menu" class="md:hidden border-t border-base-700/50 bg-base-900/95 backdrop-blur-xl grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-hidden="true">
+            <div class="overflow-hidden">
+                <div class="px-6 py-4 flex flex-col gap-3">
+                    <a href="{{ route('blog.index') }}" class="text-sm font-display font-medium text-base-300 hover:text-base-50 transition-colors py-1"
+                       @if(request()->routeIs('blog.*')) aria-current="page" @endif>Stuff</a>
+                    <a href="{{ route('projects.index') }}" class="text-sm font-display font-medium text-base-300 hover:text-base-50 transition-colors py-1"
+                       @if(request()->routeIs('projects.*')) aria-current="page" @endif>Things</a>
+                    <a href="{{ url('/#about') }}" class="text-sm font-display font-medium text-base-300 hover:text-base-50 transition-colors py-1">About</a>
+                </div>
             </div>
         </div>
     </nav>

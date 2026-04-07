@@ -74,17 +74,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const el = document.querySelector('.hero-rotate-word');
     if (!el) return;
 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const words = ['tools', 'dashboards', 'pipelines', 'systems', 'applications'];
     let index = 0;
 
     setInterval(() => {
-        el.style.opacity = '0';
-
-        setTimeout(() => {
+        if (prefersReducedMotion) {
             index = (index + 1) % words.length;
             el.textContent = words[index];
-            el.style.opacity = '1';
-        }, 300);
+        } else {
+            el.style.opacity = '0';
+            setTimeout(() => {
+                index = (index + 1) % words.length;
+                el.textContent = words[index];
+                el.style.opacity = '1';
+            }, 300);
+        }
     }, 3500);
 });
 
@@ -96,8 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!toggle || !menu) return;
 
     toggle.addEventListener('click', () => {
-        menu.classList.toggle('hidden');
-        const isOpen = !menu.classList.contains('hidden');
+        const isOpen = menu.classList.toggle('grid-rows-[1fr]');
+        menu.classList.toggle('grid-rows-[0fr]', !isOpen);
+        menu.setAttribute('aria-hidden', !isOpen);
         toggle.setAttribute('aria-expanded', isOpen);
     });
 });

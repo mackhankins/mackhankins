@@ -6,7 +6,7 @@
 >
     {{-- Reading progress bar --}}
     <div id="reading-progress" class="fixed top-16 left-0 right-0 z-30 h-0.5 pointer-events-none">
-        <div id="reading-progress-bar" class="h-full w-0 bg-gradient-to-r from-amber-accent to-teal-accent transition-none"></div>
+        <div id="reading-progress-bar" class="h-full w-0 rounded-r-full bg-gradient-to-r from-amber-accent to-teal-accent transition-none"></div>
     </div>
 
     <article id="article" class="relative py-24">
