@@ -8,24 +8,20 @@
     <title>{{ isset($title) ? $title . ' — Mack Hankins' : 'Mack Hankins — Developer & Creator' }}</title>
 
     {{-- Open Graph --}}
-    <meta property="og:type" content="{{ isset($metaImage) ? 'article' : 'website' }}">
+    <meta property="og:type" content="{{ isset($title) ? 'article' : 'website' }}">
     <meta property="og:title" content="{{ isset($title) ? $title . ' — Mack Hankins' : 'Mack Hankins — Developer & Creator' }}">
     <meta property="og:description" content="{{ $metaDescription ?? 'Mack Hankins — Developer & Creator. Building tools that matter.' }}">
     <meta property="og:url" content="{{ $metaUrl ?? request()->url() }}">
-    @if(isset($metaImage))
-        <meta property="og:image" content="{{ $metaImage }}">
-        <meta property="og:image:width" content="1200">
-        <meta property="og:image:height" content="630">
-    @endif
+    <meta property="og:image" content="{{ $metaImage ?? asset('images/og-default.png') }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
 
     {{-- Twitter Card --}}
-    <meta name="twitter:card" content="{{ isset($metaImage) ? 'summary_large_image' : 'summary' }}">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@mackhankins">
     <meta name="twitter:title" content="{{ isset($title) ? $title . ' — Mack Hankins' : 'Mack Hankins — Developer & Creator' }}">
     <meta name="twitter:description" content="{{ $metaDescription ?? 'Mack Hankins — Developer & Creator. Building tools that matter.' }}">
-    @if(isset($metaImage))
-        <meta name="twitter:image" content="{{ $metaImage }}">
-    @endif
+    <meta name="twitter:image" content="{{ $metaImage ?? asset('images/og-default.png') }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
