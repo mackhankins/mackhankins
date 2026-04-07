@@ -6,6 +6,7 @@ use App\Http\Controllers\OgImageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -17,6 +18,8 @@ Route::get('/blog', [PostController::class, 'index'])->name('blog.index');
 Route::get('/blog/preview/{post:slug}', [PostController::class, 'preview'])->name('blog.preview')->middleware('signed');
 Route::get('/blog/{post:slug}', [PostController::class, 'show'])->name('blog.show');
 Route::get('/blog/{post:slug}/og-image.png', OgImageController::class)->name('blog.og-image');
+
+Route::get('/tags/{tag:slug}', [TagController::class, 'show'])->name('tags.show');
 
 Route::get('/about', fn () => redirect('/#about', 301))->name('about');
 

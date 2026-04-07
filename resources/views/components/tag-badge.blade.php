@@ -1,4 +1,4 @@
-@props(['tag', 'route' => 'blog.index', 'style' => 'indigo'])
+@props(['tag', 'style' => 'indigo'])
 
 @php
     $colors = match($style) {
@@ -9,8 +9,8 @@
     };
 @endphp
 
-<a href="{{ route($route, ['tag' => $tag->slug]) }}"
+<a href="{{ route('tags.show', $tag) }}"
    class="inline-block px-2 py-0.5 text-xs font-display font-medium rounded-full border transition-colors {{ $colors }}"
-   title="Filter by {{ $tag->name }}">
+   title="View all {{ $tag->name }} content">
     {{ $tag->name }}
 </a>

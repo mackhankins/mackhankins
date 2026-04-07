@@ -81,7 +81,7 @@
                     <h3 class="font-display font-bold text-lg text-base-50 mb-4">Tags</h3>
                     <div class="flex flex-wrap gap-2">
                         @foreach($project->tags as $tag)
-                            <x-tag-badge :tag="$tag" route="projects.index" style="indigo" />
+                            <x-tag-badge :tag="$tag" />
                         @endforeach
                     </div>
                 </div>

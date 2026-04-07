@@ -34,7 +34,7 @@
             @if($project->tags->isNotEmpty())
                 <div class="mt-4 flex flex-wrap gap-1.5 pointer-events-auto relative z-20">
                     @foreach($project->tags->take(4) as $tag)
-                        <x-tag-badge :tag="$tag" route="projects.index" style="teal" />
+                        <x-tag-badge :tag="$tag" style="teal" />
                     @endforeach
                     @if($project->tags->count() > 4)
                         <span class="inline-block px-2 py-0.5 text-xs font-display font-medium rounded-full bg-base-700/80 text-base-400 border border-base-600/50">

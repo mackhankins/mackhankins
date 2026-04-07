@@ -26,7 +26,7 @@
         @if($post->tags->isNotEmpty())
             <div class="mt-4 flex flex-wrap gap-1.5 relative z-20 pointer-events-auto">
                 @foreach($post->tags->take(3) as $tag)
-                    <x-tag-badge :tag="$tag" route="blog.index" />
+                    <x-tag-badge :tag="$tag" />
                 @endforeach
             </div>
         @endif
