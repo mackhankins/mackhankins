@@ -21,14 +21,14 @@
                     Most of my work lives behind closed doors — this is where I share what I can.
                 </p>
 
-                <div class="mt-10 flex flex-wrap gap-4 animate-fade-up" style="animation-delay: 0.4s;">
+                <div class="relative z-20 mt-10 flex flex-wrap gap-4 animate-fade-up" style="animation-delay: 0.4s;">
                     <a href="{{ route('blog.index') }}"
-                       class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-amber-accent/10 text-amber-accent border border-amber-accent/20 font-display font-semibold text-sm hover:bg-amber-accent/20 hover:border-amber-accent/40 transition-all">
+                       class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-base-900/90 text-amber-accent border border-amber-accent/20 font-display font-semibold text-sm hover:bg-amber-accent/20 hover:border-amber-accent/40 transition-all backdrop-blur-sm">
                         Read Stuff
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                     </a>
                     <a href="{{ route('projects.index') }}"
-                       class="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-base-300 border border-base-600/50 font-display font-semibold text-sm hover:text-base-50 hover:border-base-500 transition-all">
+                       class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-base-900/90 text-base-300 border border-base-600/50 font-display font-semibold text-sm hover:text-base-50 hover:border-base-500 transition-all backdrop-blur-sm">
                         View Things
                     </a>
                 </div>
