@@ -16,7 +16,7 @@ class SitemapController extends Controller
             ->add(Url::create(route('home'))->setPriority(1.0)->setChangeFrequency('weekly'))
             ->add(Url::create(route('projects.index'))->setPriority(0.8)->setChangeFrequency('weekly'))
             ->add(Url::create(route('blog.index'))->setPriority(0.8)->setChangeFrequency('daily'))
-            ->add(Url::create(route('about'))->setPriority(0.5)->setChangeFrequency('monthly'));
+            ->add(Url::create(url('/#about'))->setPriority(0.5)->setChangeFrequency('monthly'));
 
         Project::query()
             ->where('status', 'published')

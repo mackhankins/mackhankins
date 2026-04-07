@@ -62,8 +62,8 @@
                    class="nav-link text-sm font-display font-medium text-base-300 {{ request()->routeIs('projects.*') ? 'active' : '' }}">
                     Things
                 </a>
-                <a href="{{ route('about') }}"
-                   class="nav-link text-sm font-display font-medium text-base-300 {{ request()->routeIs('about') ? 'active' : '' }}">
+                <a href="{{ url('/#about') }}"
+                   class="nav-link text-sm font-display font-medium text-base-300">
                     About
                 </a>
 
@@ -96,7 +96,7 @@
             <div class="px-6 py-4 flex flex-col gap-3">
                 <a href="{{ route('blog.index') }}" class="text-sm font-display font-medium text-base-300 hover:text-base-50 transition-colors py-1">Stuff</a>
                 <a href="{{ route('projects.index') }}" class="text-sm font-display font-medium text-base-300 hover:text-base-50 transition-colors py-1">Things</a>
-                <a href="{{ route('about') }}" class="text-sm font-display font-medium text-base-300 hover:text-base-50 transition-colors py-1">About</a>
+                <a href="{{ url('/#about') }}" class="text-sm font-display font-medium text-base-300 hover:text-base-50 transition-colors py-1">About</a>
             </div>
         </div>
     </nav>

@@ -26,7 +26,7 @@ class LlmsController extends Controller
 
         - [Stuff (Projects)]({url}/projects): Portfolio of public projects and tools
         - [Things (Blog)]({url}/blog): Writing about development, tools, and technology
-        - [About]({url}/about): Background and skills
+        - [About]({url}/#about): Background and skills
         - [RSS Feed]({url}/feed): Atom feed of blog posts
 
         ## Blog Posts (Things)

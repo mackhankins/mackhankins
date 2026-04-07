@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Certification;
 use App\Models\Post;
 use App\Models\Project;
+use App\Models\WorkExperience;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -21,6 +23,8 @@ class HomeController extends Controller
                 ->latest('published_at')
                 ->limit(3)
                 ->get(),
+            'certifications' => Certification::orderBy('sort_order')->orderByDesc('earned_at')->get(),
+            'experiences' => WorkExperience::orderBy('sort_order')->orderByDesc('start_date')->get(),
         ]);
     }
 }
