@@ -12,6 +12,7 @@ use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
 class PostResource extends Resource
@@ -139,7 +140,19 @@ class PostResource extends Resource
                     ]),
             ])
             ->actions([
-                Actions\EditAction::make(),
+                Actions\ActionGroup::make([
+                    Actions\EditAction::make(),
+                    Actions\Action::make('preview')
+                        ->label(fn (Post $record) => $record->isPublished() ? 'View' : 'Preview')
+                        ->icon(fn (Post $record) => $record->isPublished() ? 'heroicon-o-arrow-top-right-on-square' : 'heroicon-o-eye')
+                        ->color('gray')
+                        ->url(fn (Post $record) => $record->isPublished()
+                            ? route('blog.show', $record)
+                            : URL::temporarySignedRoute('blog.preview', now()->addHour(), ['post' => $record->slug])
+                        )
+                        ->openUrlInNewTab(),
+                    Actions\DeleteAction::make(),
+                ]),
             ])
             ->bulkActions([
                 Actions\BulkActionGroup::make([

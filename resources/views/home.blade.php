@@ -317,35 +317,31 @@
                                 <h3 class="font-display font-bold text-2xl tracking-tight text-base-50 mb-6">
                                     Certifications
                                 </h3>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="rounded-xl border border-base-600/50 bg-base-800/40 divide-y divide-base-700/50">
                                     @foreach($certifications as $certification)
-                                        <div class="group rounded-xl border border-base-600/50 bg-base-800/40 p-4 {{ $certification->credential_url ? 'hover:border-amber-accent/30 transition-colors' : '' }}">
-                                            @if($certification->credential_url)
-                                                <a href="{{ $certification->credential_url }}" target="_blank" rel="noopener noreferrer" class="block">
+                                        @if($certification->credential_url)
+                                            <a href="{{ $certification->credential_url }}" target="_blank" rel="noopener noreferrer"
+                                               class="group flex items-start gap-3 px-4 py-3.5 transition-colors hover:bg-base-700/30 {{ $loop->first ? 'rounded-t-xl' : '' }} {{ $loop->last ? 'rounded-b-xl' : '' }}">
+                                        @else
+                                            <div class="flex items-start gap-3 px-4 py-3.5">
+                                        @endif
+                                            @if($certification->icon)
+                                                <x-dynamic-component :component="'si-' . $certification->icon" class="w-4 h-4 text-base-400 group-hover:text-amber-accent transition-colors shrink-0 mt-0.5" />
+                                            @else
+                                                <svg class="w-4 h-4 text-base-400 group-hover:text-amber-accent transition-colors shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
                                             @endif
-                                                <div class="flex items-start gap-3">
-                                                    @if($certification->icon)
-                                                        <div class="w-8 h-8 rounded-lg bg-base-700 flex items-center justify-center shrink-0 group-hover:bg-amber-accent/10 transition-colors">
-                                                            <x-dynamic-component :component="'si-' . $certification->icon" class="w-4 h-4 text-base-300 group-hover:text-amber-accent transition-colors" />
-                                                        </div>
-                                                    @else
-                                                        <div class="w-8 h-8 rounded-lg bg-base-700 flex items-center justify-center shrink-0 group-hover:bg-amber-accent/10 transition-colors">
-                                                            <svg class="w-4 h-4 text-base-300 group-hover:text-amber-accent transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
-                                                        </div>
-                                                    @endif
-                                                    <div class="min-w-0">
-                                                        <h4 class="font-display font-bold text-sm text-base-50 group-hover:text-amber-accent transition-colors">{{ $certification->name }}</h4>
-                                                        <p class="text-xs text-base-400 mt-0.5">{{ $certification->issuer }}</p>
-                                                        <p class="text-xs text-base-500 mt-0.5">{{ $certification->earned_at->format('M Y') }}</p>
-                                                    </div>
-                                                    @if($certification->credential_url)
-                                                        <svg class="w-4 h-4 text-base-500 group-hover:text-amber-accent transition-colors shrink-0 ml-auto mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                                                    @endif
-                                                </div>
+                                            <div class="min-w-0 flex-1">
+                                                <h4 class="font-display font-bold text-sm text-base-50 group-hover:text-amber-accent transition-colors">{{ $certification->name }}</h4>
+                                                <p class="text-xs text-base-400 mt-0.5">{{ $certification->issuer }} <span class="text-base-500">&middot;</span> <span class="font-mono text-base-500">{{ $certification->earned_at->format('M Y') }}</span></p>
+                                            </div>
                                             @if($certification->credential_url)
-                                                </a>
+                                                <svg class="w-3.5 h-3.5 text-base-500 group-hover:text-amber-accent transition-colors shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                                             @endif
-                                        </div>
+                                        @if($certification->credential_url)
+                                            </a>
+                                        @else
+                                            </div>
+                                        @endif
                                     @endforeach
                                 </div>
                             </div>
