@@ -4,11 +4,9 @@
 
     {{-- Hero Section --}}
     <section class="relative min-h-[65vh] flex items-center overflow-hidden">
-        {{-- Constellation mesh --}}
-        <x-constellation />
-
-        <div class="relative z-10 max-w-6xl mx-auto px-6 py-24">
-            <div class="max-w-3xl">
+        <div class="relative z-10 max-w-6xl mx-auto px-6 py-24 w-full">
+            <div class="max-w-3xl relative">
+                <x-hero-terminal />
                 <p class="font-display text-sm font-semibold tracking-widest uppercase text-amber-accent animate-fade-up" style="animation-delay: 0.1s;">
                     Developer &amp; Creator
                 </p>

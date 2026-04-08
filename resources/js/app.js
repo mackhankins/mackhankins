@@ -1,5 +1,4 @@
 import './bootstrap';
-import { initConstellation } from './constellation';
 
 // Scroll reveal observer
 document.addEventListener('DOMContentLoaded', () => {
@@ -70,10 +69,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Constellation mesh
+// Hero terminal — reveal lines sequentially
 document.addEventListener('DOMContentLoaded', () => {
-    const canvas = document.getElementById('constellation-canvas');
-    if (canvas) initConstellation(canvas);
+    const lines = document.querySelectorAll('.terminal-line');
+    if (lines.length === 0) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+        lines.forEach((line) => line.classList.add('visible'));
+        return;
+    }
+
+    lines.forEach((line) => {
+        const delay = parseInt(line.dataset.delay, 10) || 0;
+        setTimeout(() => line.classList.add('visible'), delay);
+    });
 });
 
 // Hero word rotation

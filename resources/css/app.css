@@ -450,15 +450,42 @@ html:not(.dark) .prose-custom code.torchlight .line.line-has-remove {
 }
 
 /* ========================================
-   Constellation mesh
+   Hero terminal
    ======================================== */
-.constellation {
-    animation: fade-in 1.5s ease-out both;
-    animation-delay: 0.3s;
+.hero-terminal {
+    animation: fade-up 1s ease-out both;
+    animation-delay: 0.6s;
+    opacity: 0.6;
 }
 
-html:not(.dark) .constellation canvas {
-    opacity: 0.7;
+html:not(.dark) .hero-terminal {
+    opacity: 0.5;
+}
+
+.terminal-line {
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.terminal-line.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.terminal-cursor {
+    display: inline-block;
+    width: 7px;
+    height: 14px;
+    background-color: var(--color-teal-accent);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: cursor-blink 1s step-end infinite;
+}
+
+@keyframes cursor-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 /* ========================================
@@ -485,8 +512,7 @@ html:not(.dark) .flow-lines svg {
 
 @media (prefers-reduced-motion: reduce) {
     .flow-lines svg *,
-    .grain::before,
-    .constellation {
+    .grain::before {
         animation: none !important;
     }
 
@@ -509,6 +535,21 @@ html:not(.dark) .flow-lines svg {
 
     .hero-rotate-word {
         transition: none !important;
+    }
+
+    .terminal-line {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .terminal-cursor {
+        animation: none !important;
+    }
+
+    .hero-terminal {
+        animation: none !important;
+        opacity: 0.6 !important;
     }
 }
 
