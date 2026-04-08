@@ -1,4 +1,7 @@
 <x-layouts.app>
+    <div class="relative">
+    <x-gutter-grid />
+
     {{-- Hero Section --}}
     <section class="relative min-h-[65vh] flex items-center overflow-hidden">
         {{-- Flowing contour lines --}}
@@ -37,10 +40,6 @@
         </div>
 
     </section>
-
-    {{-- Post-hero content with gutter grid --}}
-    <div class="relative">
-        <x-gutter-grid />
 
         {{-- Latest Stuff (Blog Posts) --}}
         @if($latestPosts->isNotEmpty())
@@ -227,7 +226,7 @@
                                 What I work with
                             </h3>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                <div class="rounded-xl border border-base-600/50 bg-base-800/40 p-5">
+                                <div class="rounded-xl border border-base-600/50 bg-base-800/40 p-5 transition-colors hover:border-base-500">
                                     <h4 class="font-display font-bold text-base-50 mb-3">Backend</h4>
                                     <div class="flex flex-wrap gap-3">
                                         <x-about-skill-icon icon="si-php" label="PHP" />
@@ -238,7 +237,7 @@
                                     </div>
                                 </div>
 
-                                <div class="rounded-xl border border-base-600/50 bg-base-800/40 p-5">
+                                <div class="rounded-xl border border-base-600/50 bg-base-800/40 p-5 transition-colors hover:border-base-500">
                                     <h4 class="font-display font-bold text-base-50 mb-3">Frontend</h4>
                                     <div class="flex flex-wrap gap-3">
                                         <x-about-skill-icon icon="si-livewire" label="Livewire" />
@@ -248,7 +247,7 @@
                                     </div>
                                 </div>
 
-                                <div class="rounded-xl border border-base-600/50 bg-base-800/40 p-5">
+                                <div class="rounded-xl border border-base-600/50 bg-base-800/40 p-5 transition-colors hover:border-base-500">
                                     <h4 class="font-display font-bold text-base-50 mb-3">Data & Infrastructure</h4>
                                     <div class="flex flex-wrap gap-3">
                                         <x-about-skill-icon icon="si-mysql" label="MySQL" />
@@ -259,7 +258,7 @@
                                     </div>
                                 </div>
 
-                                <div class="rounded-xl border border-base-600/50 bg-base-800/40 p-5">
+                                <div class="rounded-xl border border-base-600/50 bg-base-800/40 p-5 transition-colors hover:border-base-500">
                                     <h4 class="font-display font-bold text-base-50 mb-3">Tools & Interests</h4>
                                     <div class="flex flex-wrap gap-3">
                                         <x-about-skill-icon icon="si-filament" label="Filament" />
@@ -289,7 +288,7 @@
                                                 <div>
                                                     <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
                                                         <h4 class="font-display font-bold text-base-50">{{ $experience->title }}</h4>
-                                                        <span class="text-xs font-mono text-base-400 shrink-0">
+                                                        <span class="text-xs font-mono shrink-0 {{ $experience->isCurrent() ? 'text-amber-accent' : 'text-base-400' }}">
                                                             {{ $experience->start_date->format('M Y') }} — {{ $experience->end_date ? $experience->end_date->format('M Y') : 'Present' }}
                                                         </span>
                                                     </div>
