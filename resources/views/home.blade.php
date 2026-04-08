@@ -4,8 +4,8 @@
 
     {{-- Hero Section --}}
     <section class="relative min-h-[65vh] flex items-center overflow-hidden">
-        {{-- Flowing contour lines --}}
-        <x-flow-lines variant="hero" />
+        {{-- Constellation mesh --}}
+        <x-constellation />
 
         <div class="relative z-10 max-w-6xl mx-auto px-6 py-24">
             <div class="max-w-3xl">

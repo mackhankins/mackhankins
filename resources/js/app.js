@@ -1,4 +1,5 @@
 import './bootstrap';
+import { initConstellation } from './constellation';
 
 // Scroll reveal observer
 document.addEventListener('DOMContentLoaded', () => {
@@ -67,6 +68,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('#theme-toggle, #theme-toggle-mobile').forEach((btn) => {
         btn.addEventListener('click', toggleTheme);
     });
+});
+
+// Constellation mesh
+document.addEventListener('DOMContentLoaded', () => {
+    const canvas = document.getElementById('constellation-canvas');
+    if (canvas) initConstellation(canvas);
 });
 
 // Hero word rotation

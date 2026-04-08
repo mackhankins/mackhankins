@@ -450,7 +450,19 @@ html:not(.dark) .prose-custom code.torchlight .line.line-has-remove {
 }
 
 /* ========================================
-   Flow lines
+   Constellation mesh
+   ======================================== */
+.constellation {
+    animation: fade-in 1.5s ease-out both;
+    animation-delay: 0.3s;
+}
+
+html:not(.dark) .constellation canvas {
+    opacity: 0.7;
+}
+
+/* ========================================
+   Flow lines (card / 404 variants)
    ======================================== */
 .flow-lines {
     animation: fade-in 1.5s ease-out both;
@@ -473,7 +485,8 @@ html:not(.dark) .flow-lines svg {
 
 @media (prefers-reduced-motion: reduce) {
     .flow-lines svg *,
-    .grain::before {
+    .grain::before,
+    .constellation {
         animation: none !important;
     }
 
