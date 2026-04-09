@@ -1,5 +1,5 @@
 <div class="hero-terminal hidden lg:block w-[420px] shrink-0 select-none pointer-events-none" aria-hidden="true">
-    <div class="rounded-lg border border-base-600/30 bg-base-800/50 backdrop-blur-sm overflow-hidden shadow-2xl shadow-black/20">
+    <div class="rounded-lg border border-base-600/30 bg-base-800/50 backdrop-blur-sm overflow-hidden shadow-lg shadow-black/10 dark:shadow-none">
         {{-- Title bar --}}
         <div class="flex items-center gap-2 px-4 py-2.5 border-b border-base-600/20">
             <span class="w-2.5 h-2.5 rounded-full bg-rose-accent/60"></span>
