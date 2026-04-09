@@ -1,4 +1,4 @@
-<div class="hero-terminal hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-[420px] select-none pointer-events-none" aria-hidden="true">
+<div class="hero-terminal hidden lg:block w-[420px] shrink-0 select-none pointer-events-none" aria-hidden="true">
     <div class="rounded-lg border border-base-600/30 bg-base-800/50 backdrop-blur-sm overflow-hidden shadow-2xl shadow-black/20">
         {{-- Title bar --}}
         <div class="flex items-center gap-2 px-4 py-2.5 border-b border-base-600/20">

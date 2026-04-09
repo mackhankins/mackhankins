@@ -5,8 +5,8 @@
     {{-- Hero Section --}}
     <section class="relative min-h-[65vh] flex items-center overflow-hidden">
         <div class="relative z-10 max-w-6xl mx-auto px-6 py-24 w-full">
-            <div class="max-w-3xl relative">
-                <x-hero-terminal />
+            <div class="flex items-center gap-12">
+            <div class="max-w-3xl">
                 <p class="font-display text-sm font-semibold tracking-widest uppercase text-amber-accent animate-fade-up" style="animation-delay: 0.1s;">
                     Developer &amp; Creator
                 </p>
@@ -34,6 +34,9 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                     </a>
                 </div>
+            </div>
+
+            <x-hero-terminal />
             </div>
         </div>
 
