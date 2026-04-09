@@ -564,11 +564,11 @@ html:not(.dark) .flow-lines svg {
     opacity: 0.12;
     mask-image:
         linear-gradient(to bottom, transparent 0%, black 35%, black 92%, transparent 100%),
-        linear-gradient(to right, black 0%, black calc(50% - 36rem), transparent calc(50% - 36rem + 40px), transparent calc(50% + 36rem - 40px), black calc(50% + 36rem), black 100%);
+        linear-gradient(to right, black 0%, black calc(50% - 38rem), transparent calc(50% - 38rem + 40px), transparent calc(50% + 38rem - 40px), black calc(50% + 38rem), black 100%);
     mask-composite: intersect;
     -webkit-mask-image:
         linear-gradient(to bottom, transparent 0%, black 35%, black 92%, transparent 100%),
-        linear-gradient(to right, black 0%, black calc(50% - 36rem), transparent calc(50% - 36rem + 40px), transparent calc(50% + 36rem - 40px), black calc(50% + 36rem), black 100%);
+        linear-gradient(to right, black 0%, black calc(50% - 38rem), transparent calc(50% - 38rem + 40px), transparent calc(50% + 38rem - 40px), black calc(50% + 38rem), black 100%);
     -webkit-mask-composite: source-in;
 }
 
