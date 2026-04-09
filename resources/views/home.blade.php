@@ -272,6 +272,7 @@
                                         <x-about-skill-icon icon="si-filament" label="Filament" />
                                         <x-about-skill-icon icon="si-git" label="Git" />
                                         <x-about-skill-icon icon="si-anthropic" label="Claude" />
+                                        <x-about-skill-icon icon="si-openai" label="Codex" />
                                     </div>
                                 </div>
                             </div>
