@@ -51,69 +51,76 @@
                         subtitle="Thoughts on development, tools, and building things."
                     />
 
-                    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
-                        {{-- Featured latest post --}}
-                        @if($latestPosts->first())
-                            @php $featured = $latestPosts->first(); @endphp
-                            <a href="{{ route('blog.show', $featured) }}"
-                               class="lg:col-span-3 card-glow group relative rounded-2xl border border-base-600/50 bg-base-800/40 p-8 md:p-10 flex flex-col justify-between min-h-[320px] overflow-hidden reveal">
-                                {{-- Decorative accent line --}}
-                                <div class="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-amber-accent/40 to-transparent"></div>
+                    {{-- Top line spanning full width --}}
+                    <div class="h-px bg-gradient-to-r from-transparent via-base-600/40 to-transparent"></div>
 
-                                <div>
-                                    <div class="flex items-center gap-3 text-xs text-base-400 font-display">
-                                        <span class="uppercase tracking-widest text-amber-accent font-semibold">Latest</span>
-                                        <span class="w-1 h-1 rounded-full bg-base-500"></span>
-                                        <time datetime="{{ $featured->published_at->toDateString() }}">
-                                            {{ $featured->published_at->format('M d, Y') }}
-                                        </time>
-                                        <span class="w-1 h-1 rounded-full bg-base-500"></span>
-                                        <span>{{ $featured->reading_time }} min read</span>
-                                    </div>
+                    <div class="relative">
+                        {{-- Vertical divider between columns --}}
+                        <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px hidden lg:block bg-gradient-to-b from-amber-accent/25 via-teal-accent/20 to-transparent"></div>
 
-                                    <h3 class="mt-5 font-display font-extrabold text-2xl md:text-3xl text-base-50 group-hover:text-amber-accent transition-colors leading-snug tracking-tight">
-                                        {{ $featured->title }}
-                                    </h3>
+                        <div class="grid grid-cols-1 lg:grid-cols-2">
+                            {{-- Featured latest post (big left) --}}
+                            @if($latestPosts->first())
+                                @php $featured = $latestPosts->first(); @endphp
+                                <div class="lg:pr-10 reveal">
+                                    <a href="{{ route('blog.show', $featured) }}"
+                                       class="group block py-8">
+                                        <div class="flex items-center gap-3 text-xs text-base-400 font-display mb-3">
+                                            <span class="uppercase tracking-widest text-amber-accent font-semibold">Latest</span>
+                                            <span class="w-1 h-1 rounded-full bg-base-500"></span>
+                                            <time datetime="{{ $featured->published_at->toDateString() }}">
+                                                {{ $featured->published_at->format('M d, Y') }}
+                                            </time>
+                                            <span class="w-1 h-1 rounded-full bg-base-500"></span>
+                                            <span>{{ $featured->reading_time }} min read</span>
+                                        </div>
 
-                                    @if($featured->excerpt)
-                                        <p class="mt-4 text-base-300 font-body leading-relaxed line-clamp-3 max-w-xl">
-                                            {{ $featured->excerpt }}
-                                        </p>
-                                    @endif
+                                        <h3 class="font-display font-extrabold text-2xl md:text-3xl text-base-50 group-hover:text-amber-accent transition-colors leading-snug tracking-tight">
+                                            {{ $featured->title }}
+                                        </h3>
+
+                                        @if($featured->excerpt)
+                                            <p class="mt-3 text-base-300 font-body leading-relaxed line-clamp-3 max-w-xl">
+                                                {{ $featured->excerpt }}
+                                            </p>
+                                        @endif
+
+                                        <div class="mt-4 flex items-center gap-2 text-sm font-display font-semibold text-amber-accent group-hover:text-teal-accent transition-colors">
+                                            Read article
+                                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                                        </div>
+                                    </a>
                                 </div>
+                            @endif
 
-                                <div class="mt-6 flex items-center gap-2 text-sm font-display font-semibold text-amber-accent group-hover:text-teal-accent transition-colors">
-                                    Read article
-                                    <svg class="w-4 h-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                                </div>
-                            </a>
-                        @endif
+                            {{-- Remaining posts as compact line items --}}
+                            <div class="lg:pl-10 flex flex-col stagger-children">
+                                @foreach($latestPosts->skip(1) as $post)
+                                    <div class="reveal">
+                                        <div class="h-px bg-gradient-to-r from-base-600/60 lg:from-base-600/40 via-base-600/40 to-transparent"></div>
+                                        <a href="{{ route('blog.show', $post) }}"
+                                           class="group block py-5">
+                                            <div class="flex items-center gap-3 text-xs text-base-400 font-display mb-1">
+                                                <time datetime="{{ $post->published_at->toDateString() }}">
+                                                    {{ $post->published_at->format('M d, Y') }}
+                                                </time>
+                                                <span class="w-1 h-1 rounded-full bg-base-500"></span>
+                                                <span>{{ $post->reading_time }} min</span>
+                                            </div>
 
-                        {{-- Remaining posts as compact list --}}
-                        <div class="lg:col-span-2 flex flex-col gap-4 stagger-children">
-                            @foreach($latestPosts->skip(1) as $post)
-                                <a href="{{ route('blog.show', $post) }}"
-                                   class="card-glow group rounded-xl border border-base-600/50 bg-base-800/40 p-5 reveal">
-                                    <div class="flex items-center gap-3 text-xs text-base-400 font-display">
-                                        <time datetime="{{ $post->published_at->toDateString() }}">
-                                            {{ $post->published_at->format('M d, Y') }}
-                                        </time>
-                                        <span class="w-1 h-1 rounded-full bg-base-500"></span>
-                                        <span>{{ $post->reading_time }} min</span>
+                                            <h4 class="font-display font-bold text-base text-base-50 group-hover:text-amber-accent transition-colors leading-snug tracking-tight">
+                                                {{ $post->title }}
+                                            </h4>
+
+                                            @if($post->excerpt)
+                                                <p class="mt-1 text-sm text-base-400 leading-relaxed line-clamp-2">
+                                                    {{ $post->excerpt }}
+                                                </p>
+                                            @endif
+                                        </a>
                                     </div>
-
-                                    <h3 class="mt-2 font-display font-bold text-base text-base-50 group-hover:text-amber-accent transition-colors leading-snug">
-                                        {{ $post->title }}
-                                    </h3>
-
-                                    @if($post->excerpt)
-                                        <p class="mt-2 text-sm text-base-400 leading-relaxed line-clamp-2">
-                                            {{ $post->excerpt }}
-                                        </p>
-                                    @endif
-                                </a>
-                            @endforeach
-
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -263,7 +270,7 @@
                                     <h4 class="font-display font-bold text-base-50 mb-3">Tools & Interests</h4>
                                     <div class="flex flex-wrap gap-3">
                                         <x-about-skill-icon icon="si-filament" label="Filament" />
-                                        <x-about-skill-icon icon="si-github" label="GitHub" />
+                                        <x-about-skill-icon icon="si-git" label="Git" />
                                         <x-about-skill-icon icon="si-anthropic" label="Claude" />
                                     </div>
                                 </div>
