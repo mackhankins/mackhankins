@@ -93,7 +93,7 @@
                     <h3 class="font-display font-bold text-lg text-base-50 mb-4">Screenshots</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         @foreach($project->screenshots as $screenshot)
-                            <div class="rounded-lg overflow-hidden border border-base-600/50">
+                            <div class="rounded-lg overflow-hidden border border-base-600/50 h-fit">
                                 <img src="{{ Storage::url($screenshot) }}"
                                      alt="{{ $project->name }} screenshot"
                                      class="w-full h-auto"
