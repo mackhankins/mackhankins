@@ -1,4 +1,8 @@
 import './bootstrap';
+import Alpine from 'alpinejs';
+
+window.Alpine = Alpine;
+Alpine.start();
 
 // Scroll reveal observer
 document.addEventListener('DOMContentLoaded', () => {
