@@ -66,14 +66,15 @@
             {{-- Tech stack --}}
             @if($project->tech_stack)
                 <div class="mt-12 max-w-3xl reveal">
-                    <h3 class="font-display font-bold text-lg text-base-50 mb-4">Tech Stack</h3>
-                    <div class="flex flex-wrap gap-2">
-                        @foreach($project->tech_stack as $tech)
-                            <span class="inline-block px-3 py-1.5 text-sm font-display font-medium rounded-lg bg-base-800 text-teal-accent border border-base-600/50">
-                                {{ $tech }}
-                            </span>
-                        @endforeach
+                    <div class="flex items-baseline gap-3 mb-3">
+                        <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-base-500">Built with</span>
+                        <span class="h-px flex-1 bg-base-700/60"></span>
                     </div>
+                    <p class="font-mono text-sm text-base-200 leading-relaxed">
+                        @foreach($project->tech_stack as $tech)
+                            <span class="inline-block mr-1">{{ $tech }}</span>@if(!$loop->last)<span class="text-base-600 mr-1">·</span>@endif
+                        @endforeach
+                    </p>
                 </div>
             @endif
 
