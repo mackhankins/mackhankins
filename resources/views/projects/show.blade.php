@@ -15,7 +15,7 @@
             </a>
 
             {{-- Header --}}
-            <div class="max-w-3xl animate-fade-up" style="animation-delay: 0.1s;">
+            <div class="project-intro max-w-3xl">
                 <h1 class="font-display font-extrabold text-4xl md:text-5xl tracking-tight text-base-50"
                     style="view-transition-name: project-title-{{ $project->id }};">
                     {{ $project->name }}
@@ -48,7 +48,7 @@
 
             {{-- Featured image --}}
             @if($project->featured_image)
-                <div class="mt-12 rounded-xl overflow-hidden border border-base-600/50 animate-fade-up" style="animation-delay: 0.2s;">
+                <div class="mt-12 rounded-xl overflow-hidden border border-base-600/50 reveal">
                     <img src="{{ Storage::url($project->featured_image) }}"
                          alt="{{ $project->name }}"
                          class="w-full h-auto"
@@ -57,7 +57,7 @@
             @endif
 
             {{-- Content --}}
-            <div class="mt-12 max-w-3xl animate-fade-up" style="animation-delay: 0.3s;">
+            <div class="mt-12 max-w-3xl reveal">
                 <div class="prose-custom">
                     {!! str($project->description)->markdown(extensions: [new \Torchlight\Commonmark\V2\TorchlightExtension]) !!}
                 </div>
