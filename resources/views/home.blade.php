@@ -47,6 +47,7 @@
             <section class="relative z-10 py-24 reveal">
                 <div class="max-w-6xl mx-auto px-6">
                     <x-section-heading
+                        number="1"
                         title="Latest Stuff"
                         subtitle="Thoughts on development, tools, and building things."
                     />
@@ -135,6 +136,7 @@
             <section class="relative z-10 py-24 reveal">
                 <div class="max-w-6xl mx-auto px-6">
                     <x-section-heading
+                        number="2"
                         title="Featured Things"
                         subtitle="A selection of things I've built."
                     />
@@ -222,6 +224,7 @@
                             </div>
                             <div>
                                 <x-section-heading
+                                    number="3"
                                     title="A bit about me"
                                     subtitle="Hi, I'm Mack — a developer who loves building things that work."
                                 />
