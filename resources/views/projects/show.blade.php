@@ -121,7 +121,8 @@
                         @endforeach
                     </div>
 
-                    {{-- Lightbox --}}
+                    {{-- Lightbox (teleported to body to escape .reveal transform containing block) --}}
+                    <template x-teleport="body">
                     <div
                         x-cloak
                         x-show="open"
@@ -174,6 +175,7 @@
                             <span x-text="index + 1"></span> / <span x-text="images.length"></span>
                         </div>
                     </div>
+                    </template>
                 </div>
             @endif
         </div>
