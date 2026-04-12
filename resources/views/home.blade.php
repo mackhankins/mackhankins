@@ -359,65 +359,64 @@
 
                     {{-- Right column - Sidebar --}}
                     <aside class="lg:col-span-5">
-                        <div class="lg:sticky lg:top-24 space-y-6">
+                        <div class="lg:sticky lg:top-24 space-y-12">
                             {{-- Quick facts --}}
-                            <div class="rounded-xl border border-base-600/50 bg-base-800/40 p-6 reveal">
-                                <h3 class="font-display font-bold text-lg text-base-50 mb-4">Quick Facts</h3>
-                                <dl class="space-y-3 text-sm">
-                                    <div class="flex justify-between">
-                                        <dt class="text-base-400 font-display">Focus</dt>
-                                        <dd class="text-base-200">Full-stack Development</dd>
+                            <div class="reveal">
+                                <div class="flex items-baseline gap-3 mb-5">
+                                    <span class="h-px flex-1 bg-base-700/60"></span>
+                                    <h3 class="font-display text-[11px] uppercase tracking-[0.2em] text-base-400">Quick Facts</h3>
+                                </div>
+                                <dl class="font-display">
+                                    <div class="flex items-baseline justify-between py-2.5">
+                                        <dt class="text-sm text-base-400">Focus</dt>
+                                        <dd class="text-sm text-base-100">Full-stack Development</dd>
                                     </div>
-                                    <div class="h-px bg-base-700/50"></div>
-                                    <div class="flex justify-between">
-                                        <dt class="text-base-400 font-display">Primary Stack</dt>
-                                        <dd class="text-base-200">Laravel + Livewire</dd>
+                                    <div class="flex items-baseline justify-between py-2.5">
+                                        <dt class="text-sm text-base-400">Primary Stack</dt>
+                                        <dd class="text-sm text-base-100">Laravel + Livewire</dd>
                                     </div>
-                                    <div class="h-px bg-base-700/50"></div>
-                                    <div class="flex justify-between">
-                                        <dt class="text-base-400 font-display">Specialty</dt>
-                                        <dd class="text-base-200">Internal Tools</dd>
+                                    <div class="flex items-baseline justify-between py-2.5">
+                                        <dt class="text-sm text-base-400">Specialty</dt>
+                                        <dd class="text-sm text-base-100">Internal Tools</dd>
                                     </div>
                                 </dl>
                             </div>
 
                             {{-- Connect --}}
-                            <div class="rounded-xl border border-base-600/50 bg-base-800/40 p-6 reveal">
-                                <h3 class="font-display font-bold text-lg text-base-50 mb-4">Connect</h3>
-                                <div class="space-y-3">
-                                    <a href="https://github.com/mackhankins" target="_blank" rel="noopener noreferrer"
-                                       class="flex items-center gap-3 text-base-300 hover:text-amber-accent transition-colors group">
-                                        <div class="w-9 h-9 rounded-lg bg-base-700 flex items-center justify-center group-hover:bg-amber-accent/10 transition-colors">
-                                            <x-si-github class="w-4 h-4" />
-                                        </div>
-                                        <div>
-                                            <span class="text-sm font-display font-medium">GitHub</span>
-                                            <p class="text-xs text-base-400">@mackhankins</p>
-                                        </div>
-                                    </a>
-
-                                    <a href="https://x.com/mackhankins" target="_blank" rel="noopener noreferrer"
-                                       class="flex items-center gap-3 text-base-300 hover:text-amber-accent transition-colors group">
-                                        <div class="w-9 h-9 rounded-lg bg-base-700 flex items-center justify-center group-hover:bg-amber-accent/10 transition-colors">
-                                            <x-si-x class="w-4 h-4" />
-                                        </div>
-                                        <div>
-                                            <span class="text-sm font-display font-medium">X / Twitter</span>
-                                            <p class="text-xs text-base-400">@mackhankins</p>
-                                        </div>
-                                    </a>
-
-                                    <a href="https://www.linkedin.com/in/mack-hankins/" target="_blank" rel="noopener noreferrer"
-                                       class="flex items-center gap-3 text-base-300 hover:text-amber-accent transition-colors group">
-                                        <div class="w-9 h-9 rounded-lg bg-base-700 flex items-center justify-center group-hover:bg-amber-accent/10 transition-colors">
-                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                                        </div>
-                                        <div>
-                                            <span class="text-sm font-display font-medium">LinkedIn</span>
-                                            <p class="text-xs text-base-400">Mack Hankins</p>
-                                        </div>
-                                    </a>
+                            <div class="reveal">
+                                <div class="flex items-baseline gap-3 mb-5">
+                                    <span class="h-px flex-1 bg-base-700/60"></span>
+                                    <h3 class="font-display text-[11px] uppercase tracking-[0.2em] text-base-400">Connect</h3>
                                 </div>
+                                <ul class="font-display">
+                                    <li>
+                                        <a href="https://github.com/mackhankins" target="_blank" rel="noopener noreferrer"
+                                           class="group flex items-center gap-4 py-3 text-base-200 hover:text-amber-accent transition-colors">
+                                            <x-si-github class="w-4 h-4 text-base-400 group-hover:text-amber-accent transition-colors shrink-0" />
+                                            <span class="text-sm font-medium">GitHub</span>
+                                            <span class="text-xs text-base-500 font-mono ml-auto">@mackhankins</span>
+                                            <svg class="w-3.5 h-3.5 text-base-600 group-hover:text-amber-accent group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://x.com/mackhankins" target="_blank" rel="noopener noreferrer"
+                                           class="group flex items-center gap-4 py-3 text-base-200 hover:text-amber-accent transition-colors">
+                                            <x-si-x class="w-4 h-4 text-base-400 group-hover:text-amber-accent transition-colors shrink-0" />
+                                            <span class="text-sm font-medium">X / Twitter</span>
+                                            <span class="text-xs text-base-500 font-mono ml-auto">@mackhankins</span>
+                                            <svg class="w-3.5 h-3.5 text-base-600 group-hover:text-amber-accent group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.linkedin.com/in/mack-hankins/" target="_blank" rel="noopener noreferrer"
+                                           class="group flex items-center gap-4 py-3 text-base-200 hover:text-amber-accent transition-colors">
+                                            <svg class="w-4 h-4 text-base-400 group-hover:text-amber-accent transition-colors shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                                            <span class="text-sm font-medium">LinkedIn</span>
+                                            <span class="text-xs text-base-500 font-mono ml-auto">mack-hankins</span>
+                                            <svg class="w-3.5 h-3.5 text-base-600 group-hover:text-amber-accent group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </aside>
