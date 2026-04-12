@@ -89,17 +89,90 @@
 
             {{-- Screenshots --}}
             @if($project->screenshots)
-                <div class="mt-12 max-w-3xl reveal">
+                @php($screenshots = collect($project->screenshots)->values())
+                <div
+                    class="mt-12 max-w-3xl reveal"
+                    x-data="{
+                        open: false,
+                        index: 0,
+                        images: @js($screenshots->map(fn($s) => Storage::url($s))->all()),
+                        show(i) { this.index = i; this.open = true; },
+                        close() { this.open = false; },
+                        prev() { this.index = (this.index - 1 + this.images.length) % this.images.length; },
+                        next() { this.index = (this.index + 1) % this.images.length; },
+                    }"
+                    @keydown.escape.window="open && close()"
+                    @keydown.arrow-left.window="open && prev()"
+                    @keydown.arrow-right.window="open && next()"
+                >
                     <h3 class="font-display font-bold text-lg text-base-50 mb-4">Screenshots</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        @foreach($project->screenshots as $screenshot)
-                            <div class="rounded-lg overflow-hidden border border-base-600/50 h-fit">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                        @foreach($screenshots as $i => $screenshot)
+                            <button
+                                type="button"
+                                @click="show({{ $i }})"
+                                class="group relative aspect-square rounded-lg overflow-hidden border border-base-600/50 hover:border-amber-accent/60 transition-colors"
+                            >
                                 <img src="{{ Storage::url($screenshot) }}"
-                                     alt="{{ $project->name }} screenshot"
-                                     class="w-full h-auto"
+                                     alt="{{ $project->name }} screenshot {{ $i + 1 }}"
+                                     class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                                      loading="lazy">
-                            </div>
+                            </button>
                         @endforeach
+                    </div>
+
+                    {{-- Lightbox --}}
+                    <div
+                        x-cloak
+                        x-show="open"
+                        x-transition.opacity
+                        @click.self="close()"
+                        class="fixed inset-0 z-50 bg-base-950/95 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8"
+                    >
+                        <button
+                            type="button"
+                            @click="close()"
+                            aria-label="Close"
+                            class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full text-base-300 hover:text-base-50 hover:bg-base-800/80 transition-colors"
+                        >
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                        </button>
+
+                        <template x-if="images.length > 1">
+                            <button
+                                type="button"
+                                @click.stop="prev()"
+                                aria-label="Previous"
+                                class="absolute left-2 sm:left-6 w-10 h-10 flex items-center justify-center rounded-full text-base-300 hover:text-base-50 hover:bg-base-800/80 transition-colors"
+                            >
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                            </button>
+                        </template>
+
+                        <template x-if="images.length > 1">
+                            <button
+                                type="button"
+                                @click.stop="next()"
+                                aria-label="Next"
+                                class="absolute right-2 sm:right-6 w-10 h-10 flex items-center justify-center rounded-full text-base-300 hover:text-base-50 hover:bg-base-800/80 transition-colors"
+                            >
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            </button>
+                        </template>
+
+                        <img
+                            :src="images[index]"
+                            :alt="`{{ $project->name }} screenshot ${index + 1}`"
+                            @click.stop
+                            class="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                        >
+
+                        <div
+                            x-show="images.length > 1"
+                            class="absolute bottom-4 left-1/2 -translate-x-1/2 text-sm font-display text-base-300"
+                        >
+                            <span x-text="index + 1"></span> / <span x-text="images.length"></span>
+                        </div>
                     </div>
                 </div>
             @endif

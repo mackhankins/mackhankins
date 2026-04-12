@@ -7,6 +7,8 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+[x-cloak] { display: none !important; }
+
 @theme {
     /* Typography */
     --font-display: 'Syne', ui-sans-serif, system-ui, sans-serif;
