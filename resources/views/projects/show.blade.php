@@ -16,7 +16,8 @@
 
             {{-- Header --}}
             <div class="max-w-3xl animate-fade-up" style="animation-delay: 0.1s;">
-                <h1 class="font-display font-extrabold text-4xl md:text-5xl tracking-tight text-base-50">
+                <h1 class="font-display font-extrabold text-4xl md:text-5xl tracking-tight text-base-50"
+                    style="view-transition-name: project-title-{{ $project->id }};">
                     {{ $project->name }}
                 </h1>
 
@@ -50,7 +51,8 @@
                 <div class="mt-12 rounded-xl overflow-hidden border border-base-600/50 animate-fade-up" style="animation-delay: 0.2s;">
                     <img src="{{ Storage::url($project->featured_image) }}"
                          alt="{{ $project->name }}"
-                         class="w-full h-auto">
+                         class="w-full h-auto"
+                         style="view-transition-name: project-image-{{ $project->id }};">
                 </div>
             @endif
 

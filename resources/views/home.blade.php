@@ -70,7 +70,8 @@
                                             Latest
                                         </span>
 
-                                        <h3 class="font-display font-extrabold text-2xl md:text-3xl text-base-50 group-hover:text-amber-accent transition-colors leading-snug tracking-tight">
+                                        <h3 class="font-display font-extrabold text-2xl md:text-3xl text-base-50 group-hover:text-amber-accent transition-colors leading-snug tracking-tight"
+                                            style="view-transition-name: post-title-{{ $featured->id }};">
                                             {{ $featured->title }}
                                         </h3>
 

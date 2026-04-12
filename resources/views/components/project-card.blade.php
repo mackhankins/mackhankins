@@ -10,6 +10,7 @@
                 <img src="{{ Storage::url($project->featured_image) }}"
                      alt="{{ $project->name }}"
                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                     style="view-transition-name: project-image-{{ $project->id }};"
                      loading="lazy">
             </div>
         @else
@@ -21,7 +22,8 @@
         @endif
 
         <div class="p-5">
-            <h3 class="font-display font-bold text-lg text-base-50 group-hover:text-amber-accent transition-colors">
+            <h3 class="font-display font-bold text-lg text-base-50 group-hover:text-amber-accent transition-colors"
+                style="view-transition-name: project-title-{{ $project->id }};">
                 {{ $project->name }}
             </h3>
 

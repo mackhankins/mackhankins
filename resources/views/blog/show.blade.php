@@ -35,7 +35,8 @@
                     <span>{{ $post->reading_time }} min read</span>
                 </div>
 
-                <h1 class="mt-4 font-display font-extrabold text-3xl md:text-4xl lg:text-5xl tracking-tight text-base-50 leading-tight">
+                <h1 class="mt-4 font-display font-extrabold text-3xl md:text-4xl lg:text-5xl tracking-tight text-base-50 leading-tight"
+                    style="view-transition-name: post-title-{{ $post->id }};">
                     {{ $post->title }}
                 </h1>
 
