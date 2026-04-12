@@ -97,7 +97,7 @@
                             <div class="lg:pl-10 flex flex-col stagger-children">
                                 @foreach($latestPosts->skip(1) as $post)
                                     <div class="reveal">
-                                        <div class="h-px bg-gradient-to-r from-base-600/60 lg:from-base-600/40 via-base-600/40 to-transparent"></div>
+                                        <div class="h-px bg-gradient-to-r from-base-600/60 lg:from-base-600/40 via-base-600/40 to-transparent {{ $loop->first ? 'lg:hidden' : '' }}"></div>
                                         <a href="{{ route('blog.show', $post) }}"
                                            class="group block py-5">
                                             <div class="flex items-center gap-3 text-xs text-base-400 font-display mb-1">
