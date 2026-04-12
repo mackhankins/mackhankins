@@ -66,15 +66,9 @@
                                 <div class="lg:pr-10 reveal">
                                     <a href="{{ route('blog.show', $featured) }}"
                                        class="group block py-8">
-                                        <div class="flex items-center gap-3 text-xs text-base-400 font-display mb-3">
-                                            <span class="uppercase tracking-widest text-amber-accent font-semibold">Latest</span>
-                                            <span class="w-1 h-1 rounded-full bg-base-500"></span>
-                                            <time datetime="{{ $featured->published_at->toDateString() }}">
-                                                {{ $featured->published_at->format('M d, Y') }}
-                                            </time>
-                                            <span class="w-1 h-1 rounded-full bg-base-500"></span>
-                                            <span>{{ $featured->reading_time }} min read</span>
-                                        </div>
+                                        <span class="inline-block font-display text-[11px] uppercase tracking-[0.25em] text-amber-accent font-semibold mb-4">
+                                            Latest
+                                        </span>
 
                                         <h3 class="font-display font-extrabold text-2xl md:text-3xl text-base-50 group-hover:text-amber-accent transition-colors leading-snug tracking-tight">
                                             {{ $featured->title }}
@@ -85,6 +79,14 @@
                                                 {{ $featured->excerpt }}
                                             </p>
                                         @endif
+
+                                        <div class="mt-5 flex items-center gap-4 font-mono text-[11px] uppercase tracking-widest text-base-500">
+                                            <time datetime="{{ $featured->published_at->toDateString() }}">
+                                                {{ $featured->published_at->format('M d, Y') }}
+                                            </time>
+                                            <span class="h-px flex-1 max-w-16 bg-base-700"></span>
+                                            <span>{{ $featured->reading_time }} Min Read</span>
+                                        </div>
 
                                         <div class="mt-4 flex items-center gap-2 text-sm font-display font-semibold text-amber-accent group-hover:text-teal-accent transition-colors">
                                             Read article
@@ -100,24 +102,25 @@
                                     <div class="reveal">
                                         <div class="h-px bg-gradient-to-r from-base-600/60 lg:from-base-600/40 via-base-600/40 to-transparent {{ $loop->first ? 'lg:hidden' : '' }}"></div>
                                         <a href="{{ route('blog.show', $post) }}"
-                                           class="group block py-5">
-                                            <div class="flex items-center gap-3 text-xs text-base-400 font-display mb-1">
-                                                <time datetime="{{ $post->published_at->toDateString() }}">
-                                                    {{ $post->published_at->format('M d, Y') }}
-                                                </time>
-                                                <span class="w-1 h-1 rounded-full bg-base-500"></span>
-                                                <span>{{ $post->reading_time }} min</span>
+                                           class="group grid grid-cols-[3.5rem_1fr] gap-4 py-5">
+                                            <time datetime="{{ $post->published_at->toDateString() }}"
+                                                  class="font-mono text-[10px] uppercase tracking-wider text-base-500 pt-1 leading-relaxed">
+                                                <span class="block text-base-400">{{ $post->published_at->format('M d') }}</span>
+                                                <span class="block">{{ $post->published_at->format('Y') }}</span>
+                                                <span class="block mt-1 text-base-600">{{ $post->reading_time }}m</span>
+                                            </time>
+
+                                            <div class="min-w-0">
+                                                <h4 class="font-display font-bold text-base text-base-50 group-hover:text-amber-accent transition-colors leading-snug tracking-tight">
+                                                    {{ $post->title }}
+                                                </h4>
+
+                                                @if($post->excerpt)
+                                                    <p class="mt-1 text-sm text-base-400 leading-relaxed line-clamp-2">
+                                                        {{ $post->excerpt }}
+                                                    </p>
+                                                @endif
                                             </div>
-
-                                            <h4 class="font-display font-bold text-base text-base-50 group-hover:text-amber-accent transition-colors leading-snug tracking-tight">
-                                                {{ $post->title }}
-                                            </h4>
-
-                                            @if($post->excerpt)
-                                                <p class="mt-1 text-sm text-base-400 leading-relaxed line-clamp-2">
-                                                    {{ $post->excerpt }}
-                                                </p>
-                                            @endif
                                         </a>
                                     </div>
                                 @endforeach
@@ -211,6 +214,13 @@
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
                     {{-- Left column --}}
                     <div class="lg:col-span-7">
+                        {{-- Numbered eyebrow, aligned with other section numbers --}}
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="font-mono text-xs tracking-widest text-amber-accent">03</span>
+                            <span class="h-px w-8 bg-base-600/60"></span>
+                            <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-base-400">A bit about me</span>
+                        </div>
+
                         {{-- Intro with inline avatar --}}
                         <div class="flex items-start gap-6 sm:gap-8">
                             <div class="shrink-0">
@@ -223,11 +233,9 @@
                                 </div>
                             </div>
                             <div>
-                                <x-section-heading
-                                    number="3"
-                                    title="A bit about me"
-                                    subtitle="Hi, I'm Mack — a developer who loves building things that work."
-                                />
+                                <h2 class="font-display font-bold text-2xl md:text-3xl tracking-tight text-base-50">
+                                    Hi, I'm Mack — a developer who loves building things that work.
+                                </h2>
                             </div>
                         </div>
 
