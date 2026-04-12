@@ -19,7 +19,7 @@
                     I build <span class="hero-rotate-word inline-block text-amber-accent font-semibold">tools</span>
                     that solve real problems.
                     <br class="hidden sm:block">
-                    Most of my work lives behind closed doors — this is where I share what I can.
+                    Most of my work lives <em class="italic text-base-100 font-normal">behind closed doors</em> — this is where I share what I can.
                 </p>
 
                 <div class="relative z-20 mt-10 flex flex-wrap gap-4 animate-fade-up" style="animation-delay: 0.4s;">
