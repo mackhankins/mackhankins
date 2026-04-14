@@ -2,14 +2,18 @@
     "agents": [
         "junie",
         "cursor",
-        "claude_code"
+        "claude_code",
+        "codex"
     ],
     "guidelines": true,
-    "herd_mcp": false,
     "mcp": true,
     "nightwatch_mcp": false,
+    "packages": [
+        "filament/filament"
+    ],
     "sail": false,
     "skills": [
+        "ai-sdk-development",
         "laravel-best-practices",
         "pest-testing",
         "tailwindcss-development"

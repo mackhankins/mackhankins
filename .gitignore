@@ -11,6 +11,10 @@
 /.phpunit.cache
 /.vscode
 /.claude
+/.codex
+/.agents
+/.cursor
+/.junie
 /.zed
 /auth.json
 /node_modules
@@ -23,3 +27,4 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+/notes/
