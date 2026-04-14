@@ -442,7 +442,11 @@ class WritingStudio extends Page
             ? 'text/plain'
             : ($upload->getClientMimeType() ?: 'application/octet-stream');
 
-        return Document::fromString($upload->getContent(), $mimeType)
+        $contents = method_exists($upload, 'get')
+            ? $upload->get()
+            : $upload->getContent();
+
+        return Document::fromString($contents, $mimeType)
             ->as($upload->getClientOriginalName());
     }
 
