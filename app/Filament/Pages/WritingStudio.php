@@ -45,6 +45,8 @@ class WritingStudio extends Page
 
     public ?string $editingConversationTitle = null;
 
+    public mixed $composerUpload = null;
+
     /**
      * @var array<int, int|string>
      */
@@ -68,6 +70,7 @@ class WritingStudio extends Page
     {
         $this->activeConversationId = null;
         $this->composerMessage = null;
+        $this->composerUpload = null;
         $this->postReferenceSearch = null;
         $this->editingConversationId = null;
         $this->editingConversationTitle = null;
@@ -82,6 +85,7 @@ class WritingStudio extends Page
     {
         $this->activeConversationId = $conversationId;
         $this->composerMessage = null;
+        $this->composerUpload = null;
         $this->postReferenceSearch = null;
         $this->editingConversationId = null;
         $this->editingConversationTitle = null;
@@ -207,10 +211,34 @@ class WritingStudio extends Page
         ));
     }
 
+    public function updatedComposerUpload(): void
+    {
+        if (! $this->composerUpload instanceof UploadedFile) {
+            return;
+        }
+
+        $this->validate([
+            'composerUpload' => ['file', 'mimes:md,markdown,txt', 'max:4096'],
+        ]);
+
+        $this->composerUploads[] = $this->composerUpload;
+        $this->composerUpload = null;
+
+        $this->dispatch('writing-studio-reset-upload-input');
+    }
+
+    public function removeComposerUpload(int $index): void
+    {
+        unset($this->composerUploads[$index]);
+
+        $this->composerUploads = array_values($this->composerUploads);
+    }
+
     public function sendMessage(): void
     {
         $this->validate([
             'composerMessage' => ['nullable', 'string'],
+            'composerUpload' => ['nullable', 'file', 'mimes:md,markdown,txt', 'max:4096'],
             'composerUploads.*' => ['file', 'mimes:md,markdown,txt', 'max:4096'],
             'selectedPostIds' => ['array'],
         ]);
@@ -237,6 +265,7 @@ class WritingStudio extends Page
         $this->persistUploadedFiles($response->conversationId, $freshUploadAttachments);
 
         $this->composerMessage = null;
+        $this->composerUpload = null;
         $this->postReferenceSearch = null;
         $this->selectedPostIds = [];
         $this->composerUploads = [];

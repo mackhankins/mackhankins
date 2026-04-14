@@ -1,4 +1,7 @@
-<x-filament-panels::page>
+<x-filament-panels::page
+    x-data
+    x-on:writing-studio-reset-upload-input.window="$refs.composerUploadInput.value = ''"
+>
     <div class="grid gap-6 xl:grid-cols-[20rem_minmax(0,1fr)]">
         <aside class="rounded-3xl border border-gray-200 bg-white p-4 shadow-sm dark:border-white/8 dark:bg-white/[0.03] xl:sticky xl:top-6 xl:h-[calc(100dvh-8rem)] xl:max-h-[calc(100dvh-8rem)] xl:overflow-y-auto">
             <div class="mb-4 flex items-center justify-between gap-3">
@@ -445,9 +448,35 @@
                     <div class="space-y-2">
                         <label class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3 py-2 text-xs font-medium text-gray-700 transition hover:bg-gray-100 dark:border-white/10 dark:bg-white/[0.04] dark:text-gray-200 dark:hover:bg-white/[0.06]">
                             <span>Attach Markdown</span>
-                            <input wire:model="composerUploads" type="file" multiple accept=".md,.markdown,.txt,text/plain,text/markdown" class="hidden">
+                            <input
+                                x-ref="composerUploadInput"
+                                wire:model="composerUpload"
+                                type="file"
+                                accept=".md,.markdown,.txt,text/plain,text/markdown"
+                                class="hidden"
+                            >
                         </label>
-                        <div wire:loading wire:target="composerUploads" class="text-xs text-gray-500 dark:text-gray-400">Uploading files...</div>
+                        <div wire:loading wire:target="composerUpload" class="text-xs text-gray-500 dark:text-gray-400">Uploading file...</div>
+                        @if ($composerUploads !== [])
+                            <div class="flex flex-wrap gap-2">
+                                @foreach ($composerUploads as $index => $upload)
+                                    <span class="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 dark:border-white/10 dark:bg-white/[0.04] dark:text-gray-200">
+                                        <span>{{ $upload->getClientOriginalName() }}</span>
+                                        <button
+                                            type="button"
+                                            wire:click="removeComposerUpload({{ $index }})"
+                                            class="inline-flex h-5 w-5 items-center justify-center rounded-full text-gray-400 transition hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-white/10 dark:hover:text-white"
+                                        >
+                                            <span class="sr-only">Remove attachment</span>
+                                            &times;
+                                        </button>
+                                    </span>
+                                @endforeach
+                            </div>
+                        @endif
+                        @error('composerUpload')
+                            <p class="text-sm text-danger-600">{{ $message }}</p>
+                        @enderror
                         @error('composerUploads.*')
                             <p class="text-sm text-danger-600">{{ $message }}</p>
                         @enderror
