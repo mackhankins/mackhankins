@@ -1,21 +1,75 @@
 <x-filament-panels::page
-    x-data
+    x-data="{
+        sidebarOpen: false,
+        init() {
+            const rememberedState = window.localStorage.getItem('writing-studio-sidebar-open')
+
+            if (rememberedState === null) {
+                this.sidebarOpen = window.innerWidth >= 1280
+
+                return
+            }
+
+            this.sidebarOpen = rememberedState === 'true'
+        },
+        setSidebar(open) {
+            this.sidebarOpen = open
+            window.localStorage.setItem('writing-studio-sidebar-open', open ? 'true' : 'false')
+        },
+        toggleSidebar() {
+            this.setSidebar(! this.sidebarOpen)
+        },
+    }"
     x-on:writing-studio-reset-upload-input.window="$refs.composerUploadInput.value = ''"
 >
-    <div class="grid gap-6 xl:grid-cols-[20rem_minmax(0,1fr)]">
-        <aside class="rounded-3xl border border-gray-200 bg-white p-4 shadow-sm dark:border-white/8 dark:bg-white/[0.03] xl:sticky xl:top-6 xl:h-[calc(100dvh-8rem)] xl:max-h-[calc(100dvh-8rem)] xl:overflow-y-auto">
+    <div
+        class="grid gap-6"
+        :class="sidebarOpen ? 'xl:grid-cols-[20rem_minmax(0,1fr)]' : 'xl:grid-cols-[minmax(0,1fr)]'"
+    >
+        <div
+            x-cloak
+            x-show="sidebarOpen"
+            x-transition.opacity.duration.200ms
+            class="fixed inset-0 z-30 bg-gray-950/40 backdrop-blur-[1px] xl:hidden"
+            @click="sidebarOpen = false"
+        ></div>
+
+        <aside
+            x-cloak
+            x-show="sidebarOpen"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="-translate-x-6 opacity-0"
+            x-transition:enter-end="translate-x-0 opacity-100"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="translate-x-0 opacity-100"
+            x-transition:leave-end="-translate-x-6 opacity-0"
+            class="z-40 rounded-3xl border border-gray-200 bg-white p-4 shadow-sm dark:border-white/8 dark:bg-[#12161c] xl:sticky xl:top-6 xl:h-[calc(100dvh-8rem)] xl:max-h-[calc(100dvh-8rem)] xl:overflow-y-auto"
+            :class="sidebarOpen ? 'fixed inset-y-4 left-4 w-[min(22rem,calc(100vw-2rem))] overflow-y-auto xl:static xl:inset-auto xl:w-auto' : 'hidden'"
+        >
             <div class="mb-4 flex items-center justify-between gap-3">
                 <div>
                     <h2 class="text-sm font-semibold text-gray-950 dark:text-white">Conversations</h2>
                     <p class="text-xs text-gray-500 dark:text-gray-400">Recent writing chats with Codex.</p>
                 </div>
-                <button
-                    type="button"
-                    wire:click="startFreshConversation"
-                    class="inline-flex items-center rounded-full border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 dark:border-white/10 dark:text-gray-200 dark:hover:bg-white/[0.04]"
-                >
-                    New chat
-                </button>
+                <div class="flex items-center gap-2">
+                    <button
+                        type="button"
+                        wire:click="startFreshConversation"
+                        class="inline-flex items-center rounded-full border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 dark:border-white/10 dark:text-gray-200 dark:hover:bg-white/[0.04]"
+                    >
+                        New chat
+                    </button>
+                    <button
+                        type="button"
+                        @click="setSidebar(false)"
+                        class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 text-xs font-semibold text-gray-600 transition hover:bg-gray-50 xl:hidden dark:border-white/10 dark:text-gray-300 dark:hover:bg-white/[0.04]"
+                        aria-label="Close conversation history"
+                    >
+                        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" class="h-4 w-4">
+                            <path d="M6 6l8 8M14 6l-8 8" stroke-linecap="round" />
+                        </svg>
+                    </button>
+                </div>
             </div>
 
             <div class="space-y-2">
@@ -23,39 +77,55 @@
                     <div
                         @class([
                             'rounded-2xl border p-2 transition',
-                            'border-gray-950 bg-gray-950 text-white dark:border-white dark:bg-white dark:text-gray-950' => $activeConversationId === $conversation->id,
-                            'border-gray-200 bg-gray-50 text-gray-800 hover:bg-gray-100 dark:border-white/10 dark:bg-white/[0.03] dark:text-gray-100 dark:hover:bg-white/[0.05]' => $activeConversationId !== $conversation->id,
+                            'border-primary-200 bg-primary-50/90 text-gray-900 shadow-xs dark:border-primary-400/20 dark:bg-primary-400/12 dark:text-white' => $activeConversationId === $conversation->id,
+                            'border-gray-200 bg-gray-50/80 text-gray-800 hover:border-gray-300 hover:bg-white dark:border-white/8 dark:bg-white/[0.03] dark:text-gray-100 dark:hover:border-white/12 dark:hover:bg-white/[0.05]' => $activeConversationId !== $conversation->id,
                         ])
                     >
                         <div class="flex items-start gap-2">
                             <button
                                 type="button"
                                 wire:click="openConversation('{{ $conversation->id }}')"
+                                @click="if (window.innerWidth < 1280) setSidebar(false)"
                                 class="min-w-0 flex-1 rounded-xl px-2 py-1.5 text-left"
                             >
                                 <div class="truncate text-sm font-medium">{{ $this->conversationLabel($conversation) }}</div>
-                                <div class="mt-1 text-xs opacity-70">{{ $conversation->updated_at?->diffForHumans() }}</div>
+                                <div class="mt-1 text-xs text-gray-500 dark:text-gray-300/80">{{ $conversation->updated_at?->diffForHumans() }}</div>
                             </button>
 
-                            <div class="flex shrink-0 items-center gap-1">
-                                <button
-                                    type="button"
-                                    wire:click="beginConversationRename('{{ $conversation->id }}')"
-                                    class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-xs font-semibold transition hover:bg-black/5 dark:border-white/10 dark:hover:bg-white/10"
-                                    aria-label="Rename conversation"
-                                >
-                                    Edit
-                                </button>
+                            <div class="shrink-0">
+                                <x-filament::dropdown placement="bottom-end">
+                                    <x-slot name="trigger">
+                                        <button
+                                            type="button"
+                                            class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-gray-500 transition hover:bg-black/5 hover:text-gray-800 dark:border-white/10 dark:text-gray-300 dark:hover:bg-white/10 dark:hover:text-white"
+                                            aria-label="Conversation actions"
+                                        >
+                                            <svg viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
+                                                <circle cx="4" cy="10" r="1.5" />
+                                                <circle cx="10" cy="10" r="1.5" />
+                                                <circle cx="16" cy="10" r="1.5" />
+                                            </svg>
+                                        </button>
+                                    </x-slot>
 
-                                <button
-                                    type="button"
-                                    wire:click="deleteConversation('{{ $conversation->id }}')"
-                                    wire:confirm="Delete this conversation and its uploaded documents?"
-                                    class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-xs font-semibold transition hover:bg-black/5 dark:border-white/10 dark:hover:bg-white/10"
-                                    aria-label="Delete conversation"
-                                >
-                                    x
-                                </button>
+                                    <x-filament::dropdown.list>
+                                        <x-filament::dropdown.list.item
+                                            icon="heroicon-o-pencil-square"
+                                            wire:click="beginConversationRename('{{ $conversation->id }}')"
+                                        >
+                                            Rename
+                                        </x-filament::dropdown.list.item>
+
+                                        <x-filament::dropdown.list.item
+                                            color="danger"
+                                            icon="heroicon-o-trash"
+                                            wire:click="deleteConversation('{{ $conversation->id }}')"
+                                            wire:confirm="Delete this conversation and its uploaded documents?"
+                                        >
+                                            Delete
+                                        </x-filament::dropdown.list.item>
+                                    </x-filament::dropdown.list>
+                                </x-filament::dropdown>
                             </div>
                         </div>
 
@@ -65,11 +135,11 @@
                                     type="text"
                                     wire:model.defer="editingConversationTitle"
                                     maxlength="120"
-                                    class="block min-w-0 flex-1 rounded-xl border-0 bg-white/90 px-3 py-2 text-sm text-gray-900 ring-1 ring-gray-200 focus:ring-2 focus:ring-primary-500 dark:bg-black/20 dark:text-white dark:ring-white/10"
+                                    class="block min-w-0 flex-1 rounded-xl border-0 bg-white px-3 py-2 text-sm text-gray-900 ring-1 ring-gray-200 focus:ring-2 focus:ring-primary-500 dark:bg-black/20 dark:text-white dark:ring-white/10"
                                 >
                                 <button
                                     type="submit"
-                                    class="inline-flex items-center rounded-full bg-white px-3 py-2 text-xs font-semibold text-gray-950 transition hover:bg-gray-100 dark:bg-white dark:text-gray-950 dark:hover:bg-gray-200"
+                                    class="inline-flex items-center rounded-full bg-gray-950 px-3 py-2 text-xs font-semibold text-white transition hover:bg-gray-800 dark:bg-white dark:text-gray-950 dark:hover:bg-gray-200"
                                 >
                                     Save
                                 </button>
@@ -154,6 +224,14 @@
                     <div class="flex shrink-0 items-center gap-2">
                         <button
                             type="button"
+                            @click="toggleSidebar()"
+                            class="inline-flex items-center rounded-full border border-gray-200 px-3 py-2 text-xs font-semibold text-gray-700 transition hover:bg-gray-50 dark:border-white/10 dark:text-gray-200 dark:hover:bg-white/[0.04]"
+                        >
+                            <span x-text="sidebarOpen ? 'Hide history' : 'Show history'"></span>
+                        </button>
+
+                        <button
+                            type="button"
                             wire:click="startFreshConversation"
                             class="inline-flex items-center rounded-full bg-gray-950 px-3 py-2 text-xs font-semibold text-white transition hover:bg-gray-800 dark:bg-white dark:text-gray-950 dark:hover:bg-gray-200"
                         >
@@ -161,22 +239,39 @@
                         </button>
 
                         @if (filled($activeConversationId))
-                            <button
-                                type="button"
-                                wire:click="beginConversationRename('{{ $activeConversationId }}')"
-                                class="inline-flex items-center rounded-full border border-gray-200 px-3 py-2 text-xs font-semibold text-gray-700 transition hover:bg-gray-50 dark:border-white/10 dark:text-gray-200 dark:hover:bg-white/[0.04]"
-                            >
-                                Rename
-                            </button>
+                            <x-filament::dropdown placement="bottom-end">
+                                <x-slot name="trigger">
+                                    <button
+                                        type="button"
+                                        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 text-gray-600 transition hover:bg-gray-50 hover:text-gray-900 dark:border-white/10 dark:text-gray-300 dark:hover:bg-white/[0.04] dark:hover:text-white"
+                                        aria-label="Active conversation actions"
+                                    >
+                                        <svg viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
+                                            <circle cx="4" cy="10" r="1.5" />
+                                            <circle cx="10" cy="10" r="1.5" />
+                                            <circle cx="16" cy="10" r="1.5" />
+                                        </svg>
+                                    </button>
+                                </x-slot>
 
-                            <button
-                                type="button"
-                                wire:click="deleteConversation('{{ $activeConversationId }}')"
-                                wire:confirm="Delete this conversation and its uploaded documents?"
-                                class="inline-flex items-center rounded-full border border-gray-200 px-3 py-2 text-xs font-semibold text-gray-700 transition hover:bg-gray-50 dark:border-white/10 dark:text-gray-200 dark:hover:bg-white/[0.04]"
-                            >
-                                Delete chat
-                            </button>
+                                <x-filament::dropdown.list>
+                                    <x-filament::dropdown.list.item
+                                        icon="heroicon-o-pencil-square"
+                                        wire:click="beginConversationRename('{{ $activeConversationId }}')"
+                                    >
+                                        Rename
+                                    </x-filament::dropdown.list.item>
+
+                                    <x-filament::dropdown.list.item
+                                        color="danger"
+                                        icon="heroicon-o-trash"
+                                        wire:click="deleteConversation('{{ $activeConversationId }}')"
+                                        wire:confirm="Delete this conversation and its uploaded documents?"
+                                    >
+                                        Delete
+                                    </x-filament::dropdown.list.item>
+                                </x-filament::dropdown.list>
+                            </x-filament::dropdown>
                         @endif
                     </div>
                 </div>
