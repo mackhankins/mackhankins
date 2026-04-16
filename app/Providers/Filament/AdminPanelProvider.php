@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use Filament\Actions\Action;
+use Filament\Auth\MultiFactor\App\AppAuthentication;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -26,9 +27,13 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('admin')
+            ->path('console')
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->login()
+            ->profile(isSimple: false)
+            ->multiFactorAuthentication([
+                AppAuthentication::make()->recoverable(),
+            ], isRequired: true)
             ->sidebarCollapsibleOnDesktop()
             ->collapsedSidebarWidth('4.5rem')
             ->sidebarWidth('16rem')

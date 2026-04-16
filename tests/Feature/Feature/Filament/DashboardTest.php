@@ -7,7 +7,7 @@ use App\Models\Project;
 use App\Models\User;
 
 test('authenticated users can load the custom admin dashboard', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->withAppAuthentication()->create();
 
     Post::factory()->create();
     Post::factory()->draft()->create();

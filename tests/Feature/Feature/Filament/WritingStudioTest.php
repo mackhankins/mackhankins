@@ -21,7 +21,7 @@ use Laravel\Ai\Tools\Request;
 use Livewire\Livewire;
 
 test('authenticated users can load the writing studio page', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->withAppAuthentication()->create();
 
     $this->actingAs($user)
         ->get(WritingStudio::getUrl())

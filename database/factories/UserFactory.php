@@ -42,4 +42,11 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    public function withAppAuthentication(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'app_authentication_secret' => Str::random(32),
+        ]);
+    }
 }
