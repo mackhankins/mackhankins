@@ -187,6 +187,34 @@ test('the composer accepts shell scripts as text attachments', function () {
         ->and(WritingStudioAttachment::query()->firstOrFail()->provider_file_id)->not->toBeNull();
 });
 
+test('the composer accepts python files as text attachments', function () {
+    config()->set('filesystems.default', 'public');
+    Storage::fake('public');
+    Files::fake();
+
+    $user = User::factory()->create();
+
+    WritingStudioAgent::fake([
+        'Python article',
+        'Use the script as source material for the post.',
+    ])->preventStrayPrompts();
+
+    $upload = UploadedFile::fake()->createWithContent('report.py', "def summarize():\n    return 'weekly traffic'\n");
+
+    $this->actingAs($user);
+
+    Livewire::test(WritingStudio::class)
+        ->set('composerMessage', 'Turn this Python script into a post idea.')
+        ->set('composerUploads', [$upload])
+        ->call('sendMessage')
+        ->assertHasNoErrors()
+        ->assertSet('composerUploads', []);
+
+    expect(WritingStudioAttachment::query()->count())->toBe(1)
+        ->and(WritingStudioAttachment::query()->firstOrFail()->original_name)->toBe('report.py')
+        ->and(WritingStudioAttachment::query()->firstOrFail()->provider_file_id)->not->toBeNull();
+});
+
 test('the composer accepts images as attachments', function () {
     config()->set('filesystems.default', 'public');
     Storage::fake('public');
@@ -273,6 +301,36 @@ test('shell script attachments are normalized to text plain for ai prompts', fun
     expect($document)->toBeInstanceOf(Base64Document::class)
         ->and($document->mime)->toBe('text/plain')
         ->and($document->name())->toBe('deploy.sh');
+});
+
+test('python attachments are normalized to text plain for ai prompts', function () {
+    config()->set('filesystems.default', 'public');
+    Storage::fake('public');
+
+    $user = User::factory()->create();
+
+    $conversation = AgentConversation::query()->create([
+        'id' => (string) str()->uuid(),
+        'user_id' => $user->id,
+        'title' => 'Python chat',
+    ]);
+
+    Storage::disk('public')->put('writing-studio/'.$conversation->id.'/report.py', "def summarize():\n    return 'weekly traffic'\n");
+
+    $attachment = WritingStudioAttachment::query()->create([
+        'conversation_id' => $conversation->id,
+        'user_id' => $user->id,
+        'original_name' => 'report.py',
+        'storage_disk' => 'public',
+        'storage_path' => 'writing-studio/'.$conversation->id.'/report.py',
+        'mime_type' => 'text/x-python',
+    ]);
+
+    $document = $attachment->toAiAttachment();
+
+    expect($document)->toBeInstanceOf(Base64Document::class)
+        ->and($document->mime)->toBe('text/plain')
+        ->and($document->name())->toBe('report.py');
 });
 
 test('image attachments are kept as image attachments for ai prompts', function () {

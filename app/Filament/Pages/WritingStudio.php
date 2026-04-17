@@ -27,26 +27,6 @@ class WritingStudio extends Page
 
     protected const ATTACHMENTS_DIRECTORY = 'writing-studio';
 
-    protected const TEXT_ATTACHMENT_EXTENSIONS = ['md', 'markdown', 'txt', 'sh'];
-
-    protected const IMAGE_ATTACHMENT_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
-
-    protected const TEXT_ATTACHMENT_MIME_TYPES = [
-        'text/markdown',
-        'text/x-markdown',
-        'application/x-markdown',
-        'text/plain',
-        'application/x-sh',
-        'application/x-shellscript',
-    ];
-
-    protected const IMAGE_ATTACHMENT_MIME_TYPES = [
-        'image/jpeg',
-        'image/png',
-        'image/webp',
-        'image/gif',
-    ];
-
     protected string $view = 'filament.pages.writing-studio';
 
     protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedChatBubbleLeftRight;
@@ -377,6 +357,15 @@ class WritingStudio extends Page
             ->get(['id', 'title']);
     }
 
+    public function attachmentAcceptAttribute(): string
+    {
+        return implode(',', [
+            ...$this->prefixedExtensions($this->supportedAttachmentExtensions()),
+            ...$this->textAttachmentMimeTypes(),
+            ...$this->imageAttachmentMimeTypes(),
+        ]);
+    }
+
     /**
      * @return array<int, AiFile>
      */
@@ -471,8 +460,8 @@ class WritingStudio extends Page
             )->as($upload->getClientOriginalName());
         }
 
-        $mimeType = in_array($upload->getClientMimeType(), self::TEXT_ATTACHMENT_MIME_TYPES, true) ||
-            Str::endsWith(Str::lower($upload->getClientOriginalName()), ['.md', '.markdown', '.txt', '.sh'])
+        $mimeType = in_array($upload->getClientMimeType(), $this->textAttachmentMimeTypes(), true) ||
+            Str::endsWith(Str::lower($upload->getClientOriginalName()), $this->textAttachmentSuffixes())
             ? 'text/plain'
             : ($upload->getClientMimeType() ?: 'application/octet-stream');
 
@@ -486,15 +475,67 @@ class WritingStudio extends Page
     private function supportedAttachmentExtensions(): array
     {
         return [
-            ...self::TEXT_ATTACHMENT_EXTENSIONS,
-            ...self::IMAGE_ATTACHMENT_EXTENSIONS,
+            ...$this->textAttachmentExtensions(),
+            ...$this->imageAttachmentExtensions(),
         ];
     }
 
     private function isImageUpload(UploadedFile $upload): bool
     {
-        return in_array($upload->getClientMimeType(), self::IMAGE_ATTACHMENT_MIME_TYPES, true) ||
-            Str::endsWith(Str::lower($upload->getClientOriginalName()), ['.jpg', '.jpeg', '.png', '.webp', '.gif']);
+        return in_array($upload->getClientMimeType(), $this->imageAttachmentMimeTypes(), true) ||
+            Str::endsWith(Str::lower($upload->getClientOriginalName()), $this->prefixedExtensions($this->imageAttachmentExtensions()));
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function textAttachmentSuffixes(): array
+    {
+        return $this->prefixedExtensions($this->textAttachmentExtensions());
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function textAttachmentExtensions(): array
+    {
+        return config('writing-studio.attachments.text.extensions', []);
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function imageAttachmentExtensions(): array
+    {
+        return config('writing-studio.attachments.images.extensions', []);
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function textAttachmentMimeTypes(): array
+    {
+        return config('writing-studio.attachments.text.mime_types', []);
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function imageAttachmentMimeTypes(): array
+    {
+        return config('writing-studio.attachments.images.mime_types', []);
+    }
+
+    /**
+     * @param  array<int, string>  $extensions
+     * @return array<int, string>
+     */
+    private function prefixedExtensions(array $extensions): array
+    {
+        return array_map(
+            static fn (string $extension): string => '.'.$extension,
+            $extensions,
+        );
     }
 
     private function uploadContents(UploadedFile $upload): string

@@ -217,7 +217,7 @@
                     <div>
                         <h1 class="font-display text-3xl font-bold tracking-tight text-gray-950 dark:text-white">Writing Studio</h1>
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                            Chat with Codex, attach Markdown, text, shell scripts, or images, and type <span class="font-semibold">@post</span> to reference existing posts in the current message.
+                            Chat with Codex, attach docs, code, config files, or images, and type <span class="font-semibold">@post</span> to reference existing posts in the current message.
                         </p>
                     </div>
 
@@ -354,7 +354,7 @@
                         </article>
                     @empty
                         <div class="rounded-3xl border border-dashed border-gray-300 bg-gray-50 px-6 py-10 text-sm leading-6 text-gray-600 dark:border-white/10 dark:bg-white/[0.02] dark:text-gray-300">
-                            Start by describing the blog post you want, attach a Markdown document, or type <span class="font-semibold">@post</span> to bring existing posts into the current message.
+                            Start by describing the blog post you want, attach docs, code, config, or images, or type <span class="font-semibold">@post</span> to bring existing posts into the current message.
                         </div>
                     @endforelse
                 </div>
@@ -542,12 +542,12 @@
                 <div class="mt-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                     <div class="space-y-2">
                         <label class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3 py-2 text-xs font-medium text-gray-700 transition hover:bg-gray-100 dark:border-white/10 dark:bg-white/[0.04] dark:text-gray-200 dark:hover:bg-white/[0.06]">
-                            <span>Attach Markdown</span>
+                            <span>Attach File</span>
                             <input
                                 x-ref="composerUploadInput"
                                 wire:model="composerUpload"
                                 type="file"
-                                accept=".md,.markdown,.txt,text/plain,text/markdown"
+                                accept="{{ $this->attachmentAcceptAttribute() }}"
                                 class="hidden"
                             >
                         </label>

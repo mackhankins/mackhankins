@@ -67,8 +67,8 @@ class WritingStudioAttachment extends Model
         }
 
         if (
-            in_array($this->mime_type, ['text/markdown', 'text/x-markdown', 'application/x-markdown', 'text/plain', 'application/x-sh', 'application/x-shellscript'], true) ||
-            Str::endsWith(Str::lower($this->original_name), ['.md', '.markdown', '.txt', '.sh'])
+            in_array($this->mime_type, $this->textAttachmentMimeTypes(), true) ||
+            Str::endsWith(Str::lower($this->original_name), $this->textAttachmentSuffixes())
         ) {
             return 'text/plain';
         }
@@ -79,6 +79,50 @@ class WritingStudioAttachment extends Model
     public function isImageAttachment(): bool
     {
         return str($this->mime_type)->startsWith('image/') ||
-            Str::endsWith(Str::lower($this->original_name), ['.jpg', '.jpeg', '.png', '.webp', '.gif']);
+            Str::endsWith(Str::lower($this->original_name), $this->prefixedExtensions($this->imageAttachmentExtensions()));
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function textAttachmentSuffixes(): array
+    {
+        return $this->prefixedExtensions($this->textAttachmentExtensions());
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function textAttachmentExtensions(): array
+    {
+        return config('writing-studio.attachments.text.extensions', []);
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function imageAttachmentExtensions(): array
+    {
+        return config('writing-studio.attachments.images.extensions', []);
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function textAttachmentMimeTypes(): array
+    {
+        return config('writing-studio.attachments.text.mime_types', []);
+    }
+
+    /**
+     * @param  array<int, string>  $extensions
+     * @return array<int, string>
+     */
+    private function prefixedExtensions(array $extensions): array
+    {
+        return array_map(
+            static fn (string $extension): string => '.'.$extension,
+            $extensions,
+        );
     }
 }
