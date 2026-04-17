@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Laravel\Ai\Files;
 use Laravel\Ai\Files\Document;
+use Laravel\Ai\Files\File as AiFile;
+use Laravel\Ai\Files\Image;
 use Livewire\Attributes\Computed;
 use Livewire\WithFileUploads;
 
@@ -24,6 +26,26 @@ class WritingStudio extends Page
     use WithFileUploads;
 
     protected const ATTACHMENTS_DIRECTORY = 'writing-studio';
+
+    protected const TEXT_ATTACHMENT_EXTENSIONS = ['md', 'markdown', 'txt', 'sh'];
+
+    protected const IMAGE_ATTACHMENT_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+
+    protected const TEXT_ATTACHMENT_MIME_TYPES = [
+        'text/markdown',
+        'text/x-markdown',
+        'application/x-markdown',
+        'text/plain',
+        'application/x-sh',
+        'application/x-shellscript',
+    ];
+
+    protected const IMAGE_ATTACHMENT_MIME_TYPES = [
+        'image/jpeg',
+        'image/png',
+        'image/webp',
+        'image/gif',
+    ];
 
     protected string $view = 'filament.pages.writing-studio';
 
@@ -218,7 +240,7 @@ class WritingStudio extends Page
         }
 
         $this->validate([
-            'composerUpload' => ['file', 'mimes:md,markdown,txt', 'max:4096'],
+            'composerUpload' => ['file', 'mimes:'.implode(',', $this->supportedAttachmentExtensions()), 'max:4096'],
         ]);
 
         $this->composerUploads[] = $this->composerUpload;
@@ -238,8 +260,8 @@ class WritingStudio extends Page
     {
         $this->validate([
             'composerMessage' => ['nullable', 'string'],
-            'composerUpload' => ['nullable', 'file', 'mimes:md,markdown,txt', 'max:4096'],
-            'composerUploads.*' => ['file', 'mimes:md,markdown,txt', 'max:4096'],
+            'composerUpload' => ['nullable', 'file', 'mimes:'.implode(',', $this->supportedAttachmentExtensions()), 'max:4096'],
+            'composerUploads.*' => ['file', 'mimes:'.implode(',', $this->supportedAttachmentExtensions()), 'max:4096'],
             'selectedPostIds' => ['array'],
         ]);
 
@@ -356,7 +378,7 @@ class WritingStudio extends Page
     }
 
     /**
-     * @return array<int, Document>
+     * @return array<int, AiFile>
      */
     private function persistentAttachmentsForCurrentConversation(): array
     {
@@ -367,7 +389,7 @@ class WritingStudio extends Page
         return WritingStudioAttachment::query()
             ->where('conversation_id', $this->activeConversationId)
             ->get()
-            ->map(fn (WritingStudioAttachment $attachment): Document => $attachment->toDocumentAttachment())
+            ->map(fn (WritingStudioAttachment $attachment): AiFile => $attachment->toAiAttachment())
             ->all();
     }
 
@@ -399,13 +421,17 @@ class WritingStudio extends Page
     }
 
     /**
-     * @return array<int, Document>
+     * @return array<int, AiFile>
      */
     private function storeUploadsWithProvider(): array
     {
         return collect($this->composerUploads)
-            ->map(function (UploadedFile $upload): Document {
-                $stored = $this->documentAttachmentFromUpload($upload)->put();
+            ->map(function (UploadedFile $upload): AiFile {
+                $stored = $this->aiAttachmentFromUpload($upload)->put();
+
+                if ($this->isImageUpload($upload)) {
+                    return Image::fromId($stored->id)->as($upload->getClientOriginalName());
+                }
 
                 return Document::fromId($stored->id)->as($upload->getClientOriginalName());
             })
@@ -413,14 +439,14 @@ class WritingStudio extends Page
     }
 
     /**
-     * @param  array<int, Document>  $freshUploadAttachments
+     * @param  array<int, AiFile>  $freshUploadAttachments
      */
     private function persistUploadedFiles(string $conversationId, array $freshUploadAttachments): void
     {
         foreach ($this->composerUploads as $index => $upload) {
             $disk = config('filesystems.default');
             $path = $upload->store(self::ATTACHMENTS_DIRECTORY.'/'.$conversationId, $disk);
-            $providerFileId = $freshUploadAttachments[$index] instanceof Document && method_exists($freshUploadAttachments[$index], 'id')
+            $providerFileId = $freshUploadAttachments[$index] instanceof AiFile && method_exists($freshUploadAttachments[$index], 'id')
                 ? $freshUploadAttachments[$index]->id()
                 : null;
 
@@ -436,18 +462,46 @@ class WritingStudio extends Page
         }
     }
 
-    private function documentAttachmentFromUpload(UploadedFile $upload): Document
+    private function aiAttachmentFromUpload(UploadedFile $upload): AiFile
     {
-        $mimeType = in_array($upload->getClientMimeType(), ['text/markdown', 'text/x-markdown', 'application/x-markdown', 'text/plain'], true)
+        if ($this->isImageUpload($upload)) {
+            return Image::fromBase64(
+                base64_encode($this->uploadContents($upload)),
+                $upload->getClientMimeType() ?: 'application/octet-stream',
+            )->as($upload->getClientOriginalName());
+        }
+
+        $mimeType = in_array($upload->getClientMimeType(), self::TEXT_ATTACHMENT_MIME_TYPES, true) ||
+            Str::endsWith(Str::lower($upload->getClientOriginalName()), ['.md', '.markdown', '.txt', '.sh'])
             ? 'text/plain'
             : ($upload->getClientMimeType() ?: 'application/octet-stream');
 
-        $contents = method_exists($upload, 'get')
+        return Document::fromString($this->uploadContents($upload), $mimeType)
+            ->as($upload->getClientOriginalName());
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function supportedAttachmentExtensions(): array
+    {
+        return [
+            ...self::TEXT_ATTACHMENT_EXTENSIONS,
+            ...self::IMAGE_ATTACHMENT_EXTENSIONS,
+        ];
+    }
+
+    private function isImageUpload(UploadedFile $upload): bool
+    {
+        return in_array($upload->getClientMimeType(), self::IMAGE_ATTACHMENT_MIME_TYPES, true) ||
+            Str::endsWith(Str::lower($upload->getClientOriginalName()), ['.jpg', '.jpeg', '.png', '.webp', '.gif']);
+    }
+
+    private function uploadContents(UploadedFile $upload): string
+    {
+        return method_exists($upload, 'get')
             ? $upload->get()
             : $upload->getContent();
-
-        return Document::fromString($contents, $mimeType)
-            ->as($upload->getClientOriginalName());
     }
 
     public function conversationLabel(AgentConversation $conversation): string

@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Laravel\Ai\Files\Document;
+use Laravel\Ai\Files\File;
+use Laravel\Ai\Files\Image;
 
 class WritingStudioAttachment extends Model
 {
@@ -30,16 +32,27 @@ class WritingStudioAttachment extends Model
         return $this->belongsTo(AgentConversation::class, 'conversation_id');
     }
 
-    public function toDocumentAttachment(): Document
+    public function toAiAttachment(): File
     {
         if (filled($this->provider_file_id)) {
+            if ($this->isImageAttachment()) {
+                return Image::fromId($this->provider_file_id)->as($this->original_name);
+            }
+
             return Document::fromId($this->provider_file_id)->as($this->original_name);
         }
 
-        return Document::fromString(
-            Storage::disk($this->storageDisk())->get($this->storage_path),
-            $this->aiMimeType(),
-        )->as($this->original_name);
+        $contents = Storage::disk($this->storageDisk())->get($this->storage_path);
+
+        if ($this->isImageAttachment()) {
+            return Image::fromBase64(
+                base64_encode($contents),
+                $this->aiMimeType(),
+            )->as($this->original_name);
+        }
+
+        return Document::fromString($contents, $this->aiMimeType())
+            ->as($this->original_name);
     }
 
     public function storageDisk(): string
@@ -49,13 +62,23 @@ class WritingStudioAttachment extends Model
 
     public function aiMimeType(): string
     {
+        if ($this->isImageAttachment()) {
+            return $this->mime_type ?: 'application/octet-stream';
+        }
+
         if (
-            in_array($this->mime_type, ['text/markdown', 'text/x-markdown', 'application/x-markdown'], true) ||
-            Str::endsWith(Str::lower($this->original_name), ['.md', '.markdown', '.txt'])
+            in_array($this->mime_type, ['text/markdown', 'text/x-markdown', 'application/x-markdown', 'text/plain', 'application/x-sh', 'application/x-shellscript'], true) ||
+            Str::endsWith(Str::lower($this->original_name), ['.md', '.markdown', '.txt', '.sh'])
         ) {
             return 'text/plain';
         }
 
         return $this->mime_type ?: 'application/octet-stream';
+    }
+
+    public function isImageAttachment(): bool
+    {
+        return str($this->mime_type)->startsWith('image/') ||
+            Str::endsWith(Str::lower($this->original_name), ['.jpg', '.jpeg', '.png', '.webp', '.gif']);
     }
 }

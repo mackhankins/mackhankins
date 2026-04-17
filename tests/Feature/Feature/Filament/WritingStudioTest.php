@@ -16,6 +16,7 @@ use Illuminate\JsonSchema\JsonSchemaTypeFactory;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Ai\Files;
 use Laravel\Ai\Files\Base64Document;
+use Laravel\Ai\Files\Base64Image;
 use Laravel\Ai\ObjectSchema;
 use Laravel\Ai\Tools\Request;
 use Livewire\Livewire;
@@ -77,6 +78,15 @@ test('writing studio tools expose strict-compatible schemas', function () {
         expect(array_keys($schema['properties']))->toBe($expectedKeys)
             ->and($schema['required'])->toBe($expectedKeys);
     }
+});
+
+test('writing studio agent instructions require typed code fences and genericized sensitive details', function () {
+    $instructions = (string) (new WritingStudioAgent)->instructions();
+
+    expect($instructions)
+        ->toContain('always include an explicit language tag')
+        ->toContain('do not repeat them verbatim')
+        ->toContain('generic placeholders or generic instructions');
 });
 
 test('users can rename their conversations', function () {
@@ -149,6 +159,62 @@ test('the composer stores markdown files against the conversation', function () 
     Storage::disk('public')->assertExists(WritingStudioAttachment::query()->firstOrFail()->storage_path);
 });
 
+test('the composer accepts shell scripts as text attachments', function () {
+    config()->set('filesystems.default', 'public');
+    Storage::fake('public');
+    Files::fake();
+
+    $user = User::factory()->create();
+
+    WritingStudioAgent::fake([
+        'Shell script article',
+        'Use the script as source material for the post.',
+    ])->preventStrayPrompts();
+
+    $upload = UploadedFile::fake()->createWithContent('deploy.sh', "#!/usr/bin/env bash\n\necho 'deploying'\n");
+
+    $this->actingAs($user);
+
+    Livewire::test(WritingStudio::class)
+        ->set('composerMessage', 'Turn this script into a blog idea.')
+        ->set('composerUploads', [$upload])
+        ->call('sendMessage')
+        ->assertHasNoErrors()
+        ->assertSet('composerUploads', []);
+
+    expect(WritingStudioAttachment::query()->count())->toBe(1)
+        ->and(WritingStudioAttachment::query()->firstOrFail()->original_name)->toBe('deploy.sh')
+        ->and(WritingStudioAttachment::query()->firstOrFail()->provider_file_id)->not->toBeNull();
+});
+
+test('the composer accepts images as attachments', function () {
+    config()->set('filesystems.default', 'public');
+    Storage::fake('public');
+    Files::fake();
+
+    $user = User::factory()->create();
+
+    WritingStudioAgent::fake([
+        'Graph-driven article',
+        'Use the attached chart to explain the main trend.',
+    ])->preventStrayPrompts();
+
+    $upload = UploadedFile::fake()->image('traffic-graph.png');
+
+    $this->actingAs($user);
+
+    Livewire::test(WritingStudio::class)
+        ->set('composerMessage', 'Turn this graph into a blog outline.')
+        ->set('composerUploads', [$upload])
+        ->call('sendMessage')
+        ->assertHasNoErrors()
+        ->assertSet('composerUploads', []);
+
+    expect(WritingStudioAttachment::query()->count())->toBe(1)
+        ->and(WritingStudioAttachment::query()->firstOrFail()->original_name)->toBe('traffic-graph.png')
+        ->and(WritingStudioAttachment::query()->firstOrFail()->provider_file_id)->not->toBeNull();
+});
+
 test('markdown attachments are normalized to text plain for ai prompts', function () {
     config()->set('filesystems.default', 'public');
     Storage::fake('public');
@@ -172,11 +238,76 @@ test('markdown attachments are normalized to text plain for ai prompts', functio
         'mime_type' => 'text/markdown',
     ]);
 
-    $document = $attachment->toDocumentAttachment();
+    $document = $attachment->toAiAttachment();
 
     expect($document)->toBeInstanceOf(Base64Document::class)
         ->and($document->mime)->toBe('text/plain')
         ->and($document->name())->toBe('notes.md');
+});
+
+test('shell script attachments are normalized to text plain for ai prompts', function () {
+    config()->set('filesystems.default', 'public');
+    Storage::fake('public');
+
+    $user = User::factory()->create();
+
+    $conversation = AgentConversation::query()->create([
+        'id' => (string) str()->uuid(),
+        'user_id' => $user->id,
+        'title' => 'Shell script chat',
+    ]);
+
+    Storage::disk('public')->put('writing-studio/'.$conversation->id.'/deploy.sh', "#!/usr/bin/env bash\n\necho 'deploy'\n");
+
+    $attachment = WritingStudioAttachment::query()->create([
+        'conversation_id' => $conversation->id,
+        'user_id' => $user->id,
+        'original_name' => 'deploy.sh',
+        'storage_disk' => 'public',
+        'storage_path' => 'writing-studio/'.$conversation->id.'/deploy.sh',
+        'mime_type' => 'application/x-sh',
+    ]);
+
+    $document = $attachment->toAiAttachment();
+
+    expect($document)->toBeInstanceOf(Base64Document::class)
+        ->and($document->mime)->toBe('text/plain')
+        ->and($document->name())->toBe('deploy.sh');
+});
+
+test('image attachments are kept as image attachments for ai prompts', function () {
+    config()->set('filesystems.default', 'public');
+    Storage::fake('public');
+
+    $user = User::factory()->create();
+
+    $conversation = AgentConversation::query()->create([
+        'id' => (string) str()->uuid(),
+        'user_id' => $user->id,
+        'title' => 'Image chat',
+    ]);
+
+    $image = base64_decode(
+        'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wn7i4sAAAAASUVORK5CYII=',
+        true,
+    );
+
+    Storage::disk('public')->put('writing-studio/'.$conversation->id.'/graph.png', $image);
+
+    $attachment = WritingStudioAttachment::query()->create([
+        'conversation_id' => $conversation->id,
+        'user_id' => $user->id,
+        'original_name' => 'graph.png',
+        'storage_disk' => 'public',
+        'storage_path' => 'writing-studio/'.$conversation->id.'/graph.png',
+        'mime_type' => 'image/png',
+    ]);
+
+    $imageAttachment = $attachment->toAiAttachment();
+
+    expect($imageAttachment)->toBeInstanceOf(Base64Image::class)
+        ->and($imageAttachment->mime)->toBe('image/png')
+        ->and($imageAttachment->name())->toBe('graph.png');
 });
 
 test('starting a fresh conversation clears the active chat state', function () {

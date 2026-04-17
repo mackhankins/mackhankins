@@ -217,7 +217,7 @@
                     <div>
                         <h1 class="font-display text-3xl font-bold tracking-tight text-gray-950 dark:text-white">Writing Studio</h1>
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                            Chat with Codex, attach Markdown docs, and type <span class="font-semibold">@post</span> to reference existing posts in the current message.
+                            Chat with Codex, attach Markdown, text, shell scripts, or images, and type <span class="font-semibold">@post</span> to reference existing posts in the current message.
                         </p>
                     </div>
 

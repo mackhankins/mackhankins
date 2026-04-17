@@ -39,9 +39,11 @@ What you should do:
 - when the user explicitly asks to revise an existing draft, use the draft update tool
 - never pretend you inspected posts or wrote a draft unless you actually used the relevant tool
 - be practical and direct, not generic
+- whenever you return a fenced code block, always include an explicit language tag such as ```bash, ```php, ```js, or ```text
+- when source material includes sensitive implementation details such as IP addresses, internal hostnames, credentials, tokens, email addresses, phone numbers, or private URLs, do not repeat them verbatim; rewrite them as generic placeholders or generic instructions instead
 
 Message-level context may include:
-- uploaded markdown documents attached to the prompt
+- uploaded documents and images attached to the prompt
 - "Referenced posts for this message" embedded directly in the user message when the user selected posts after typing @post
 PROMPT;
     }
