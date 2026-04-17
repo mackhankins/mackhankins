@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'attachments' => [
-        'text' => [
+    'validation' => [
+        'attachments' => [
             'extensions' => [
                 'md',
                 'markdown',
@@ -49,6 +49,10 @@ return [
                 'sass',
                 'less',
             ],
+        ],
+    ],
+    'classification' => [
+        'text' => [
             'mime_types' => [
                 'text/markdown',
                 'text/x-markdown',
@@ -74,8 +78,8 @@ return [
             ],
         ],
         'images' => [
-            'extensions' => ['jpg', 'jpeg', 'png', 'webp', 'gif'],
             'mime_types' => ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
+            'extensions' => ['jpg', 'jpeg', 'png', 'webp', 'gif'],
         ],
     ],
 ];

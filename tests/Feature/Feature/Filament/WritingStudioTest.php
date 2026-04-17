@@ -215,6 +215,19 @@ test('the composer accepts python files as text attachments', function () {
         ->and(WritingStudioAttachment::query()->firstOrFail()->provider_file_id)->not->toBeNull();
 });
 
+test('python files can be staged through the composer upload field', function () {
+    $user = User::factory()->create();
+    $upload = UploadedFile::fake()->createWithContent('report.py', "def summarize():\n    return 'weekly traffic'\n");
+
+    $this->actingAs($user);
+
+    Livewire::test(WritingStudio::class)
+        ->set('composerUpload', $upload)
+        ->assertHasNoErrors()
+        ->assertSet('composerUpload', null)
+        ->assertCount('composerUploads', 1);
+});
+
 test('the composer accepts images as attachments', function () {
     config()->set('filesystems.default', 'public');
     Storage::fake('public');

@@ -95,7 +95,7 @@ class WritingStudioAttachment extends Model
      */
     private function textAttachmentExtensions(): array
     {
-        return config('writing-studio.attachments.text.extensions', []);
+        return config('writing-studio.validation.attachments.extensions', []);
     }
 
     /**
@@ -103,7 +103,7 @@ class WritingStudioAttachment extends Model
      */
     private function imageAttachmentExtensions(): array
     {
-        return config('writing-studio.attachments.images.extensions', []);
+        return config('writing-studio.classification.images.extensions', []);
     }
 
     /**
@@ -111,7 +111,7 @@ class WritingStudioAttachment extends Model
      */
     private function textAttachmentMimeTypes(): array
     {
-        return config('writing-studio.attachments.text.mime_types', []);
+        return config('writing-studio.classification.text.mime_types', []);
     }
 
     /**

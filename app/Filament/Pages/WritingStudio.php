@@ -220,7 +220,7 @@ class WritingStudio extends Page
         }
 
         $this->validate([
-            'composerUpload' => ['file', 'mimes:'.implode(',', $this->supportedAttachmentExtensions()), 'max:4096'],
+            'composerUpload' => ['file', 'extensions:'.implode(',', $this->supportedAttachmentExtensions()), 'max:4096'],
         ]);
 
         $this->composerUploads[] = $this->composerUpload;
@@ -240,8 +240,8 @@ class WritingStudio extends Page
     {
         $this->validate([
             'composerMessage' => ['nullable', 'string'],
-            'composerUpload' => ['nullable', 'file', 'mimes:'.implode(',', $this->supportedAttachmentExtensions()), 'max:4096'],
-            'composerUploads.*' => ['file', 'mimes:'.implode(',', $this->supportedAttachmentExtensions()), 'max:4096'],
+            'composerUpload' => ['nullable', 'file', 'extensions:'.implode(',', $this->supportedAttachmentExtensions()), 'max:4096'],
+            'composerUploads.*' => ['file', 'extensions:'.implode(',', $this->supportedAttachmentExtensions()), 'max:4096'],
             'selectedPostIds' => ['array'],
         ]);
 
@@ -499,7 +499,7 @@ class WritingStudio extends Page
      */
     private function textAttachmentExtensions(): array
     {
-        return config('writing-studio.attachments.text.extensions', []);
+        return config('writing-studio.validation.attachments.extensions', []);
     }
 
     /**
@@ -507,7 +507,7 @@ class WritingStudio extends Page
      */
     private function imageAttachmentExtensions(): array
     {
-        return config('writing-studio.attachments.images.extensions', []);
+        return config('writing-studio.classification.images.extensions', []);
     }
 
     /**
@@ -515,7 +515,7 @@ class WritingStudio extends Page
      */
     private function textAttachmentMimeTypes(): array
     {
-        return config('writing-studio.attachments.text.mime_types', []);
+        return config('writing-studio.classification.text.mime_types', []);
     }
 
     /**
@@ -523,7 +523,7 @@ class WritingStudio extends Page
      */
     private function imageAttachmentMimeTypes(): array
     {
-        return config('writing-studio.attachments.images.mime_types', []);
+        return config('writing-studio.classification.images.mime_types', []);
     }
 
     /**
