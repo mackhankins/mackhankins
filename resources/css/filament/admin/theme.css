@@ -2,3 +2,384 @@
 
 @source '../../../../app/Filament/**/*';
 @source '../../../../resources/views/filament/**/*';
+
+@theme {
+    --font-display: 'Syne', ui-sans-serif, system-ui, sans-serif;
+    --font-body: 'Newsreader', ui-serif, Georgia, serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    /* Dark-mode defaults — overridden for light in html:not(.dark) */
+    --color-base-950: #0a0c12;
+    --color-base-900: #0e1016;
+    --color-base-800: #171b27;
+    --color-base-700: #1d2234;
+    --color-base-600: #252a3a;
+    --color-base-500: #353c52;
+    --color-base-400: #555b6e;
+    --color-base-300: #8a8f9c;
+    --color-base-200: #b8bcc6;
+    --color-base-100: #d4d6dc;
+    --color-base-50: #e4e2de;
+
+    --color-amber-accent: #c9a872;
+    --color-teal-accent: #5ba8a8;
+    --color-indigo-accent: #7b84bf;
+    --color-rose-accent: #b8847f;
+}
+
+html:not(.dark) {
+    --color-base-950: #f7f6f3;
+    --color-base-900: #efede8;
+    --color-base-800: #e5e3dd;
+    --color-base-700: #d8d5ce;
+    --color-base-600: #c8c4bb;
+    --color-base-500: #a9a59b;
+    --color-base-400: #85817a;
+    --color-base-300: #65625b;
+    --color-base-200: #3d3b36;
+    --color-base-100: #2a2823;
+    --color-base-50: #1a1815;
+
+    --color-amber-accent: #9e8350;
+    --color-teal-accent: #3d8585;
+    --color-indigo-accent: #5c659e;
+    --color-rose-accent: #9a6a65;
+}
+
+/* ==========================================================================
+   Writing Studio — editorial desk surface
+   ========================================================================== */
+
+.ws-root {
+    --ws-rule: color-mix(in oklab, var(--color-base-500) 40%, transparent);
+    --ws-rule-strong: color-mix(in oklab, var(--color-base-500) 70%, transparent);
+    --ws-surface: var(--color-base-900);
+    --ws-surface-sunk: color-mix(in oklab, var(--color-base-900) 92%, var(--color-base-800));
+    --ws-ink: var(--color-base-50);
+    --ws-ink-soft: var(--color-base-300);
+}
+
+.ws-gutter-grid {
+    background-image:
+        linear-gradient(to right, var(--color-base-300) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--color-base-300) 1px, transparent 1px);
+    background-size: 44px 44px;
+    opacity: 0.09;
+    mask-image: radial-gradient(ellipse at center, black 0%, black 55%, transparent 90%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 0%, black 55%, transparent 90%);
+}
+
+html:not(.dark) .ws-gutter-grid {
+    background-image:
+        linear-gradient(to right, var(--color-base-500) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--color-base-500) 1px, transparent 1px);
+    opacity: 0.14;
+}
+
+.ws-rail {
+    border-right: 1px solid var(--ws-rule);
+}
+
+.ws-divider {
+    border-top: 1px solid var(--ws-rule);
+}
+
+.ws-message-user {
+    border-left: 2px solid var(--color-amber-accent);
+    padding-left: 1.1rem;
+    color: var(--color-base-200);
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    letter-spacing: 0.01em;
+    line-height: 1.7;
+    white-space: pre-wrap;
+}
+
+html:not(.dark) .ws-message-user {
+    color: var(--color-base-100);
+}
+
+.ws-message-assistant {
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.72;
+    color: var(--color-base-100);
+}
+
+html:not(.dark) .ws-message-assistant {
+    color: var(--color-base-200);
+}
+
+.ws-message-assistant > *:first-child { margin-top: 0; }
+.ws-message-assistant > *:last-child { margin-bottom: 0; }
+
+.ws-message-assistant h1,
+.ws-message-assistant h2,
+.ws-message-assistant h3,
+.ws-message-assistant h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-base-50);
+    margin-top: 1.6em;
+    margin-bottom: 0.5em;
+}
+
+.ws-message-assistant h1 { font-size: 1.6rem; }
+.ws-message-assistant h2 { font-size: 1.3rem; }
+.ws-message-assistant h3 { font-size: 1.1rem; }
+.ws-message-assistant p { margin: 0.9em 0; }
+.ws-message-assistant strong { color: var(--color-base-50); font-weight: 600; }
+.ws-message-assistant em { font-style: italic; color: var(--color-base-100); }
+
+.ws-message-assistant a {
+    color: var(--color-teal-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+}
+.ws-message-assistant a:hover { color: var(--color-amber-accent); }
+
+.ws-message-assistant ul,
+.ws-message-assistant ol {
+    margin: 0.9em 0;
+    padding-left: 1.35em;
+}
+.ws-message-assistant ul { list-style: disc; }
+.ws-message-assistant ol { list-style: decimal; }
+.ws-message-assistant li { margin: 0.25em 0; }
+.ws-message-assistant li::marker { color: var(--color-base-400); }
+
+.ws-message-assistant blockquote {
+    margin: 1.25em 0;
+    padding: 0.1em 0 0.1em 1.15em;
+    border-left: 2px solid var(--color-amber-accent);
+    color: var(--color-base-200);
+    font-style: italic;
+}
+
+.ws-message-assistant code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: color-mix(in oklab, var(--color-base-700) 70%, transparent);
+    color: var(--color-teal-accent);
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+}
+
+.ws-message-assistant pre {
+    font-family: var(--font-mono);
+    margin: 1.25em 0;
+    padding: 1em 1.1em;
+    background: var(--color-base-950);
+    border: 1px solid var(--ws-rule);
+    border-radius: 4px;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--color-base-100);
+}
+
+.ws-message-assistant pre code {
+    background: transparent;
+    padding: 0;
+    color: inherit;
+}
+
+.ws-message-assistant hr {
+    border: 0;
+    border-top: 1px solid var(--ws-rule);
+    margin: 1.75em 0;
+}
+
+html:not(.dark) .ws-message-assistant pre {
+    background: var(--color-base-950);
+    color: var(--color-base-100);
+}
+
+/* Conversation rail items */
+.ws-conv {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem;
+    align-items: start;
+    padding: 0.625rem 0.875rem 0.625rem 1rem;
+    border-left: 2px solid transparent;
+    transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.ws-conv:hover {
+    background: color-mix(in oklab, var(--color-base-700) 28%, transparent);
+}
+
+.ws-conv[data-active='true'] {
+    background: color-mix(in oklab, var(--color-teal-accent) 14%, transparent);
+    border-left-color: var(--color-teal-accent);
+}
+
+html:not(.dark) .ws-conv[data-active='true'] {
+    background: color-mix(in oklab, var(--color-teal-accent) 12%, transparent);
+}
+
+.ws-composer {
+    background:
+        linear-gradient(to bottom, transparent, color-mix(in oklab, var(--color-base-800) 40%, transparent));
+    border-top: 1px solid var(--ws-rule-strong);
+}
+
+.ws-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--ws-rule);
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    color: var(--color-base-200);
+    background: transparent;
+    border-radius: 2px;
+}
+
+.ws-chip--ref {
+    color: var(--color-teal-accent);
+    border-color: color-mix(in oklab, var(--color-teal-accent) 45%, transparent);
+    background: color-mix(in oklab, var(--color-teal-accent) 8%, transparent);
+}
+
+.ws-chip--file {
+    color: var(--color-amber-accent);
+    border-color: color-mix(in oklab, var(--color-amber-accent) 50%, transparent);
+    background: color-mix(in oklab, var(--color-amber-accent) 8%, transparent);
+}
+
+.ws-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.8rem;
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-base-300);
+    border: 1px solid var(--ws-rule);
+    background: transparent;
+    border-radius: 2px;
+    transition: color 120ms ease, border-color 120ms ease, background-color 120ms ease;
+}
+
+.ws-btn-ghost:hover {
+    color: var(--color-base-50);
+    border-color: var(--color-base-400);
+    background: color-mix(in oklab, var(--color-base-700) 30%, transparent);
+}
+
+.ws-btn-ghost[data-tone='danger']:hover {
+    color: var(--color-rose-accent);
+    border-color: color-mix(in oklab, var(--color-rose-accent) 60%, transparent);
+    background: color-mix(in oklab, var(--color-rose-accent) 10%, transparent);
+}
+
+.ws-btn-send {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.6rem 1.1rem;
+    background: var(--color-amber-accent);
+    color: var(--color-base-950);
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: background-color 120ms ease, transform 120ms ease;
+}
+
+.ws-btn-send:hover { background: var(--color-base-50); color: var(--color-base-950); }
+.ws-btn-send:active { transform: translateY(1px); }
+.ws-btn-send:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.ws-eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-base-400);
+}
+
+.ws-composer-input {
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--color-base-50);
+    background: transparent;
+    border: 0;
+    width: 100%;
+    resize: none;
+    padding: 0;
+    outline: none;
+}
+
+.ws-composer-input::placeholder {
+    color: var(--color-base-400);
+    font-style: italic;
+}
+
+.ws-composer-input:focus { outline: none; box-shadow: none; }
+
+.ws-caret::after {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 1em;
+    background: var(--color-amber-accent);
+    margin-left: 2px;
+    vertical-align: -0.12em;
+    animation: ws-caret-blink 1.1s steps(1) infinite;
+}
+
+@keyframes ws-caret-blink {
+    0%, 55% { opacity: 1; }
+    56%, 100% { opacity: 0; }
+}
+
+.ws-mention-panel {
+    background: var(--color-base-900);
+    border: 1px solid var(--ws-rule-strong);
+    border-radius: 3px;
+    box-shadow: 0 24px 60px -32px rgba(0,0,0,0.55);
+}
+
+html:not(.dark) .ws-mention-panel {
+    background: var(--color-base-900);
+    box-shadow: 0 20px 48px -28px rgba(50,40,30,0.25);
+}
+
+.ws-mention-option {
+    border-top: 1px solid var(--ws-rule);
+    padding: 0.75rem 0.9rem;
+    text-align: left;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem;
+}
+
+.ws-mention-option:first-child { border-top: 0; }
+.ws-mention-option[data-active='true'] {
+    background: color-mix(in oklab, var(--color-teal-accent) 10%, transparent);
+}
+
+.ws-kbd {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    padding: 0.1rem 0.4rem;
+    border: 1px solid var(--ws-rule);
+    color: var(--color-base-300);
+    border-radius: 3px;
+    letter-spacing: 0;
+    text-transform: none;
+}

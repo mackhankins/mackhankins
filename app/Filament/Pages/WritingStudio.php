@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Models\WritingStudioAttachment;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Filament\Support\Enums\Width;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Http\UploadedFile;
@@ -73,6 +74,11 @@ class WritingStudio extends Page
     public function getHeading(): string|Htmlable|null
     {
         return null;
+    }
+
+    public function getMaxContentWidth(): Width|string|null
+    {
+        return Width::Full;
     }
 
     public function startFreshConversation(): void
