@@ -498,7 +498,16 @@ class WritingStudio extends Page
             <div class="my-6 rounded-[1.5rem] border border-gray-200 bg-gray-50/80 p-4 dark:border-white/10 dark:bg-white/[0.03]">
                 <div class="flex items-center justify-between gap-3">
                     <div class="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400">Mermaid diagram</div>
-                    <div class="text-[11px] text-gray-400 dark:text-gray-500">Preview + source</div>
+                    <div class="flex items-center gap-3">
+                        <button
+                            type="button"
+                            x-on:click="downloadMermaidSvg(\$el)"
+                            class="inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.16em] text-gray-600 transition hover:border-gray-300 hover:bg-gray-50 dark:border-white/10 dark:bg-white/[0.04] dark:text-gray-300 dark:hover:bg-white/[0.08]"
+                        >
+                            Download SVG
+                        </button>
+                        <div class="text-[11px] text-gray-400 dark:text-gray-500">Preview + source</div>
+                    </div>
                 </div>
                 <div wire:replace class="mt-3 overflow-hidden rounded-[1.25rem] border border-gray-200 bg-white p-4 dark:border-white/10 dark:bg-[#10151b]">
                     <div

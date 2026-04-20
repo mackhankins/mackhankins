@@ -206,6 +206,27 @@
                     scheduleMermaidRender() {
                         this.$nextTick(() => this.renderMermaidBlocks())
                     },
+                    downloadMermaidSvg(trigger) {
+                        const container = trigger.closest('[wire\\:replace]')
+                        const preview = container?.querySelector('[data-writing-studio-mermaid]')
+                        const svg = preview?.querySelector('svg')
+                        const sourceHash = preview?.dataset.mermaidHash
+
+                        if (! svg || ! sourceHash) return
+
+                        const serializer = new XMLSerializer()
+                        const svgMarkup = serializer.serializeToString(svg)
+                        const blob = new Blob([svgMarkup], { type: 'image/svg+xml;charset=utf-8' })
+                        const url = URL.createObjectURL(blob)
+                        const link = document.createElement('a')
+
+                        link.href = url
+                        link.download = `writing-studio-diagram-${sourceHash.slice(0, 8)}.svg`
+                        document.body.appendChild(link)
+                        link.click()
+                        document.body.removeChild(link)
+                        URL.revokeObjectURL(url)
+                    },
                     async renderMermaidBlocks() {
                         const previews = Array.from(this.$el.querySelectorAll('[data-writing-studio-mermaid]'))
 

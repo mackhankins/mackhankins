@@ -66,6 +66,7 @@ MARKDOWN,
     $this->actingAs($user)
         ->get(WritingStudio::getUrl())
         ->assertOk()
+        ->assertSee('Download SVG')
         ->assertSee('View Mermaid source')
         ->assertSee('flowchart LR')
         ->assertSeeHtml('data-writing-studio-mermaid');
