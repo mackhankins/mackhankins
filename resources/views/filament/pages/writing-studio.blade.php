@@ -189,6 +189,7 @@
                 x-data="{
                     showJumpToLatest: false,
                     interceptCleanup: null,
+                    mermaidRenderAttempts: 0,
                     scrollThread(behavior = 'smooth') {
                         this.$nextTick(() => {
                             requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -202,17 +203,73 @@
                         if (! thread) return
                         this.showJumpToLatest = (thread.scrollHeight - thread.scrollTop - thread.clientHeight) > 240
                     },
+                    scheduleMermaidRender() {
+                        this.$nextTick(() => this.renderMermaidBlocks())
+                    },
+                    async renderMermaidBlocks() {
+                        const previews = Array.from(this.$el.querySelectorAll('[data-writing-studio-mermaid]'))
+
+                        if (! previews.length) return
+
+                        if (! window.mermaid) {
+                            if (this.mermaidRenderAttempts >= 20) return
+
+                            this.mermaidRenderAttempts += 1
+                            window.setTimeout(() => this.renderMermaidBlocks(), 150)
+
+                            return
+                        }
+
+                        this.mermaidRenderAttempts = 0
+
+                        window.mermaid.initialize({
+                            startOnLoad: false,
+                            securityLevel: 'strict',
+                            theme: document.documentElement.classList.contains('dark') ? 'dark' : 'neutral',
+                        })
+
+                        for (const [index, preview] of previews.entries()) {
+                            const source = preview.parentElement?.querySelector('[data-mermaid-source]')?.textContent?.trim()
+                            const sourceHash = preview.dataset.mermaidHash
+
+                            if (! source || ! sourceHash || preview.dataset.renderedHash === sourceHash) continue
+
+                            try {
+                                const renderTargetId = `writing-studio-mermaid-${sourceHash}-${index}`
+                                const { svg, bindFunctions } = await window.mermaid.render(renderTargetId, source)
+
+                                preview.innerHTML = svg
+                                preview.dataset.renderedHash = sourceHash
+                                bindFunctions?.(preview)
+                            } catch (error) {
+                                preview.innerHTML = ''
+                                preview.dataset.renderedHash = ''
+
+                                const errorMessage = document.createElement('div')
+                                errorMessage.className = 'rounded-xl border border-dashed border-danger-200 bg-danger-50/70 px-4 py-6 text-sm text-danger-700 dark:border-danger-400/20 dark:bg-danger-400/10 dark:text-danger-200'
+                                errorMessage.textContent = 'Mermaid could not render this diagram. Check the source block below.'
+
+                                preview.appendChild(errorMessage)
+                            }
+                        }
+                    },
                     init() {
                         this.interceptCleanup = this.$wire.intercept(({ action, onSuccess }) => {
                             if (! ['openConversation', 'sendMessage', 'startFreshConversation'].includes(action.name)) return
-                            onSuccess(() => this.scrollThread(action.name === 'sendMessage' ? 'smooth' : 'auto'))
+                            onSuccess(() => {
+                                this.scrollThread(action.name === 'sendMessage' ? 'smooth' : 'auto')
+                                this.scheduleMermaidRender()
+                            })
                         })
                         this.scrollThread('auto')
+                        this.scheduleMermaidRender()
                     },
                     destroy() { this.interceptCleanup?.() },
                 }"
+                x-load-js="[@js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('mermaid'))]"
                 x-on:writing-studio-scroll-bottom.window="$nextTick(() => { scrollThread(); updateJumpState() })"
                 x-on:writing-studio-focus-composer.window="$nextTick(() => $refs.composer?.focus())"
+                x-on:writing-studio-render-mermaid.window="scheduleMermaidRender()"
                 class="relative flex min-w-0 flex-1 flex-col"
             >
                 @if (filled($activeConversationId) && $editingConversationId === $activeConversationId)
@@ -248,7 +305,7 @@
                                         Codex · {{ $message->created_at?->diffForHumans() }}
                                     </div>
                                     <div class="ws-message-assistant">
-                                        {!! \Illuminate\Support\Str::markdown($message->content, ['html_input' => 'strip', 'allow_unsafe_links' => false]) !!}
+                                        {!! $this->renderMessageContent($message->content) !!}
                                     </div>
                                 </article>
                             @endif

@@ -31,6 +31,46 @@ test('authenticated users can load the writing studio page', function () {
         ->assertSee('Writing Studio');
 });
 
+test('assistant mermaid blocks render as diagram previews with source available', function () {
+    $user = User::factory()->withAppAuthentication()->create();
+
+    $conversation = AgentConversation::query()->create([
+        'id' => (string) str()->uuid(),
+        'user_id' => $user->id,
+        'title' => 'Diagram chat',
+    ]);
+
+    AgentConversationMessage::query()->create([
+        'id' => (string) str()->uuid(),
+        'conversation_id' => $conversation->id,
+        'user_id' => $user->id,
+        'agent' => WritingStudioAgent::class,
+        'role' => 'assistant',
+        'content' => <<<'MARKDOWN'
+Here is the service flow:
+
+```mermaid
+flowchart LR
+    Browser --> App
+    App --> Queue
+    Queue --> Worker
+```
+MARKDOWN,
+        'attachments' => [],
+        'tool_calls' => [],
+        'tool_results' => [],
+        'usage' => [],
+        'meta' => [],
+    ]);
+
+    $this->actingAs($user)
+        ->get(WritingStudio::getUrl())
+        ->assertOk()
+        ->assertSee('View Mermaid source')
+        ->assertSee('flowchart LR')
+        ->assertSeeHtml('data-writing-studio-mermaid');
+});
+
 test('conversation labels fall back to the first user prompt when needed', function () {
     $user = User::factory()->create();
 

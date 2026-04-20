@@ -10,6 +10,7 @@ use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\Support\Assets\Js;
 use Filament\Support\Colors\Color;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -39,6 +40,10 @@ class AdminPanelProvider extends PanelProvider
             ->sidebarWidth('16rem')
             ->colors([
                 'primary' => Color::Amber,
+            ])
+            ->assets([
+                Js::make('mermaid', 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js')
+                    ->loadedOnRequest(),
             ])
             ->renderHook(
                 PanelsRenderHook::HEAD_START,

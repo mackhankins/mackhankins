@@ -15,6 +15,7 @@ use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use Laravel\Ai\Files;
 use Laravel\Ai\Files\Document;
@@ -412,6 +413,32 @@ class WritingStudio extends Page
         ]);
     }
 
+    public function renderMessageContent(string $content): Htmlable
+    {
+        $segments = preg_split('/```mermaid[ \t]*\r?\n(.*?)```/is', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
+
+        if ($segments === false) {
+            return new HtmlString((string) Str::markdown($content, ['html_input' => 'strip', 'allow_unsafe_links' => false]));
+        }
+
+        $html = collect($segments)
+            ->values()
+            ->map(function (string $segment, int $index): string {
+                if ($index % 2 === 1) {
+                    return $this->renderMermaidBlock($segment);
+                }
+
+                if (blank(trim($segment))) {
+                    return '';
+                }
+
+                return (string) Str::markdown($segment, ['html_input' => 'strip', 'allow_unsafe_links' => false]);
+            })
+            ->implode('');
+
+        return new HtmlString($html);
+    }
+
     /**
      * @return array<int, AiFile>
      */
@@ -454,6 +481,45 @@ class WritingStudio extends Page
         })->implode("\n\n---\n\n");
 
         return "{$message}\n\nReferenced posts for this message:\n{$referenceBlock}";
+    }
+
+    private function renderMermaidBlock(string $definition): string
+    {
+        $definition = trim($definition);
+
+        if ($definition === '') {
+            return '';
+        }
+
+        $hash = sha1($definition);
+        $escapedDefinition = e($definition);
+
+        return <<<HTML
+            <div class="my-6 rounded-[1.5rem] border border-gray-200 bg-gray-50/80 p-4 dark:border-white/10 dark:bg-white/[0.03]">
+                <div class="flex items-center justify-between gap-3">
+                    <div class="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400">Mermaid diagram</div>
+                    <div class="text-[11px] text-gray-400 dark:text-gray-500">Preview + source</div>
+                </div>
+                <div wire:replace class="mt-3 overflow-hidden rounded-[1.25rem] border border-gray-200 bg-white p-4 dark:border-white/10 dark:bg-[#10151b]">
+                    <div
+                        data-writing-studio-mermaid
+                        data-mermaid-hash="{$hash}"
+                        class="writing-studio-mermaid-preview overflow-x-auto text-sm text-gray-500 dark:text-gray-400"
+                    >
+                        <div class="rounded-xl border border-dashed border-gray-200 px-4 py-6 text-center dark:border-white/10">
+                            Rendering diagram...
+                        </div>
+                    </div>
+                    <pre hidden data-mermaid-source>{$escapedDefinition}</pre>
+                </div>
+                <details class="mt-3 group">
+                    <summary class="cursor-pointer text-xs font-medium text-gray-500 transition hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                        View Mermaid source
+                    </summary>
+                    <pre class="mt-3 overflow-x-auto rounded-[1.15rem] bg-gray-950 p-4 text-sm text-gray-100"><code>{$escapedDefinition}</code></pre>
+                </details>
+            </div>
+        HTML;
     }
 
     private function resolveActiveConversationId(): ?string
