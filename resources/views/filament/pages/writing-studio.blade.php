@@ -207,8 +207,8 @@
                         this.$nextTick(() => this.renderMermaidBlocks())
                     },
                     downloadMermaidSvg(trigger) {
-                        const container = trigger.closest('[wire\\:replace]')
-                        const preview = container?.querySelector('[data-writing-studio-mermaid]')
+                        const block = trigger.closest('[data-writing-studio-mermaid-block]')
+                        const preview = block?.querySelector('[data-writing-studio-mermaid]')
                         const svg = preview?.querySelector('svg')
                         const sourceHash = preview?.dataset.mermaidHash
 
@@ -225,7 +225,7 @@
                         document.body.appendChild(link)
                         link.click()
                         document.body.removeChild(link)
-                        URL.revokeObjectURL(url)
+                        window.setTimeout(() => URL.revokeObjectURL(url), 0)
                     },
                     async renderMermaidBlocks() {
                         const previews = Array.from(this.$el.querySelectorAll('[data-writing-studio-mermaid]'))

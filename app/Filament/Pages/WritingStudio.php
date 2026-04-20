@@ -495,7 +495,7 @@ class WritingStudio extends Page
         $escapedDefinition = e($definition);
 
         return <<<HTML
-            <div class="my-6 rounded-[1.5rem] border border-gray-200 bg-gray-50/80 p-4 dark:border-white/10 dark:bg-white/[0.03]">
+            <div data-writing-studio-mermaid-block class="my-6 rounded-[1.5rem] border border-gray-200 bg-gray-50/80 p-4 dark:border-white/10 dark:bg-white/[0.03]">
                 <div class="flex items-center justify-between gap-3">
                     <div class="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400">Mermaid diagram</div>
                     <div class="flex items-center gap-3">
