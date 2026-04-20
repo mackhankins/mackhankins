@@ -18,6 +18,7 @@ use Laravel\Ai\Files;
 use Laravel\Ai\Files\Base64Document;
 use Laravel\Ai\Files\Base64Image;
 use Laravel\Ai\ObjectSchema;
+use Laravel\Ai\Prompts\AgentPrompt;
 use Laravel\Ai\Tools\Request;
 use Livewire\Livewire;
 
@@ -108,6 +109,75 @@ test('users can rename their conversations', function () {
         ->assertSet('editingConversationTitle', null);
 
     expect($conversation->fresh()->title)->toBe('MySQL restore article ideas');
+});
+
+test('users cannot open another users conversation', function () {
+    config()->set('filesystems.default', 'public');
+    Storage::fake('public');
+
+    $user = User::factory()->create();
+    $otherUser = User::factory()->create();
+
+    $conversation = AgentConversation::query()->create([
+        'id' => (string) str()->uuid(),
+        'user_id' => $otherUser->id,
+        'title' => 'Private conversation',
+    ]);
+
+    AgentConversationMessage::query()->create([
+        'id' => (string) str()->uuid(),
+        'conversation_id' => $conversation->id,
+        'user_id' => $otherUser->id,
+        'agent' => WritingStudioAgent::class,
+        'role' => 'user',
+        'content' => 'Do not leak this prompt.',
+        'attachments' => [],
+        'tool_calls' => [],
+        'tool_results' => [],
+        'usage' => [],
+        'meta' => [],
+    ]);
+
+    Storage::disk('public')->put('writing-studio/'.$conversation->id.'/private.md', 'private');
+
+    WritingStudioAttachment::query()->create([
+        'conversation_id' => $conversation->id,
+        'user_id' => $otherUser->id,
+        'original_name' => 'private.md',
+        'storage_disk' => 'public',
+        'storage_path' => 'writing-studio/'.$conversation->id.'/private.md',
+        'mime_type' => 'text/markdown',
+    ]);
+
+    $this->actingAs($user);
+
+    $component = Livewire::test(WritingStudio::class)
+        ->call('openConversation', $conversation->id)
+        ->assertSet('activeConversationId', null);
+
+    expect($component->instance()->activeMessages())->toHaveCount(0)
+        ->and($component->instance()->activeAttachments())->toHaveCount(0);
+});
+
+test('users cannot rename or delete another users conversation', function () {
+    $user = User::factory()->create();
+    $otherUser = User::factory()->create();
+
+    $conversation = AgentConversation::query()->create([
+        'id' => (string) str()->uuid(),
+        'user_id' => $otherUser->id,
+        'title' => 'Private conversation',
+    ]);
+
+    $this->actingAs($user);
+
+    Livewire::test(WritingStudio::class)
+        ->call('beginConversationRename', $conversation->id)
+        ->assertSet('editingConversationId', null)
+        ->call('deleteConversation', $conversation->id);
+
+    expect($conversation->fresh()->title)->toBe('Private conversation')
+        ->and(AgentConversation::query()->whereKey($conversation->id)->exists())->toBeTrue();
 });
 
 test('sending a message creates and continues a conversation', function () {
@@ -226,6 +296,28 @@ test('python files can be staged through the composer upload field', function ()
         ->assertHasNoErrors()
         ->assertSet('composerUpload', null)
         ->assertCount('composerUploads', 1);
+});
+
+test('unsupported files cannot be staged through the composer upload field', function () {
+    $user = User::factory()->create();
+    $upload = UploadedFile::fake()->create('notes.pdf', 50, 'application/pdf');
+
+    $this->actingAs($user);
+
+    Livewire::test(WritingStudio::class)
+        ->set('composerUpload', $upload)
+        ->assertHasErrors(['composerUpload']);
+});
+
+test('oversized files cannot be staged through the composer upload field', function () {
+    $user = User::factory()->create();
+    $upload = UploadedFile::fake()->createWithContent('large-notes.md', str_repeat('a', 5_000_000));
+
+    $this->actingAs($user);
+
+    Livewire::test(WritingStudio::class)
+        ->set('composerUpload', $upload)
+        ->assertHasErrors(['composerUpload']);
 });
 
 test('the composer accepts images as attachments', function () {
@@ -402,6 +494,39 @@ test('starting a fresh conversation clears the active chat state', function () {
         ->assertSet('selectedPostIds', []);
 });
 
+test('draft posts cannot be selected as references or injected into the prompt context', function () {
+    $user = User::factory()->create();
+
+    $draftPost = Post::factory()->draft()->create([
+        'title' => 'Private Draft',
+        'slug' => 'private-draft',
+        'excerpt' => 'Secret excerpt.',
+        'content' => 'Secret draft content.',
+    ]);
+
+    WritingStudioAgent::fake([
+        'Use the published archive instead.',
+    ])->preventStrayPrompts();
+
+    $this->actingAs($user);
+
+    $component = Livewire::test(WritingStudio::class)
+        ->call('selectPostReference', $draftPost->id)
+        ->assertSet('selectedPostIds', [])
+        ->set('selectedPostIds', [$draftPost->id])
+        ->set('composerMessage', 'Check whether this overlaps with prior writing.')
+        ->call('sendMessage')
+        ->assertSet('selectedPostIds', []);
+
+    WritingStudioAgent::assertPrompted(function (AgentPrompt $prompt): bool {
+        return ! $prompt->contains('Private Draft')
+            && ! $prompt->contains('Secret excerpt.')
+            && ! $prompt->contains('Secret draft content.');
+    });
+
+    expect($component->instance()->selectedPostReferences())->toHaveCount(0);
+});
+
 test('users can delete their conversations and stored attachments', function () {
     config()->set('filesystems.default', 'public');
     Storage::fake('public');
@@ -435,6 +560,35 @@ test('users can delete their conversations and stored attachments', function () 
         ->and(WritingStudioAttachment::query()->where('conversation_id', $conversationId)->exists())->toBeFalse();
 
     Storage::disk('public')->assertMissing($attachmentPath);
+});
+
+test('failed prompts clean up uploaded provider files and preserve the draft message state', function () {
+    config()->set('filesystems.default', 'public');
+    Storage::fake('public');
+    Files::fake();
+
+    $user = User::factory()->create();
+
+    WritingStudioAgent::fake(function (): never {
+        throw new RuntimeException('The provider is unavailable.');
+    })->preventStrayPrompts();
+
+    $upload = UploadedFile::fake()->createWithContent('brief.md', "# Brief\n\nFocus on restore drills.");
+
+    $this->actingAs($user);
+
+    Livewire::test(WritingStudio::class)
+        ->set('composerMessage', 'Draft this article.')
+        ->set('composerUploads', [$upload])
+        ->call('sendMessage')
+        ->assertSet('composerMessage', 'Draft this article.')
+        ->assertCount('composerUploads', 1);
+
+    expect(AgentConversation::query()->count())->toBe(0)
+        ->and(WritingStudioAttachment::query()->count())->toBe(0);
+
+    Storage::disk('public')->assertDirectoryEmpty('writing-studio');
+    Files::assertDeleted(Files::fakeId('brief.md'));
 });
 
 test('post tools can inspect posts and create or update drafts', function () {

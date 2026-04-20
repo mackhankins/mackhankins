@@ -10,6 +10,7 @@ use App\Models\WritingStudioAttachment;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
@@ -20,6 +21,7 @@ use Laravel\Ai\Files\File as AiFile;
 use Laravel\Ai\Files\Image;
 use Livewire\Attributes\Computed;
 use Livewire\WithFileUploads;
+use Throwable;
 
 class WritingStudio extends Page
 {
@@ -68,6 +70,11 @@ class WritingStudio extends Page
         }
     }
 
+    public function getHeading(): string|Htmlable|null
+    {
+        return null;
+    }
+
     public function startFreshConversation(): void
     {
         $this->activeConversationId = null;
@@ -85,6 +92,12 @@ class WritingStudio extends Page
 
     public function openConversation(string $conversationId): void
     {
+        if (! $this->ownsConversation($conversationId)) {
+            $this->startFreshConversation();
+
+            return;
+        }
+
         $this->activeConversationId = $conversationId;
         $this->composerMessage = null;
         $this->composerUpload = null;
@@ -167,7 +180,10 @@ class WritingStudio extends Page
             Storage::disk($attachment->storageDisk())->delete($attachment->storage_path);
 
             if (filled($attachment->provider_file_id)) {
-                Files::delete($attachment->provider_file_id);
+                rescue(
+                    fn (): null => Files::delete($attachment->provider_file_id),
+                    report: true,
+                );
             }
         }
 
@@ -198,6 +214,10 @@ class WritingStudio extends Page
 
     public function selectPostReference(int $postId): void
     {
+        if (! Post::query()->published()->whereKey($postId)->exists()) {
+            return;
+        }
+
         if (in_array($postId, array_map('intval', $this->selectedPostIds), true)) {
             return;
         }
@@ -251,33 +271,48 @@ class WritingStudio extends Page
             return;
         }
 
+        $activeConversationId = $this->resolveActiveConversationId();
         $agent = new WritingStudioAgent;
         $prompt = $this->composePrompt();
-        $freshUploadAttachments = $this->storeUploadsWithProvider();
-        $attachments = [
-            ...$this->persistentAttachmentsForCurrentConversation(),
-            ...$freshUploadAttachments,
-        ];
+        $freshUploadAttachments = [];
 
-        $response = filled($this->activeConversationId)
-            ? $agent->continue($this->activeConversationId, as: auth()->user())->prompt($prompt, attachments: $attachments)
-            : $agent->forUser(auth()->user())->prompt($prompt, attachments: $attachments);
+        try {
+            $freshUploadAttachments = $this->storeUploadsWithProvider();
+            $attachments = [
+                ...$this->persistentAttachmentsForConversation($activeConversationId),
+                ...$freshUploadAttachments,
+            ];
 
-        $this->activeConversationId = $response->conversationId;
-        $this->persistUploadedFiles($response->conversationId, $freshUploadAttachments);
+            $response = filled($activeConversationId)
+                ? $agent->continue($activeConversationId, as: auth()->user())->prompt($prompt, attachments: $attachments)
+                : $agent->forUser(auth()->user())->prompt($prompt, attachments: $attachments);
 
-        $this->composerMessage = null;
-        $this->composerUpload = null;
-        $this->postReferenceSearch = null;
-        $this->selectedPostIds = [];
-        $this->composerUploads = [];
+            $this->activeConversationId = $response->conversationId;
+            $this->persistUploadedFiles($response->conversationId, $freshUploadAttachments);
 
-        $this->dispatch('writing-studio-scroll-bottom');
+            $this->composerMessage = null;
+            $this->composerUpload = null;
+            $this->postReferenceSearch = null;
+            $this->selectedPostIds = [];
+            $this->composerUploads = [];
 
-        Notification::make()
-            ->title('Message sent')
-            ->success()
-            ->send();
+            $this->dispatch('writing-studio-scroll-bottom');
+
+            Notification::make()
+                ->title('Message sent')
+                ->success()
+                ->send();
+        } catch (Throwable $exception) {
+            $this->cleanupFreshUploadAttachments($freshUploadAttachments);
+
+            report($exception);
+
+            Notification::make()
+                ->title('Message failed')
+                ->body('The writing studio could not send that message. Try again in a moment.')
+                ->danger()
+                ->send();
+        }
     }
 
     #[Computed]
@@ -300,12 +335,14 @@ class WritingStudio extends Page
     #[Computed]
     public function activeMessages(): Collection
     {
-        if (! filled($this->activeConversationId)) {
+        $activeConversationId = $this->resolveActiveConversationId();
+
+        if (! filled($activeConversationId)) {
             return collect();
         }
 
         return AgentConversationMessage::query()
-            ->where('conversation_id', $this->activeConversationId)
+            ->where('conversation_id', $activeConversationId)
             ->orderBy('created_at')
             ->get();
     }
@@ -313,12 +350,14 @@ class WritingStudio extends Page
     #[Computed]
     public function activeAttachments(): Collection
     {
-        if (! filled($this->activeConversationId)) {
+        $activeConversationId = $this->resolveActiveConversationId();
+
+        if (! filled($activeConversationId)) {
             return collect();
         }
 
         return WritingStudioAttachment::query()
-            ->where('conversation_id', $this->activeConversationId)
+            ->where('conversation_id', $activeConversationId)
             ->latest()
             ->get();
     }
@@ -353,6 +392,7 @@ class WritingStudio extends Page
         }
 
         return Post::query()
+            ->published()
             ->whereIn('id', array_map('intval', $this->selectedPostIds))
             ->get(['id', 'title']);
     }
@@ -369,14 +409,14 @@ class WritingStudio extends Page
     /**
      * @return array<int, AiFile>
      */
-    private function persistentAttachmentsForCurrentConversation(): array
+    private function persistentAttachmentsForConversation(?string $conversationId): array
     {
-        if (! filled($this->activeConversationId)) {
+        if (! filled($conversationId)) {
             return [];
         }
 
         return WritingStudioAttachment::query()
-            ->where('conversation_id', $this->activeConversationId)
+            ->where('conversation_id', $conversationId)
             ->get()
             ->map(fn (WritingStudioAttachment $attachment): AiFile => $attachment->toAiAttachment())
             ->all();
@@ -392,6 +432,7 @@ class WritingStudio extends Page
         }
 
         $posts = Post::query()
+            ->published()
             ->whereIn('id', array_map('intval', $this->selectedPostIds))
             ->get(['id', 'title', 'slug', 'excerpt', 'content']);
 
@@ -407,6 +448,21 @@ class WritingStudio extends Page
         })->implode("\n\n---\n\n");
 
         return "{$message}\n\nReferenced posts for this message:\n{$referenceBlock}";
+    }
+
+    private function resolveActiveConversationId(): ?string
+    {
+        if (! filled($this->activeConversationId)) {
+            return null;
+        }
+
+        if ($this->ownsConversation($this->activeConversationId)) {
+            return $this->activeConversationId;
+        }
+
+        $this->activeConversationId = null;
+
+        return null;
     }
 
     /**
@@ -448,6 +504,29 @@ class WritingStudio extends Page
                 'mime_type' => $upload->getClientMimeType(),
                 'provider_file_id' => $providerFileId,
             ]);
+        }
+    }
+
+    /**
+     * @param  array<int, AiFile>  $freshUploadAttachments
+     */
+    private function cleanupFreshUploadAttachments(array $freshUploadAttachments): void
+    {
+        foreach ($freshUploadAttachments as $attachment) {
+            if (! method_exists($attachment, 'id')) {
+                continue;
+            }
+
+            $fileId = $attachment->id();
+
+            if (! filled($fileId)) {
+                continue;
+            }
+
+            rescue(
+                fn (): null => Files::delete($fileId),
+                report: true,
+            );
         }
     }
 
@@ -543,6 +622,14 @@ class WritingStudio extends Page
         return method_exists($upload, 'get')
             ? $upload->get()
             : $upload->getContent();
+    }
+
+    private function ownsConversation(string $conversationId): bool
+    {
+        return AgentConversation::query()
+            ->where('id', $conversationId)
+            ->where('user_id', auth()->id())
+            ->exists();
     }
 
     public function conversationLabel(AgentConversation $conversation): string

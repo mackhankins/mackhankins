@@ -33,7 +33,7 @@ class AdminPanelProvider extends PanelProvider
             ->profile(isSimple: false)
             ->multiFactorAuthentication([
                 AppAuthentication::make()->recoverable(),
-            ], isRequired: true)
+            ], isRequired: ! app()->isLocal())
             ->sidebarCollapsibleOnDesktop()
             ->collapsedSidebarWidth('4.5rem')
             ->sidebarWidth('16rem')
